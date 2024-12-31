@@ -12,7 +12,7 @@ class _LoadingPageState extends State<LoadingPage> {
   void fetchData() async {
     await Future.delayed(const Duration(seconds: 2));
     if (!mounted) return;
-    Navigator.pushReplacementNamed(context, '/home');
+    Navigator.pushReplacementNamed(context, '/navigation');
   }
 
   @override
@@ -24,8 +24,11 @@ class _LoadingPageState extends State<LoadingPage> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
+      backgroundColor: Colors.green,
       body: Center(
-        child: CircularProgressIndicator()
+        child: CircularProgressIndicator(
+          color: Colors.white,
+        )
       ),
     );
   }

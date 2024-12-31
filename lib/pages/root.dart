@@ -24,8 +24,12 @@ class _RootPageState extends State<RootPage> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
+      backgroundColor: Colors.green,
       body: Center(
-        child: Text('Root Page'),
+        child: Text(
+          'Root Page',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
     );
   }
