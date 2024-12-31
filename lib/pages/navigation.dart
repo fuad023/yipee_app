@@ -24,9 +24,9 @@ class _NavigationState extends State<Navigation> {
     return Scaffold(
       backgroundColor: Colors.green[100],
       appBar: AppBar(
-        title: const Text('WeeChat'),
+        title: const Text('YipeeApp'),
         foregroundColor: Colors.white,
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.green[700],
         elevation: 1.0,
       ),
       body: _screens[_currentIndex],
@@ -46,7 +46,7 @@ class _NavigationState extends State<Navigation> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.textsms_rounded),
-            label: 'Message',
+            label: 'YipeeChat',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.emergency),
