@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class ChatPage extends StatelessWidget {
-  const ChatPage({super.key});
+class MessagePage extends StatelessWidget {
+  const MessagePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const Center(
       child: Text(
-        'Chat Screen',
+        'Message Screen',
         style: TextStyle(
           fontSize: 20,
           // color: Colors.white,

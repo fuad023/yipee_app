@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:student_app/pages/nagivation_pages/chat.dart';
-import 'package:student_app/pages/nagivation_pages/emergency.dart';
 import 'package:student_app/pages/nagivation_pages/home.dart';
+import 'package:student_app/pages/nagivation_pages/message.dart';
+import 'package:student_app/pages/nagivation_pages/emergency.dart';
 
 class Navigation extends StatefulWidget {
   const Navigation({super.key});
@@ -15,14 +15,14 @@ class _NavigationState extends State<Navigation> {
 
   final List<Widget> _screens = [
     const HomePage(),
-    const ChatPage(),
+    const MessagePage(),
     const EmergencyPage(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.green[100],
+      backgroundColor: Colors.green[100],
       appBar: AppBar(
         title: const Text('WeeChat'),
         foregroundColor: Colors.white,
@@ -46,7 +46,7 @@ class _NavigationState extends State<Navigation> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.textsms_rounded),
-            label: 'Chat',
+            label: 'Message',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.emergency),
