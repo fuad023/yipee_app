@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:student_app/pages/root/nagivation_pages/home.dart';
-import 'package:student_app/pages/root/nagivation_pages/message.dart';
-import 'package:student_app/pages/root/nagivation_pages/emergency.dart';
-import 'package:student_app/pages/root/drawer_screen.dart';
+import 'package:student_app/pages/auth/root/nagivation_pages/home.dart';
+import 'package:student_app/pages/auth/root/nagivation_pages/message.dart';
+import 'package:student_app/pages/auth/root/nagivation_pages/emergency.dart';
+import 'package:student_app/pages/auth/root/drawer_screen.dart';
 
 class RootPage extends StatefulWidget {
   const RootPage({super.key});

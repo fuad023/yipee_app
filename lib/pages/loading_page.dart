@@ -12,7 +12,7 @@ class _LoadingPageState extends State<LoadingPage> {
   void fetchData() async {
     await Future.delayed(const Duration(seconds: 2));
     if (!mounted) return;
-    Navigator.pushReplacementNamed(context, '/root');
+    Navigator.pushReplacementNamed(context, '/login');
   }
 
   @override
