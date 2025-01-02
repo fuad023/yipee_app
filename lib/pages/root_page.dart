@@ -4,14 +4,14 @@ import 'package:student_app/pages/nagivation_pages/message.dart';
 import 'package:student_app/pages/nagivation_pages/emergency.dart';
 import 'package:student_app/pages/drawer_screen.dart';
 
-class Navigation extends StatefulWidget {
-  const Navigation({super.key});
+class RootPage extends StatefulWidget {
+  const RootPage({super.key});
 
   @override
-  State<Navigation> createState() => _NavigationState();
+  State<RootPage> createState() => _RootPageState();
 }
 
-class _NavigationState extends State<Navigation> {
+class _RootPageState extends State<RootPage> {
   int _currentIndex = 0;
 
   final List<Widget> _screens = [

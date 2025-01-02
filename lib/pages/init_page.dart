@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class RootPage extends StatefulWidget {
-  const RootPage({super.key});
+class InitPage extends StatefulWidget {
+  const InitPage({super.key});
 
   @override
-  State<RootPage> createState() => _RootPageState();
+  State<InitPage> createState() => _InitPageState();
 }
 
-class _RootPageState extends State<RootPage> {
+class _InitPageState extends State<InitPage> {
 
   void wait() async {
     await Future.delayed(const Duration(seconds: 2));
