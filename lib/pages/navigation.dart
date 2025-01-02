@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:student_app/pages/nagivation_pages/home.dart';
 import 'package:student_app/pages/nagivation_pages/message.dart';
 import 'package:student_app/pages/nagivation_pages/emergency.dart';
+import 'package:student_app/pages/drawer_screen.dart';
 
 class Navigation extends StatefulWidget {
   const Navigation({super.key});
@@ -30,6 +31,9 @@ class _NavigationState extends State<Navigation> {
         elevation: 1.0,
       ),
       body: _screens[_currentIndex],
+
+      drawer: const DrawerScreen(),
+
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.green,
         selectedItemColor: Colors.white,

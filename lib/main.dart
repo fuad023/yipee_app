@@ -8,9 +8,9 @@ void main() {
     MaterialApp(
       initialRoute: '/',
       routes: {
-        '/':                     (context) => const RootPage(),
-        '/loading':              (context) => const LoadingPage(),
-        '/navigation':           (context) => const Navigation(),
+        '/':           (context) => const RootPage(),
+        '/loading':    (context) => const LoadingPage(),
+        '/navigation': (context) => const Navigation(),
       },
     )
   );
