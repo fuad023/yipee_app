@@ -9,7 +9,7 @@ class DrawerScreen extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(
-              height: 200.0,
+              height: 215.0,
               width: double.infinity,
               child: DrawerHeader(
                 decoration: BoxDecoration(color: Colors.green),
@@ -27,7 +27,7 @@ class DrawerScreen extends StatelessWidget {
                     ),
                     Text(
                       'katz@email.com',
-                      style: TextStyle(color: Colors.white, fontSize: 14.0, fontWeight: FontWeight.w100),
+                      style: TextStyle(color: Colors.white, fontSize: 14.0, fontWeight: FontWeight.w300),
                     ),
                   ],
                 ),
