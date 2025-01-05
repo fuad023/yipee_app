@@ -1,20 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:student_app/pages/auth/ui_components/my_button.dart';
 import 'package:student_app/pages/auth/ui_components/my_textfield.dart';
+import 'package:student_app/pages/auth/login_authentication/auth_services.dart';
+
 
 class RegisterPage extends StatelessWidget {
 
-  final usernameController = TextEditingController();
-  final passwordController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmpasswordController = TextEditingController();
+  final void Function()? onTap; 
 
-  void registerUserIn(context) {
-    Navigator.pushReplacementNamed(context, '/root');
-  }
-  void goToLogInPage(context) {
-    Navigator.pushReplacementNamed(context, '/login');
+  void register(BuildContext context) {
+    final auth = AuthServices();
+
+    if(_passwordController.text == _confirmpasswordController.text) {
+      try {
+        auth.signUpwithEmailandPassword(_usernameController.text, _passwordController.text);
+      } catch (e) {
+        showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: Text(e.toString()),
+            )
+        );
+      }
+    } else {
+      showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Pass dont match'),
+          )
+      );
+    }
   }
 
-  RegisterPage({super.key});
+  RegisterPage({
+    super.key,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +73,7 @@ class RegisterPage extends StatelessWidget {
 
               // username textfield
               MyTextfield(
-                controller: usernameController,
+                controller: _usernameController,
                 hintText: 'Name',
                 obscureText: false,
               ),
@@ -57,7 +81,7 @@ class RegisterPage extends StatelessWidget {
               
               // email textfield
               MyTextfield(
-                controller: usernameController,
+                controller: _usernameController,
                 hintText: 'Email',
                 obscureText: false,
               ),
@@ -65,15 +89,23 @@ class RegisterPage extends StatelessWidget {
 
               // password textfield
               MyTextfield(
-                controller: passwordController,
+                controller: _passwordController,
                 hintText: 'Password',
+                obscureText: true,
+              ),
+              const SizedBox(height: 15.0),
+
+              //// confirmpassword textfield
+              MyTextfield(
+                controller: _confirmpasswordController,
+                hintText: 'Confirm Password',
                 obscureText: true,
               ),
               const SizedBox(height: 15.0),
 
               MyButton(
                 text: 'Register',
-                onTap: () => registerUserIn(context),
+                onTap: () => register(context),
               ),
               const SizedBox(height: 25.0),
 
@@ -97,9 +129,7 @@ class RegisterPage extends StatelessWidget {
                     ),
 
                     GestureDetector(
-                      onTap: () {
-                        goToLogInPage(context);
-                      },
+                      onTap: onTap,
                       child: Padding(
                         padding: const EdgeInsets.only(right: 10.0),
                         child: Text(

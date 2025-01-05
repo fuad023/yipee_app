@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:student_app/pages/auth/login_authentication/auth_services.dart';
 
 class DrawerScreen extends StatelessWidget {
   const DrawerScreen({super.key});
+
+  void logout() {
+    final _firebaseAuth = AuthServices();
+    _firebaseAuth.signOut();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,9 +59,7 @@ class DrawerScreen extends StatelessWidget {
               child: ListTile(
                 leading: const Icon(Icons.logout),
                 title: const Text('Log Out'),
-                onTap: () {
-                  Navigator.pop(context);
-                },
+                onTap: logout,
               ),
             ),
           ],
