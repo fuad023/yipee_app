@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "299624528940",
+    "project_id": "matrixserver2-b573f",
+    "storage_bucket": "matrixserver2-b573f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:299624528940:android:c14b223f7ff790b4d22589",
+        "android_client_info": {
+          "package_name": "com.example.student_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbN_H8jxcHw1X0s7Htv7Q49DBRxrdNEEs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
