@@ -2,11 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:student_app/pages/auth/login_authentication/auth_services.dart';
 
 class DrawerScreen extends StatelessWidget {
-  const DrawerScreen({super.key});
+
+  final String email;
+  const DrawerScreen({
+    super.key,
+    required this.email,
+    });
 
   void logout() {
-    final _firebaseAuth = AuthServices();
-    _firebaseAuth.signOut();
+    final firebaseAuth = AuthServices();
+    firebaseAuth.signOut();
   }
 
   @override
@@ -14,7 +19,7 @@ class DrawerScreen extends StatelessWidget {
     return Drawer(
         child: Column(
           children: [
-            const SizedBox(
+            SizedBox(
               height: 215.0,
               width: double.infinity,
               child: DrawerHeader(
@@ -22,18 +27,19 @@ class DrawerScreen extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    CircleAvatar(
-                      radius: 50,
+                    const CircleAvatar(
+                      radius: 30,
                       backgroundImage: AssetImage('assets/katz.jpg'),
                     ),
-                    SizedBox(height: 10.0,),
-                    Text(
+                    const SizedBox(height: 10.0,),
+                    const Text(
                       ' K A T Z ',
                       style: TextStyle(color: Colors.white, fontSize: 18.0, fontWeight: FontWeight.bold),
                     ),
+                    const SizedBox(height: 10,),
                     Text(
-                      'katz@email.com',
-                      style: TextStyle(color: Colors.white, fontSize: 14.0, fontWeight: FontWeight.w300),
+                      email,
+                      style: const TextStyle(color: Colors.white, fontSize: 14.0, fontWeight: FontWeight.w300),
                     ),
                   ],
                 ),
