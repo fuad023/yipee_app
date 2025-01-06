@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/home.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/message.dart';
@@ -5,6 +6,7 @@ import 'package:student_app/pages/auth/root/nagivation_pages/emergency.dart';
 import 'package:student_app/pages/auth/root/drawer_screen.dart';
 
 class RootPage extends StatefulWidget {
+  
   const RootPage({super.key});
 
   @override
@@ -22,6 +24,9 @@ class _RootPageState extends State<RootPage> {
 
   @override
   Widget build(BuildContext context) {
+  final User? user = FirebaseAuth.instance.currentUser;
+  final String userName = user?.email ?? 'No email';
+
     return Scaffold(
       backgroundColor: Colors.green[100],
       appBar: AppBar(
@@ -32,7 +37,7 @@ class _RootPageState extends State<RootPage> {
       ),
       body: _screens[_currentIndex],
 
-      drawer: const DrawerScreen(),
+      drawer: DrawerScreen(email: userName,),
 
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.green,

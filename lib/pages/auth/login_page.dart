@@ -1,20 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:student_app/pages/auth/login_authentication/auth_services.dart';
 import 'package:student_app/pages/auth/ui_components/my_button.dart';
 import 'package:student_app/pages/auth/ui_components/my_textfield.dart';
 
 class LoginPage extends StatelessWidget {
 
-  final usernameController = TextEditingController();
-  final passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final void Function()? onTap;
 
-  void signUserIn(context) {
-    Navigator.pushReplacementNamed(context, '/root');
-  }
-  void goToRegisterPage(context) {
-    Navigator.pushReplacementNamed(context, '/register');
+  void signUserIn(BuildContext context) async {
+    final authservice = AuthServices();
+
+    try {
+      await authservice.signwithEmailandPassword(_emailController.text, _passwordController.text);
+
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 
-  LoginPage({super.key});
+  LoginPage({
+    super.key,
+    required this.onTap,
+    });
 
   @override
   Widget build(BuildContext context) {
@@ -23,18 +32,24 @@ class LoginPage extends StatelessWidget {
       body: SafeArea(
         child: Center(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(height: 50.0),
 
               // here will be our app logo
-              Container(
+              Flexible(
+              flex: 2, // Adjust flex as needed
+              child: Container(
                 height: 128.0,
                 width: 128.0,
                 decoration: const BoxDecoration(
-                  // image: DecorationImage(image: AssetImage('assets/katz.jpg'))
+                  shape: BoxShape.circle,
                 ),
-                child: const CircleAvatar(backgroundImage: AssetImage('assets/katz.jpg')),
+                child: const CircleAvatar(
+                  backgroundImage: AssetImage('assets/katz.jpg'),
+                ),
               ),
+            ),
               const SizedBox(height: 50.0),
 
               Text(
@@ -48,34 +63,35 @@ class LoginPage extends StatelessWidget {
               const SizedBox(height: 25.0),
 
               // userinfo textfield
-              MyTextfield(
-                controller: usernameController,
-                hintText: 'Email/username',
-                obscureText: false,
-              ),
-              const SizedBox(height: 10.0),
+              // Email TextField
+            MyTextfield(
+              controller: _emailController,
+              hintText: 'Email',
+              obscureText: false,
+            ),
+            const SizedBox(height: 10.0),
 
               // password textfield
               MyTextfield(
-                controller: passwordController,
+                controller: _passwordController,
                 hintText: 'Password',
                 obscureText: true,
               ),
-              const SizedBox(height: 10.0),
+              const SizedBox(height: 25.0),
 
               // forgot password
-              Padding(
-                padding: const EdgeInsets.only(right: 26.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text('Forgot password?',
-                      style: TextStyle(color: Colors.grey[600], letterSpacing: 0.5),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 45.0),
+              // Padding(
+              //   padding: const EdgeInsets.only(right: 26.0),
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.end,
+              //     children: [
+              //       Text('Forgot password?',
+              //         style: TextStyle(color: Colors.grey[600], letterSpacing: 0.5),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              // const SizedBox(height: 45.0),
 
               MyButton(
                 text: 'Sign in',
@@ -103,7 +119,7 @@ class LoginPage extends StatelessWidget {
                     ),
 
                     GestureDetector(
-                      onTap: () => goToRegisterPage(context),
+                      onTap: onTap,
                       child: Padding(
                         padding: const EdgeInsets.only(right: 10.0),
                         child: Text(
