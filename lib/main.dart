@@ -1,21 +1,24 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:student_app/pages/init_page.dart';
-import 'package:student_app/pages/loading_page.dart';
-import 'package:student_app/pages/auth/login_page.dart';
-import 'package:student_app/pages/auth/register_page.dart';
-import 'package:student_app/pages/auth/root/root_page.dart';
+import 'package:student_app/firebase_options.dart';
+import 'package:student_app/pages/auth/login_authentication/auth_get.dart';
 
-void main() {
-  runApp(
-    MaterialApp(
-      initialRoute: '/',
-      routes: {
-        '/':         (context) => const InitPage(),
-        '/loading':  (context) => const LoadingPage(),        
-        '/login':    (context) => LoginPage(),
-        '/register': (context) => RegisterPage(),
-        '/root':     (context) => const RootPage(),
-      },
-    )
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
   );
+  runApp(const MyApp());
+    
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      home: AuthGet(),
+    );
+  }
 }
