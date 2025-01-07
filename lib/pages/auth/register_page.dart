@@ -1,63 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:student_app/pages/auth/login_authentication/auth_services.dart';
 import 'package:student_app/pages/auth/ui_components/my_button.dart';
 import 'package:student_app/pages/auth/ui_components/my_textfield.dart';
-import 'package:student_app/pages/auth/login_authentication/auth_services.dart';
 
-class RegisterPage extends StatefulWidget {
-  final void Function()? onTap;
-
-  const RegisterPage({Key? key, required this.onTap}) : super(key: key);
-
-  @override
-  State<RegisterPage> createState() => _RegisterPageState();
-}
-
-class _RegisterPageState extends State<RegisterPage> {
+class RegisterPage extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmpasswordController =
-      TextEditingController();
+  final TextEditingController _cpasswordController = TextEditingController();
+  final Function()? onTap;
 
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    _confirmpasswordController.dispose();
-    super.dispose();
-  }
+  RegisterPage({
+    super.key,
+    required this.onTap,
+    });
 
   void register(BuildContext context) async {
-    final auth = AuthServices();
-
-    if (_passwordController.text == _confirmpasswordController.text) {
-      try {
-        await auth.signUpwithEmailandPassword(
-          _emailController.text.trim(),
-          _passwordController.text.trim(),
-        );
-        showDialog(
-          context: context,
-          builder: (context) => const AlertDialog(
-            title: Text('Registration Successful'),
-            content: Text('You can now log in to your account.'),
-          ),
-        );
-      } catch (e) {
-        showDialog(
+    final authservices = AuthServices();
+    if(_cpasswordController == _passwordController) {
+    try {
+      await authservices.signUpwithEmailandPassword(_emailController.text, _emailController.text);
+    } catch (e) {
+      showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: const Text('Error'),
-            content: Text(e
-                .toString()), // Consider handling Firebase errors more gracefully.
-          ),
-        );
-      }
+            title: Text(e.toString()),
+          )
+      );
+    }
     } else {
       showDialog(
-        context: context,
-        builder: (context) => const AlertDialog(
-          title: Text('Passwords do not match'),
-        ),
+          context: context,
+          builder: (context) => const AlertDialog(
+            title: Text('Password not match'),
+          )
       );
     }
   }
@@ -65,92 +40,46 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green[100],
+      backgroundColor: Colors.green.shade100,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // App Logo
-            Flexible(
-              flex: 1, // Adjust flex as needed
-              child: Container(
-                height: 128.0,
-                width: 128.0,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                ),
-                child: const CircleAvatar(
-                  backgroundImage: AssetImage('assets/katz.jpg'),
-                ),
-              ),
-            ),
-            const SizedBox(height: 50.0),
+            Icon(Icons.account_circle_sharp),
+            SizedBox(height: 25,),
 
-            // Welcome Text
-            Text(
-              'Welcome to the new experience!',
-              style: TextStyle(
-                color: Colors.grey[700],
-                fontSize: 16.0,
-                letterSpacing: 1.0,
-              ),
-            ),
-            const SizedBox(height: 25.0),
+            Text('Create an Account'),
+            SizedBox(height: 20,),
 
-            // Email TextField
-            MyTextfield(
-              controller: _emailController,
-              hintText: 'Email',
-              obscureText: true,
-            ),
-            const SizedBox(height: 10.0),
+            MyTextfield(controller: _emailController, hintText: 'Email', obscureText: false),
+            SizedBox(height: 15,),
 
-            // Password TextField
-            MyTextfield(
-              controller: _passwordController,
-              hintText: 'Password',
-              obscureText: true,
-            ),
-            const SizedBox(height: 10.0),
+            MyTextfield(controller: _passwordController, hintText: 'Password', obscureText: true),
+            SizedBox(height: 15,),
 
-            // Confirm Password TextField
-            MyTextfield(
-              controller: _confirmpasswordController,
-              hintText: 'Confirm Password',
-              obscureText: true,
-            ),
-            const SizedBox(height: 25.0),
+            MyTextfield(controller: _cpasswordController, hintText: 'Confirm Password', obscureText: true),
+            SizedBox(height: 15,),
 
-            // Register Button
-            MyButton(
-              text: 'Register',
-              onTap: () => register(context),
-            ),
-            const SizedBox(height: 25.0),
+            MyButton(text: 'Register', onTap: () => register(context)),
+            SizedBox(height: 20,),
 
-            // Sign-in Section
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  'Already have an account? ',
-                  style: TextStyle(color: Colors.grey[600], letterSpacing: 0.5),
-                ),
+                Text('Already have an Account'),
+                SizedBox(width: 5,),
                 GestureDetector(
-                  onTap: widget.onTap,
-                  child: const Text(
-                    'Sign in here',
+                  onTap: onTap,
+                  child: Text(
+                    'Login',
                     style: TextStyle(
-                      decoration: TextDecoration.underline,
-                      color: Colors.green,
                       fontWeight: FontWeight.bold,
-                      letterSpacing: 0.5,
                     ),
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 25.0),
+
           ],
         ),
       ),

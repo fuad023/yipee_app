@@ -34,8 +34,6 @@ class LoginPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(height: 50.0),
-
               // here will be our app logo
               Flexible(
               flex: 2, // Adjust flex as needed
@@ -50,7 +48,7 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
             ),
-              const SizedBox(height: 50.0),
+              const SizedBox(height: 25.0),
 
               Text(
                 'Welcome back! You\'ve been missed.',
@@ -60,7 +58,7 @@ class LoginPage extends StatelessWidget {
                   letterSpacing: 1.0,
                 ),
               ),
-              const SizedBox(height: 25.0),
+              const SizedBox(height: 20.0),
 
               // userinfo textfield
               // Email TextField
@@ -77,21 +75,21 @@ class LoginPage extends StatelessWidget {
                 hintText: 'Password',
                 obscureText: true,
               ),
-              const SizedBox(height: 25.0),
+              const SizedBox(height: 15.0),
 
-              // forgot password
-              // Padding(
-              //   padding: const EdgeInsets.only(right: 26.0),
-              //   child: Row(
-              //     mainAxisAlignment: MainAxisAlignment.end,
-              //     children: [
-              //       Text('Forgot password?',
-              //         style: TextStyle(color: Colors.grey[600], letterSpacing: 0.5),
-              //       ),
-              //     ],
-              //   ),
-              // ),
-              // const SizedBox(height: 45.0),
+              //forgot password
+              Padding(
+                padding: const EdgeInsets.only(right: 26.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text('Forgot password?',
+                      style: TextStyle(color: Colors.grey[600], letterSpacing: 0.5),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20.0),
 
               MyButton(
                 text: 'Sign in',
