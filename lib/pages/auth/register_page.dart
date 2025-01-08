@@ -16,9 +16,9 @@ class RegisterPage extends StatelessWidget {
 
   void register(BuildContext context) async {
     final authservices = AuthServices();
-    if(_cpasswordController == _passwordController) {
+    if(_cpasswordController.text == _passwordController.text) {
     try {
-      await authservices.signUpwithEmailandPassword(_emailController.text, _emailController.text);
+      await authservices.signUpwithEmailandPassword(_emailController.text, _passwordController.text);
     } catch (e) {
       showDialog(
           context: context,

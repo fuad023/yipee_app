@@ -7,8 +7,8 @@ class AuthServices {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   // Get current user
-  User? currentUser() {
-    return currentUser();
+  User? getCurrentUser() {
+    return _firebaseAuth.currentUser;
   }
 
   // Sign in

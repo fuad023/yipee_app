@@ -18,7 +18,7 @@ class _RootPageState extends State<RootPage> {
 
   final List<Widget> _screens = [
     const HomePage(),
-    const MessagePage(),
+    MessagePage(),
     const EmergencyPage(),
   ];
 
