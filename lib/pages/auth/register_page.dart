@@ -51,13 +51,13 @@ class RegisterPage extends StatelessWidget {
             Text('Create an Account'),
             SizedBox(height: 20,),
 
-            MyTextfield(controller: _emailController, hintText: 'Email', obscureText: false),
+            MyTextfield(controller: _emailController, hintText: 'Email', obscureText: false, focusNode: null,),
             SizedBox(height: 15,),
 
-            MyTextfield(controller: _passwordController, hintText: 'Password', obscureText: true),
+            MyTextfield(controller: _passwordController, hintText: 'Password', obscureText: true, focusNode: null,),
             SizedBox(height: 15,),
 
-            MyTextfield(controller: _cpasswordController, hintText: 'Confirm Password', obscureText: true),
+            MyTextfield(controller: _cpasswordController, hintText: 'Confirm Password', obscureText: true, focusNode: null,),
             SizedBox(height: 15,),
 
             MyButton(text: 'Register', onTap: () => register(context)),

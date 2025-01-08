@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:student_app/pages/auth/login_authentication/auth_services.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/chat_page.dart';
-import 'package:student_app/pages/auth/root/nagivation_pages/user_tile_component/user_tile.dart';
 import 'package:student_app/services/chat/chat_service.dart';
+
+import 'message_componenet/user_tile.dart';
 
 class MessagePage extends StatelessWidget {
   final ChatService _chatService = ChatService();
@@ -13,7 +14,10 @@ class MessagePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.green.shade100,
-      body: _buildUserList(),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: _buildUserList(),
+      ),
     );
   }
 
@@ -48,7 +52,7 @@ class MessagePage extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => ChatPage(
-            usenName: userData["email"],
+            userName: userData["email"],
             recieverID: userData["uid"],
           ))
         );
