@@ -23,7 +23,7 @@ class DrawerScreen extends StatelessWidget {
               height: 215.0,
               width: double.infinity,
               child: DrawerHeader(
-                decoration: BoxDecoration(color: Colors.green),
+                decoration: const BoxDecoration(color: Colors.green),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

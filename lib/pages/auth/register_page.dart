@@ -21,7 +21,7 @@ class RegisterPage extends StatelessWidget {
       await authservices.signUpwithEmailandPassword(_emailController.text, _passwordController.text);
     } catch (e) {
       showDialog(
-          context: context,
+          context: context, // ignore: use_build_context_synchronously
           builder: (context) => AlertDialog(
             title: Text(e.toString()),
           )
@@ -45,32 +45,32 @@ class RegisterPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.account_circle_sharp),
-            SizedBox(height: 25,),
+            const Icon(Icons.account_circle_sharp),
+            const SizedBox(height: 25,),
 
-            Text('Create an Account'),
-            SizedBox(height: 20,),
+            const Text('Create an Account'),
+            const SizedBox(height: 20,),
 
             MyTextfield(controller: _emailController, hintText: 'Email', obscureText: false, focusNode: null,),
-            SizedBox(height: 15,),
+            const SizedBox(height: 15,),
 
             MyTextfield(controller: _passwordController, hintText: 'Password', obscureText: true, focusNode: null,),
-            SizedBox(height: 15,),
+            const SizedBox(height: 15,),
 
             MyTextfield(controller: _cpasswordController, hintText: 'Confirm Password', obscureText: true, focusNode: null,),
-            SizedBox(height: 15,),
+            const SizedBox(height: 15,),
 
             MyButton(text: 'Register', onTap: () => register(context)),
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
 
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Already have an Account'),
-                SizedBox(width: 5,),
+                const Text('Already have an Account'),
+                const SizedBox(width: 5,),
                 GestureDetector(
                   onTap: onTap,
-                  child: Text(
+                  child: const Text(
                     'Login',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
