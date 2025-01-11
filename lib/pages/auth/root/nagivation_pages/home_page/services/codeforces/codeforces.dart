@@ -3,6 +3,7 @@ import 'package:student_app/pages/auth/ui_components/my_button.dart';
 import 'package:student_app/pages/auth/ui_components/my_textfield.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/api/codeforces_api.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/api/cf_user_info.dart';
+import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/user_info.dart';
 
 class Codeforces extends StatefulWidget {
 
@@ -17,12 +18,16 @@ class _CodeforcesState extends State<Codeforces> {
   late CodeforcesApi _codeforcesApi;
   CfUserInfo? _cfUserInfo;
 
-  void searchUser() async {
+  void searchUser(BuildContext context) async {
     String handle = _handlerName.text;
     _handlerName.clear();
     _codeforcesApi = CfGetUserInfo(handle: handle);
     _cfUserInfo = await _codeforcesApi.getUserInfo();
-    print(_cfUserInfo!.toMap());
+    
+    if (_cfUserInfo != null) {
+      // ignore: use_build_context_synchronously
+      Navigator.push(context, MaterialPageRoute(builder: (context) => UserInfo(cfUserInfo: _cfUserInfo,)));
+    }
   }
 
   @override
@@ -54,7 +59,7 @@ class _CodeforcesState extends State<Codeforces> {
           const SizedBox(height: 15.0),
           MyButton(
             text: "Search",
-            onTap: searchUser,
+            onTap: () => searchUser(context),
           ),
         ],
       ),
