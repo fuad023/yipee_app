@@ -1,11 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:student_app/pages/auth/ui_components/my_button.dart';
 import 'package:student_app/pages/auth/ui_components/my_textfield.dart';
+import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/api/codeforces_api.dart';
+import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/api/cf_user_info.dart';
 
-class Codeforces extends StatelessWidget {
+class Codeforces extends StatefulWidget {
+
+  const Codeforces({super.key});
+
+  @override
+  State<Codeforces> createState() => _CodeforcesState();
+}
+
+class _CodeforcesState extends State<Codeforces> {
   final TextEditingController _handlerName = TextEditingController();
+  late CodeforcesApi _codeforcesApi;
+  CfUserInfo? _cfUserInfo;
 
-  Codeforces({super.key});
+  void searchUser() async {
+    String handle = _handlerName.text;
+    _handlerName.clear();
+    _codeforcesApi = CfGetUserInfo(handle: handle);
+    _cfUserInfo = await _codeforcesApi.getUserInfo();
+    print(_cfUserInfo!.toMap());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +50,11 @@ class Codeforces extends StatelessWidget {
             hintText: "Handler name",
             obscureText: false
           ),
+
+          const SizedBox(height: 15.0),
           MyButton(
             text: "Search",
-            onTap: () {}
+            onTap: searchUser,
           ),
         ],
       ),
