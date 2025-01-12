@@ -72,7 +72,7 @@ class _LoginTextFieldState extends State<LoginTextField> {
                         });
                       },
                       child: Icon(
-                        _isSecureText ? Icons.visibility_off : Icons.visibility,
+                        _isSecureText ? Icons.visibility : Icons.visibility_off,
                         color: Colors.white,
                         size: 22.0,
                       ),

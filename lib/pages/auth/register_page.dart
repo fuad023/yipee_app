@@ -42,211 +42,217 @@ class RegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.green,
-      body: Stack(
-        children: [
-          ClipRRect(
-            child: Image.asset(
-              'assets/1.png',
-              height: double.infinity,
-              width: double.infinity,
-              fit: BoxFit.cover,
-              alignment: const Alignment(0.0, 0.0),
+    return GestureDetector(
+      onTap:() {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: Scaffold(
+        backgroundColor: Colors.green,
+        body: Stack(
+          children: [
+            ClipRRect(
+              child: Image.asset(
+                'assets/1.png',
+                height: double.infinity,
+                width: double.infinity,
+                fit: BoxFit.cover,
+                alignment: const Alignment(0.0, 0.0),
+              ),
             ),
-          ),
-          Align(
-            alignment: AlignmentDirectional(0.0, 0.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // Text
-                Text(
-                  'Register',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 26,
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
-                //const SizedBox(height: 10,),
-
-                // Text
-                Text(
-                  'Sign up to continue',
-                  style: TextStyle(
-                      color: Colors.white
-                  ),
-                ),
-                const SizedBox(height: 10,),
-
-                // Icon/Text
-                Padding(
-                  padding: const EdgeInsets.only(left: 30),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      // Icon
-                      Icon(
-                        Icons.mail_outline,
-                        size: 24,
-                        color: Colors.white,
-                      ),
-                      const SizedBox(width: 10,),
-
-                      // Text
-                      Text(
-                        'Email',
-                        style: TextStyle(
-                            color: Colors.white
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                //const SizedBox(height: 10,),
-
-                // TextField
-                LoginTextField(
-                  hitText: 'password',
-                  secureText: false,
-                  controlText: _emailController,
-                  focusNode: emailFocusNode,
-                ),
-                const SizedBox(height: 10,),
-
-                // Text/Icon
-                Padding(
-                  padding: const EdgeInsets.only(left: 30),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      // Icon
-                      Icon(
-                        Icons.key_off,
-                        size: 24,
-                        color: Colors.white,
-                      ),
-                      const SizedBox(width: 10,),
-
-                      // Text
-                      Text(
-                        'Password',
-                        style: TextStyle(
-                            color: Colors.white
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                //const SizedBox(height: 10,),
-
-                // TextField
-                LoginTextField(
-                  hitText: 'password',
-                  secureText: true,
-                  controlText: _passwordController,
-                  focusNode: passwordFocusNode,
-                ),
-                const SizedBox(height: 10,),
-
-                // Text/Icon
-                Padding(
-                  padding: const EdgeInsets.only(left: 30),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      // Icon
-                      Icon(
-                        Icons.key_off,
-                        size: 24,
-                        color: Colors.white,
-                      ),
-                      const SizedBox(width: 10,),
-
-                      // Text
-                      Text(
-                        'Confirm Password',
-                        style: TextStyle(
-                            color: Colors.white
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                //const SizedBox(height: 10,),
-
-                // TextField
-                LoginTextField(
-                  hitText: 'confirm password',
-                  secureText: true,
-                  controlText: _confirmPasswordController,
-                  focusNode: confirmPasswordFocusNode,
-                ),
-                const SizedBox(height: 10,),
-
-                // Button
-                Padding(
-                  padding: EdgeInsets.only(top: 25),
-                  child: Container(
-                    width: 331.0,
-                    height: 40.0,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(24.0),
+            Align(
+              alignment: AlignmentDirectional(0.0, 0.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // Text
+                  Text(
+                    'Register',
+                    style: TextStyle(
                       color: Colors.white,
-                    ),
-                    child: TextButton(
-                      onPressed: () {
-                        register(context);
-                      },
-                      child: Text(
-                        'Register',
-                        style: TextStyle(
-                          color: Colors.green.shade900,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
+                      fontSize: 26,
+                      fontWeight: FontWeight.w800,
                     ),
                   ),
-                ),
-                //const SizedBox(height: 10,),
-
-                // Row
-                Padding(
-                  padding: const EdgeInsets.only(top: 15),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      // Text
-                      Text(
-                        'Already have an Account?',
-                        style: TextStyle(
-                            color: Colors.white38
+                  //const SizedBox(height: 10,),
+      
+                  // Text
+                  Text(
+                    'Sign up to continue',
+                    style: TextStyle(
+                        color: Colors.white
+                    ),
+                  ),
+                  const SizedBox(height: 10,),
+      
+                  // Icon/Text
+                  Padding(
+                    padding: const EdgeInsets.only(left: 30),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        // Icon
+                        Icon(
+                          Icons.mail_outline,
+                          size: 24,
+                          color: Colors.white,
                         ),
-                      ),
-                      const SizedBox(width: 10,),
-
-                      // Register Button
-                      GestureDetector(
-                        onTap: onTap,
-                        child: Text(
-                          'Login',
+                        const SizedBox(width: 10,),
+      
+                        // Text
+                        Text(
+                          'Email',
                           style: TextStyle(
-                            color: Colors.white,
+                              color: Colors.white
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  //const SizedBox(height: 10,),
+      
+                  // TextField
+                  LoginTextField(
+                    hitText: 'password',
+                    secureText: false,
+                    controlText: _emailController,
+                    focusNode: emailFocusNode,
+                  ),
+                  const SizedBox(height: 10,),
+      
+                  // Text/Icon
+                  Padding(
+                    padding: const EdgeInsets.only(left: 30),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        // Icon
+                        Icon(
+                          Icons.key_off,
+                          size: 24,
+                          color: Colors.white,
+                        ),
+                        const SizedBox(width: 10,),
+      
+                        // Text
+                        Text(
+                          'Password',
+                          style: TextStyle(
+                              color: Colors.white
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  //const SizedBox(height: 10,),
+      
+                  // TextField
+                  LoginTextField(
+                    hitText: 'password',
+                    secureText: true,
+                    controlText: _passwordController,
+                    focusNode: passwordFocusNode,
+                  ),
+                  const SizedBox(height: 10,),
+      
+                  // Text/Icon
+                  Padding(
+                    padding: const EdgeInsets.only(left: 30),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        // Icon
+                        Icon(
+                          Icons.key_off,
+                          size: 24,
+                          color: Colors.white,
+                        ),
+                        const SizedBox(width: 10,),
+      
+                        // Text
+                        Text(
+                          'Confirm Password',
+                          style: TextStyle(
+                              color: Colors.white
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  //const SizedBox(height: 10,),
+      
+                  // TextField
+                  LoginTextField(
+                    hitText: 'confirm password',
+                    secureText: true,
+                    controlText: _confirmPasswordController,
+                    focusNode: confirmPasswordFocusNode,
+                  ),
+                  const SizedBox(height: 10,),
+      
+                  // Button
+                  Padding(
+                    padding: EdgeInsets.only(top: 25),
+                    child: Container(
+                      width: 331.0,
+                      height: 40.0,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(24.0),
+                        color: Colors.white,
+                      ),
+                      child: TextButton(
+                        onPressed: () {
+                          register(context);
+                        },
+                        child: Text(
+                          'Register',
+                          style: TextStyle(
+                            color: Colors.green.shade900,
                             fontWeight: FontWeight.w800,
                           ),
                         ),
                       ),
-                    ],
+                    ),
                   ),
-                ),
-
-              ],
+                  //const SizedBox(height: 10,),
+      
+                  // Row
+                  Padding(
+                    padding: const EdgeInsets.only(top: 15),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        // Text
+                        Text(
+                          'Already have an Account?',
+                          style: TextStyle(
+                              color: Colors.white38
+                          ),
+                        ),
+                        const SizedBox(width: 10,),
+      
+                        // Register Button
+                        GestureDetector(
+                          onTap: onTap,
+                          child: Text(
+                            'Login',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+      
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
