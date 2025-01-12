@@ -190,8 +190,8 @@ class LoginPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       // Text
-                      Text(
-                        'Already have an Account?',
+                      const Text(
+                        'Don\'t have an Account?',
                         style: TextStyle(
                           color: Colors.white38
                         ),
@@ -201,7 +201,7 @@ class LoginPage extends StatelessWidget {
                       // Register Button
                       GestureDetector(
                         onTap: onTap,
-                        child: Text(
+                        child: const Text(
                           'Register',
                           style: TextStyle(
                             fontWeight: FontWeight.w800,
