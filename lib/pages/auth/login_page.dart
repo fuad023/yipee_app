@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:student_app/components/login_textField.dart';
 import 'package:student_app/pages/auth/login_authentication/auth_services.dart';
-import 'package:student_app/pages/auth/ui_components/my_button.dart';
-import 'package:student_app/pages/auth/ui_components/my_textfield.dart';
+
 
 class LoginPage extends StatelessWidget {
-
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final void Function()? onTap;
+  final FocusNode emailFocusNode = FocusNode();
+  final FocusNode passwordFocusNode = FocusNode();
+  final Function()? onTap;
 
   void signUserIn(BuildContext context) async {
     final authservice = AuthServices();
@@ -16,7 +17,12 @@ class LoginPage extends StatelessWidget {
       await authservice.signwithEmailandPassword(_emailController.text, _passwordController.text);
 
     } catch (e) {
-      throw Exception(e);
+      showDialog(
+          context: context, // ignore: use_build_context_synchronously
+          builder: (context) => AlertDialog(
+            title: Text(e.toString()),
+          )
+      );
     }
   }
 
@@ -28,123 +34,191 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green[100],
-      body: SafeArea(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // here will be our app logo
-              Flexible(
-              flex: 2, // Adjust flex as needed
-              child: Container(
-                height: 128.0,
-                width: 128.0,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                ),
-                child: const CircleAvatar(
-                  backgroundImage: AssetImage('assets/katz.jpg'),
-                ),
-              ),
+      backgroundColor: Colors.green.shade900,
+      body: Stack(
+        children: [
+          ClipRRect(
+            child: Image.asset(
+              'assets/1.png',
+              height: double.infinity,
+              width: double.infinity,
+              fit: BoxFit.cover,
+              alignment: Alignment(0.0, 0.0),
             ),
-              const SizedBox(height: 25.0),
-
-              Text(
-                'Welcome back! You\'ve been missed.',
-                style: TextStyle(
-                  color: Colors.grey[700],
-                  fontSize: 16.0,
-                  letterSpacing: 1.0,
+          ),
+          Align(
+            alignment: AlignmentDirectional(0.0, 0.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // Text
+                Text(
+                  'Login',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 26,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 20.0),
+                const SizedBox(height: 10,),
 
-              // userinfo textfield
-              // Email TextField
-            MyTextfield(
-              controller: _emailController,
-              hintText: 'Email',
-              obscureText: false, focusNode: null,
-            ),
-            const SizedBox(height: 10.0),
-
-              // password textfield
-              MyTextfield(
-                controller: _passwordController,
-                hintText: 'Password',
-                obscureText: true, focusNode: null,
-              ),
-              const SizedBox(height: 15.0),
-
-              //forgot password
-              Padding(
-                padding: const EdgeInsets.only(right: 26.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text('Forgot password?',
-                      style: TextStyle(color: Colors.grey[600], letterSpacing: 0.5),
-                    ),
-                  ],
+                // Text
+                Text(
+                  'Sign in to continue',
+                  style: TextStyle(
+                    color: Colors.white
+                  ),
                 ),
-              ),
-              const SizedBox(height: 20.0),
+                const SizedBox(height: 10,),
 
-              MyButton(
-                text: 'Sign in',
-                onTap: () => signUserIn(context),
-              ),
-              const SizedBox(height: 25.0),
+                // Icon/Text
+                Padding(
+                  padding: const EdgeInsets.only(left: 30),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      // Icon
+                      Icon(
+                        Icons.mail_outline,
+                        size: 24,
+                        color: Colors.white,
+                      ),
+                      const SizedBox(width: 10,),
 
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: Row(
-                  children: [
-                    const Expanded(
-                      child: Divider(
-                        thickness: 0.5,
-                        color: Colors.green,
-                      )
-                    ),
-                    
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10.0),
-                      child: Text(
-                        'Don\'t have an account? ',
-                        style: TextStyle(color: Colors.grey[600], letterSpacing: 0.5),
+                      // Text
+                      Text(
+                        'Email',
+                        style: TextStyle(
+                          color: Colors.white
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 10,),
+
+                // TextField
+                LoginTextField(
+                  hitText: 'user@gmail.com',
+                  secureText: false,
+                  controlText: _emailController,
+                  focusNode: emailFocusNode,
+                ),
+                const SizedBox(height: 10,),
+
+                // Text/Icon
+                Padding(
+                  padding: const EdgeInsets.only(left: 30),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      // Icon
+                      Icon(
+                        Icons.key_off,
+                        size: 24,
+                        color: Colors.white,
+                      ),
+                      const SizedBox(width: 10,),
+
+                      // Text
+                      Text(
+                        'Password',
+                        style: TextStyle(
+                            color: Colors.white
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 10,),
+
+                // TextField
+                LoginTextField(
+                  hitText: 'password',
+                  secureText: true,
+                  controlText: _passwordController,
+                  focusNode: passwordFocusNode,
+                ),
+                const SizedBox(height: 10,),
+
+                // Text
+                Padding(
+                  padding: EdgeInsets.only(left: 200),
+                  child: GestureDetector(
+                    onTap: () {},
+                    child: Text(
+                      'Forgot password?',
+                      style: TextStyle(
+                        color: Colors.white,
                       ),
                     ),
+                  ),
+                ),
 
-                    GestureDetector(
-                      onTap: onTap,
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 10.0),
-                        child: Text(
-                          'Register now',
-                          style: TextStyle(
-                            decoration: TextDecoration.underline,
-                            color: Colors.grey[600],
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 0.5,
-                          ),
+                // Button
+                Padding(
+                  padding: EdgeInsets.only(top: 25),
+                  child: Container(
+                    width: 331.0,
+                    height: 40.0,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(24.0),
+                      color: Colors.white,
+                    ),
+                    child: TextButton(
+                      onPressed: () {
+                        signUserIn(context);
+                      },
+                      child: Text(
+                        'Login',
+                        style: TextStyle(
+                          color: Colors.green.shade900,
+                          fontWeight: FontWeight.w800,
                         ),
                       ),
                     ),
-                
-                    const Expanded(
-                      child: Divider(
-                        thickness: 0.5,
-                        color: Colors.green,
-                      )
-                    ),
-                  ],
+                  ),
                 ),
-              )
-            ],
+                const SizedBox(height: 10,),
+
+                // Row
+                Padding(
+                  padding: const EdgeInsets.only(top: 15),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // Text
+                      Text(
+                        'Already have an Account?',
+                        style: TextStyle(
+                          color: Colors.white38
+                        ),
+                      ),
+                      const SizedBox(width: 10,),
+
+                      // Register Button
+                      GestureDetector(
+                        onTap: onTap,
+                        child: Text(
+                          'Register',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w800,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+              ],
+            ),
           ),
-        ),
-      )
+        ],
+      ),
     );
   }
 }
+
