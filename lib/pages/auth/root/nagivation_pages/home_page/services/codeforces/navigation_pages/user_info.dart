@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:student_app/pages/auth/ui_components/my_button.dart';
-import 'package:student_app/pages/auth/ui_components/my_textfield.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/api/codeforces_api.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/api/cf_user_info.dart';
 
 class UserInfo extends StatefulWidget {
-  final String? handle;
+  final String handle;
 
   const UserInfo({
     super.key,
@@ -17,8 +15,7 @@ class UserInfo extends StatefulWidget {
 }
 
 class _UserInfoState extends State<UserInfo> {
-  String? handle;
-  final TextEditingController _handlerName = TextEditingController();
+  late String handle;
   final CodeforcesApi _codeforcesApi = CfGetUserInfo();
   late CodeforcesUserInfo _userInfo;
 
@@ -34,45 +31,15 @@ class _UserInfoState extends State<UserInfo> {
     _userInfo = _codeforcesApi.getUserInfo();
     setState(() {});
   }
-  
+
   @override
   Widget build(BuildContext context) {
-    return handle == null ? _requestSetup() : _showUserInfo();
+    return handle.isEmpty ? _requestSetup() : _showUserInfo();
   }
 
   Widget _requestSetup() {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 64.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              "Set up handle here",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 24.0,
-                letterSpacing: 1.5,
-              )
-            ),
-        
-            const SizedBox(height: 15.0),
-        
-            MyTextfield(
-              controller: _handlerName,
-              hintText: "handle name",
-              obscureText: false
-            ),
-        
-            const SizedBox(height: 15.0),
-        
-            MyButton(
-              text: "Set Handle",
-              onTap: () => getUserInfo(_handlerName.text),
-            ),
-          ],
-        ),
-      ),
+    return const Center(
+      child: Text("Please setup handle name."),
     );
   }
 

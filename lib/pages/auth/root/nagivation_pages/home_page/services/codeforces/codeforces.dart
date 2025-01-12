@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/appbar_action.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/user_info.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/submissions.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/search_user.dart';
@@ -12,10 +13,10 @@ class Codeforces extends StatefulWidget {
 
 class _CodeforcesState extends State<Codeforces> {
   int _currentIndex = 0;
-  late String? handle;
+  late String handle;
 
   void fetchHandle() async {
-    handle = null;
+    handle = "";
   }
 
   @override
@@ -25,8 +26,21 @@ class _CodeforcesState extends State<Codeforces> {
     fetchHandle();
   }
 
+  void setupHandle() async {
+    handle = await Navigator.push(context, MaterialPageRoute(builder: (context) => AppbarAction()));
+  }
+
+
   @override
   Widget build(BuildContext context) {
+
+    try {
+      handle = handle.isEmpty ? ModalRoute.of(context)!.settings.arguments as String : handle;
+      // print(handle);
+    } catch(e) {
+      print('Codeforces: $e'); // ignore: avoid_print
+    }
+
     return Scaffold(
       backgroundColor: Colors.green[100],
       appBar: AppBar(
@@ -35,6 +49,12 @@ class _CodeforcesState extends State<Codeforces> {
         foregroundColor: Colors.white,
         backgroundColor: Colors.green[700],
         elevation: 1.0,
+        actions: [
+          IconButton(
+            onPressed: setupHandle,
+            icon: const Icon(Icons.manage_accounts_outlined),
+          ),
+        ],
       ),
       body: _screens(_currentIndex),
 
