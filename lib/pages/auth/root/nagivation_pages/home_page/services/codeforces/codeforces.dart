@@ -68,7 +68,7 @@ class _CodeforcesState extends State<Codeforces> {
         handle: handle,
       ),
       1 => const Submissions(),
-      2 => const SearchUser(),
+      2 => SearchUser(),
       
       int() => throw UnimplementedError(),
     };
