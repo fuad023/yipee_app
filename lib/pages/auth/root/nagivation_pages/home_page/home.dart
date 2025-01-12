@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:student_app/components/my_button.dart';
+import 'package:student_app/components/image_or_text_button.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/codeforces.dart';
 
 class HomePage extends StatelessWidget {
@@ -18,37 +18,37 @@ class HomePage extends StatelessWidget {
       itemBuilder: (context, index) {
         return switch (index) {
           
-          0 => MyButton(
+          0 => ImageOrTextButton(
             text: 'assets/codeforces.png',
             onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const Codeforces()))
           ),
 
-          1 => MyButton(
+          1 => ImageOrTextButton(
             text: '    Math\nCalculator',
             onTap: () {},
           ),
 
-          2 => MyButton(
+          2 => ImageOrTextButton(
             text: '    CGPA\nCalculator',
             onTap: () {},
           ),
 
-          3 => MyButton(
+          3 => ImageOrTextButton(
             text: '   Study\nMaterials',
             onTap: () {},
           ),
 
-          4 => MyButton(
+          4 => ImageOrTextButton(
             text: 'YipeeGPT',
             onTap: () {},
           ),
 
-          5 => MyButton(
+          5 => ImageOrTextButton(
             text: 'Shop',
             onTap: () {},
           ),
 
-          int() => MyButton(
+          int() => ImageOrTextButton(
             text: 'Button $index',
             onTap: () {},
           ),
