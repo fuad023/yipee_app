@@ -59,6 +59,14 @@ class CfGetUserInfo extends CodeforcesApi {
   }
 
   @override
+  Future<bool> checkValidity(String handle) async {
+    Response response = await get(Uri.parse("${baseURL}user.info?handles=$handle"));
+    Map<String, dynamic> data = jsonDecode(response.body);
+
+    return (data["status"] == "OK") ? true : false;
+  }
+
+  @override
   CodeforcesUserInfo getUserInfo() {
     return userInfo;
   }

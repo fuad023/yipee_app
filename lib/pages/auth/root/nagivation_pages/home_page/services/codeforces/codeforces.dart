@@ -42,7 +42,7 @@ class _CodeforcesState extends State<Codeforces> {
   }
 
   void setupHandle() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => AppbarAction()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const AppbarAction()));
   }
 
   @override

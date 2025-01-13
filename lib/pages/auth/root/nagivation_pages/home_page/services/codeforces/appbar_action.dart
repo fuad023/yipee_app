@@ -1,19 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:student_app/pages/auth/ui_components/my_button.dart';
 import 'package:student_app/pages/auth/ui_components/my_textfield.dart';
+import 'package:student_app/pages/auth/ui_components/my_button.dart';
+
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/codeforces.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/api/database_service.dart';
+import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/api/codeforces_api.dart';
+import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/api/cf_user_info.dart';
 
-class AppbarAction extends StatelessWidget {  
+class AppbarAction extends StatefulWidget {  
+
+  const AppbarAction({super.key});
+
+  @override
+  State<AppbarAction> createState() => _AppbarActionState();
+}
+
+class _AppbarActionState extends State<AppbarAction> {
   final DatabaseService _database = DatabaseService();
   final TextEditingController _handleController = TextEditingController();
 
-  AppbarAction({super.key});
+  bool isValidating = false;
+  bool isValid = false;
+
+  void checkValidity(BuildContext context) async {
+    isValidating = true;
+    setState(() {});
+    CodeforcesApi codeforcesApi = CfGetUserInfo();
+    isValid = await codeforcesApi.checkValidity(_handleController.text);
+    isValidating = false;
+    setName(context); // ignore: use_build_context_synchronously
+  }
 
   void setName(BuildContext context) async {
     await _database.setHandle(_handleController.text);    
-    // ignore: use_build_context_synchronously
-    changeRoute(context);
+    changeRoute(context); // ignore: use_build_context_synchronously
   }
 
   void changeRoute(BuildContext context) {
@@ -37,16 +57,22 @@ class AppbarAction extends StatelessWidget {
         elevation: 1.0,
       ),
 
-      body: Center(
+      body: isValidating 
+        ? const Center(
+          child: CircularProgressIndicator(
+            color: Colors.green,
+          )
+        ) 
+        : Center(
         child: Padding(
           padding: const EdgeInsets.only(bottom: 64.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(
+              Text(
                 "Set up handle here",
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Colors.green[900],
                   fontSize: 24.0,
                   letterSpacing: 1.5,
                 )
@@ -62,7 +88,7 @@ class AppbarAction extends StatelessWidget {
 
               MyButton(
                 text: "S  E  T",
-                onTap: () => setName(context),
+                onTap: () => checkValidity(context),
               ),
             ],
           ),
