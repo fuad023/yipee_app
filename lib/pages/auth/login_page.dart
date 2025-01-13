@@ -3,7 +3,6 @@ import 'package:student_app/components/login_textField.dart';
 import 'package:student_app/pages/auth/login_authentication/auth_services.dart';
 import 'package:student_app/pages/login_pages/forgot_password.dart';
 
-
 class LoginPage extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -15,32 +14,32 @@ class LoginPage extends StatelessWidget {
     final authservice = AuthServices();
 
     try {
-      await authservice.signwithEmailandPassword(_emailController.text, _passwordController.text);
-
+      await authservice.signwithEmailandPassword(
+          _emailController.text, _passwordController.text);
     } catch (e) {
       showDialog(
           context: context, // ignore: use_build_context_synchronously
           builder: (context) => AlertDialog(
-            title: Text(e.toString()),
-          )
-      );
+                title: Text(e.toString()),
+              ));
     }
   }
 
   LoginPage({
     super.key,
     required this.onTap,
-    });
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap:() {
+      onTap: () {
         FocusScope.of(context).unfocus();
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
-        backgroundColor: Colors.green.shade900,
+        resizeToAvoidBottomInset: false,
+        backgroundColor: const Color(0xFF2B5F56),
         body: Stack(
           children: [
             ClipRRect(
@@ -49,7 +48,7 @@ class LoginPage extends StatelessWidget {
                 height: double.infinity,
                 width: double.infinity,
                 fit: BoxFit.cover,
-                alignment: Alignment(0.0, 0.0),
+                alignment: const Alignment(0.0, 0.0),
               ),
             ),
             Align(
@@ -67,43 +66,31 @@ class LoginPage extends StatelessWidget {
                       fontWeight: FontWeight.w800,
                     ),
                   ),
-                  const SizedBox(height: 10,),
-      
+                  const SizedBox(
+                    height: 10,
+                  ),
+
                   // Text
-                  Text(
+                  const Text(
                     'Sign in to continue',
-                    style: TextStyle(
-                      color: Colors.white
-                    ),
+                    style: TextStyle(color: Colors.white),
                   ),
-                  const SizedBox(height: 10,),
-      
+                  const SizedBox(
+                    height: 10,
+                  ),
+
                   // Icon/Text
-                  Padding(
-                    padding: const EdgeInsets.only(left: 30),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        // Icon
-                        Icon(
-                          Icons.mail_outline,
-                          size: 24,
-                          color: Colors.white,
-                        ),
-                        const SizedBox(width: 10,),
-      
-                        // Text
-                        Text(
-                          'Email',
-                          style: TextStyle(
-                            color: Colors.white
-                          ),
-                        ),
-                      ],
+                  const Padding(
+                    padding: EdgeInsets.only(right: 250),
+                    child: Text(
+                      'Email',
+                      style: TextStyle(color: Colors.white),
                     ),
                   ),
-                  const SizedBox(height: 10,),
-      
+                  const SizedBox(
+                    height: 10,
+                  ),
+
                   // TextField
                   LoginTextField(
                     hitText: 'user@gmail.com',
@@ -111,43 +98,33 @@ class LoginPage extends StatelessWidget {
                     controlText: _emailController,
                     focusNode: emailFocusNode,
                   ),
-                  const SizedBox(height: 10,),
-      
-                  // Text/Icon
-                  Padding(
-                    padding: const EdgeInsets.only(left: 30),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        // Icon
-                        Icon(
-                          Icons.key_off,
-                          size: 24,
-                          color: Colors.white,
-                        ),
-                        const SizedBox(width: 10,),
-      
-                        // Text
-                        Text(
-                          'Password',
-                          style: TextStyle(
-                              color: Colors.white
-                          ),
-                        ),
-                      ],
+                  const SizedBox(
+                    height: 10,
+                  ),
+
+                  // Icon/Text
+                  const Padding(
+                    padding: EdgeInsets.only(right: 225),
+                    child: Text(
+                      'Password',
+                      style: TextStyle(color: Colors.white),
                     ),
                   ),
-                  const SizedBox(height: 10,),
-      
+                  const SizedBox(
+                    height: 10,
+                  ),
+
                   // TextField
                   LoginTextField(
-                    hitText: 'password',
+                    hitText: '********',
                     secureText: true,
                     controlText: _passwordController,
                     focusNode: passwordFocusNode,
                   ),
-                  const SizedBox(height: 10,),
-      
+                  const SizedBox(
+                    height: 10,
+                  ),
+
                   // Text
                   Padding(
                     padding: EdgeInsets.only(left: 200),
@@ -168,7 +145,7 @@ class LoginPage extends StatelessWidget {
                       ),
                     ),
                   ),
-      
+
                   // Button
                   Padding(
                     padding: EdgeInsets.only(top: 25),
@@ -193,8 +170,10 @@ class LoginPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 10,),
-      
+                  const SizedBox(
+                    height: 10,
+                  ),
+
                   // Row
                   Padding(
                     padding: const EdgeInsets.only(top: 15),
@@ -205,12 +184,12 @@ class LoginPage extends StatelessWidget {
                         // Text
                         const Text(
                           'Don\'t have an Account?',
-                          style: TextStyle(
-                            color: Colors.white38
-                          ),
+                          style: TextStyle(color: Colors.white38),
                         ),
-                        const SizedBox(width: 10,),
-      
+                        const SizedBox(
+                          width: 10,
+                        ),
+
                         // Register Button
                         GestureDetector(
                           onTap: onTap,
@@ -225,7 +204,6 @@ class LoginPage extends StatelessWidget {
                       ],
                     ),
                   ),
-      
                 ],
               ),
             ),
@@ -235,4 +213,3 @@ class LoginPage extends StatelessWidget {
     );
   }
 }
-

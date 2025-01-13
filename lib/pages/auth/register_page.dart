@@ -48,7 +48,7 @@ class RegisterPage extends StatelessWidget {
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
-        backgroundColor: Colors.green,
+        backgroundColor: const Color(0xFF2B5F56),
         body: Stack(
           children: [
             ClipRRect(
@@ -87,34 +87,20 @@ class RegisterPage extends StatelessWidget {
                   const SizedBox(height: 10,),
       
                   // Icon/Text
-                  Padding(
-                    padding: const EdgeInsets.only(left: 30),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        // Icon
-                        Icon(
-                          Icons.mail_outline,
-                          size: 24,
-                          color: Colors.white,
-                        ),
-                        const SizedBox(width: 10,),
-      
-                        // Text
-                        Text(
+                  const Padding(
+                    padding: EdgeInsets.only(right: 250),
+                    child: Text(
                           'Email',
                           style: TextStyle(
                               color: Colors.white
                           ),
                         ),
-                      ],
-                    ),
                   ),
-                  //const SizedBox(height: 10,),
+                  const SizedBox(height: 10,),
       
                   // TextField
                   LoginTextField(
-                    hitText: 'password',
+                    hitText: 'user@gmail.com',
                     secureText: false,
                     controlText: _emailController,
                     focusNode: emailFocusNode,
@@ -122,34 +108,20 @@ class RegisterPage extends StatelessWidget {
                   const SizedBox(height: 10,),
       
                   // Text/Icon
-                  Padding(
-                    padding: const EdgeInsets.only(left: 30),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        // Icon
-                        Icon(
-                          Icons.key_off,
-                          size: 24,
-                          color: Colors.white,
-                        ),
-                        const SizedBox(width: 10,),
-      
-                        // Text
-                        Text(
+                  const Padding(
+                    padding: EdgeInsets.only(right: 225),
+                    child: Text(
                           'Password',
                           style: TextStyle(
                               color: Colors.white
                           ),
                         ),
-                      ],
-                    ),
                   ),
-                  //const SizedBox(height: 10,),
+                  const SizedBox(height: 10,),
       
                   // TextField
                   LoginTextField(
-                    hitText: 'password',
+                    hitText: '********',
                     secureText: true,
                     controlText: _passwordController,
                     focusNode: passwordFocusNode,
@@ -157,34 +129,20 @@ class RegisterPage extends StatelessWidget {
                   const SizedBox(height: 10,),
       
                   // Text/Icon
-                  Padding(
-                    padding: const EdgeInsets.only(left: 30),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        // Icon
-                        Icon(
-                          Icons.key_off,
-                          size: 24,
-                          color: Colors.white,
-                        ),
-                        const SizedBox(width: 10,),
-      
-                        // Text
-                        Text(
+                  const Padding(
+                    padding: EdgeInsets.only(right: 175),
+                    child: Text(
                           'Confirm Password',
                           style: TextStyle(
                               color: Colors.white
                           ),
                         ),
-                      ],
-                    ),
                   ),
-                  //const SizedBox(height: 10,),
+                  const SizedBox(height: 10,),
       
                   // TextField
                   LoginTextField(
-                    hitText: 'confirm password',
+                    hitText: '********',
                     secureText: true,
                     controlText: _confirmPasswordController,
                     focusNode: confirmPasswordFocusNode,

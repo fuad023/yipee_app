@@ -63,6 +63,10 @@ class _LoginTextFieldState extends State<LoginTextField> {
             borderSide: const BorderSide(color: Colors.red, width: 2.0),
             borderRadius: BorderRadius.circular(24.0),
           ),
+          prefixIcon: Icon(
+            widget.secureText ? Icons.key_off : Icons.outgoing_mail,
+            color: Colors.white,
+          ),
           suffixIcon: widget.secureText
               ? (hasText
                   ? InkWell(
