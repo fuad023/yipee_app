@@ -33,14 +33,26 @@ class LoginPage extends StatelessWidget {
       );
       return;
     }
+    
+    if(_passwordController.text.length != 8) {
+      showDialog(
+          context: context,
+          builder: (context) => const AlertDialog(
+            title: Text('Error'),
+            content: Text('Password must be at least 8 characters'),
+          ),
+      );
+      return;
+    }
 
     try {
       await authservice.signwithEmailandPassword(_emailController.text, _passwordController.text);
     } catch (e) {
       showDialog(
           context: context, // ignore: use_build_context_synchronously
-          builder: (context) => AlertDialog(
-                title: Text(e.toString()),
+          builder: (context) => const AlertDialog(
+                title: Text('Error'),
+            content: Text('Invalid email/password'),
               ));
     }
   }
@@ -78,7 +90,7 @@ class LoginPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // Text
-                  Text(
+                 const Text(
                     'Login',
                     style: TextStyle(
                       color: Colors.white,

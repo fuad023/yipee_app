@@ -48,14 +48,26 @@ class RegisterPage extends StatelessWidget {
       return;
     }
 
+    if(_passwordController.text.length != 8) {
+      showDialog(
+        context: context,
+        builder: (context) => const AlertDialog(
+          title: Text('Error'),
+          content: Text('Password must be at least 8 characters'),
+        ),
+      );
+      return;
+    }
+
     if(_confirmPasswordController.text == _passwordController.text) {
     try {
       await authservices.signUpwithEmailandPassword(_emailController.text, _passwordController.text);
     } catch (e) {
       showDialog(
           context: context, // ignore: use_build_context_synchronously
-          builder: (context) => AlertDialog(
-            title: Text(e.toString()),
+          builder: (context) => const AlertDialog(
+            title: Text('Error'),
+            content: Text('Couldn\'t Signup'),
           )
       );
     }
