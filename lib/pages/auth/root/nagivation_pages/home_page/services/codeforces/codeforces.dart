@@ -5,7 +5,12 @@ import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/search_user.dart';
 
 class Codeforces extends StatefulWidget {
-  const Codeforces({super.key});
+  final String handle;
+
+  const Codeforces({
+    super.key,
+    required this.handle,
+  });
 
   @override
   State<Codeforces> createState() => _CodeforcesState();
@@ -15,8 +20,8 @@ class _CodeforcesState extends State<Codeforces> {
   int _currentIndex = 0;
   late String handle;
 
-  void fetchHandle() async {
-    handle = "";
+  void fetchHandle() {
+    handle = widget.handle;
   }
 
   @override
@@ -26,21 +31,12 @@ class _CodeforcesState extends State<Codeforces> {
     fetchHandle();
   }
 
-  void setupHandle() async {
-    handle = await Navigator.push(context, MaterialPageRoute(builder: (context) => AppbarAction()));
+  void setupHandle() {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => AppbarAction()));
   }
-
 
   @override
   Widget build(BuildContext context) {
-
-    try {
-      handle = handle.isEmpty ? ModalRoute.of(context)!.settings.arguments as String : handle;
-      // print(handle);
-    } catch(e) {
-      print('Codeforces: $e'); // ignore: avoid_print
-    }
-
     return Scaffold(
       backgroundColor: Colors.green[100],
       appBar: AppBar(

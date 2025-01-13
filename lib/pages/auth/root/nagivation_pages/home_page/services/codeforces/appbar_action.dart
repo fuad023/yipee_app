@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:student_app/pages/auth/ui_components/my_button.dart';
 import 'package:student_app/pages/auth/ui_components/my_textfield.dart';
+import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/codeforces.dart';
 
 class AppbarAction extends StatelessWidget {
   final TextEditingController _handlerName = TextEditingController();
@@ -8,13 +9,26 @@ class AppbarAction extends StatelessWidget {
   AppbarAction({super.key});
 
   void pushHandle(BuildContext context, String handle) {
-    Navigator.pop(context, handle);
+    FocusScope.of(context).unfocus();
+
+    Navigator.pop(context);
+    Navigator.pop(context);
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Codeforces(handle: handle)));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.green[100],
+
+      appBar: AppBar(
+        title: const Text("Go back?"),
+        centerTitle: true,
+        foregroundColor: Colors.white,
+        backgroundColor: Colors.green[700],
+        elevation: 1.0,
+      ),
+
       body: SafeArea(
         child: Center(
           child: Padding(

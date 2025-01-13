@@ -114,7 +114,7 @@ class CodeforcesUserInfo {
     country   = country == null   ? "" : country;
     rank      = rank == null      ? "" : rank;
     maxRank   = maxRank == null   ? "" : maxRank;
-    rating    = rating == null    ? "" : rating;
-    maxRating = maxRating == null ? "" : maxRating;
+    rating    = (rating == null)    || (rating == "null")    ? "" : rating;
+    maxRating = (maxRating == null) || (maxRating == "null") ? "" : maxRating;
   }
 }

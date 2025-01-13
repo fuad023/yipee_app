@@ -16,24 +16,26 @@ class UserInfo extends StatefulWidget {
 
 class _UserInfoState extends State<UserInfo> {
   late String handle;
+  bool dataFetching = true;
   final CodeforcesApi _codeforcesApi = CfGetUserInfo();
   late CodeforcesUserInfo _userInfo;
-
-  @override
-  void initState() {
-    super.initState();
-    handle = widget.handle;
-  }
 
   void getUserInfo(String handleId) async {
     await _codeforcesApi.setUserInfo(handleId);
     handle = _codeforcesApi.getUserInfo().handle;
     _userInfo = _codeforcesApi.getUserInfo();
+    dataFetching = false;
     setState(() {});
   }
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    handle = widget.handle;
     return handle.isEmpty ? _requestSetup() : _showUserInfo();
   }
 
@@ -44,7 +46,17 @@ class _UserInfoState extends State<UserInfo> {
   }
 
   Widget _showUserInfo() {
-    return Container(
+    if (dataFetching) {
+      getUserInfo(handle);
+    }
+
+    return dataFetching
+    ? Center(
+      child: CircularProgressIndicator(
+        color: Colors.green[700],
+      ),
+    )
+    : Container(
       padding: const EdgeInsets.only(bottom: 64.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -76,7 +88,7 @@ class _UserInfoState extends State<UserInfo> {
           const SizedBox(height: 48.0,),
     
           Padding(
-            padding: const EdgeInsets.only(left: 48.0),
+            padding: const EdgeInsets.only(left: 32.0),
             child: Align(
               alignment: Alignment.centerLeft,
               child: Column(
