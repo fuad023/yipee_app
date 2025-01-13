@@ -13,9 +13,29 @@ class LoginPage extends StatelessWidget {
   void signUserIn(BuildContext context) async {
     final authservice = AuthServices();
 
+    if (_emailController.text.isEmpty) {
+      showDialog(
+        context: context,
+        builder: (context) => const AlertDialog(
+          title: Text('Error'),
+          content: Text('Please enter email'),
+        ),
+      );
+      return;
+    }
+    else if (_passwordController.text.isEmpty) {
+      showDialog(
+        context: context,
+        builder: (context) => const AlertDialog(
+          title: Text('Error'),
+          content: Text('Please enter password'),
+        ),
+      );
+      return;
+    }
+
     try {
-      await authservice.signwithEmailandPassword(
-          _emailController.text, _passwordController.text);
+      await authservice.signwithEmailandPassword(_emailController.text, _passwordController.text);
     } catch (e) {
       showDialog(
           context: context, // ignore: use_build_context_synchronously

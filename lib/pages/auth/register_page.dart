@@ -14,6 +14,40 @@ class RegisterPage extends StatelessWidget {
 
   void register(BuildContext context) async {
     final authservices = AuthServices();
+
+    if (_emailController.text.isEmpty) {
+      showDialog(
+        context: context,
+        builder: (context) => const AlertDialog(
+          title: Text('Error'),
+          content: Text('Please enter email'),
+        ),
+      );
+      return;
+    }
+
+    if (_passwordController.text.isEmpty) {
+      showDialog(
+        context: context,
+        builder: (context) => const AlertDialog(
+          title: Text('Error'),
+          content: Text('Please enter password'),
+        ),
+      );
+      return;
+    }
+
+    if (_confirmPasswordController.text.isEmpty) {
+      showDialog(
+        context: context,
+        builder: (context) => const AlertDialog(
+          title: Text('Error'),
+          content: Text('Please confirm password'),
+        ),
+      );
+      return;
+    }
+
     if(_confirmPasswordController.text == _passwordController.text) {
     try {
       await authservices.signUpwithEmailandPassword(_emailController.text, _passwordController.text);
@@ -48,6 +82,7 @@ class RegisterPage extends StatelessWidget {
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: const Color(0xFF2B5F56),
         body: Stack(
           children: [
@@ -61,13 +96,13 @@ class RegisterPage extends StatelessWidget {
               ),
             ),
             Align(
-              alignment: AlignmentDirectional(0.0, 0.0),
+              alignment: const AlignmentDirectional(0.0, 0.0),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // Text
-                  Text(
+                 const Text(
                     'Register',
                     style: TextStyle(
                       color: Colors.white,
@@ -78,7 +113,7 @@ class RegisterPage extends StatelessWidget {
                   //const SizedBox(height: 10,),
       
                   // Text
-                  Text(
+                  const Text(
                     'Sign up to continue',
                     style: TextStyle(
                         color: Colors.white
@@ -151,7 +186,7 @@ class RegisterPage extends StatelessWidget {
       
                   // Button
                   Padding(
-                    padding: EdgeInsets.only(top: 25),
+                    padding: const EdgeInsets.only(top: 15),
                     child: Container(
                       width: 331.0,
                       height: 40.0,
@@ -183,7 +218,7 @@ class RegisterPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         // Text
-                        Text(
+                        const Text(
                           'Already have an Account?',
                           style: TextStyle(
                               color: Colors.white38
@@ -194,7 +229,7 @@ class RegisterPage extends StatelessWidget {
                         // Register Button
                         GestureDetector(
                           onTap: onTap,
-                          child: Text(
+                          child: const Text(
                             'Login',
                             style: TextStyle(
                               color: Colors.white,
