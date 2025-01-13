@@ -21,8 +21,6 @@ class DatabaseService {
 
   Future<String?> fetchHandle(String uid) async {
     DocumentReference docRef = _firestore.collection("codeforces_accounts").doc(uid);
-    
-    
 
     try {
       DocumentSnapshot docSnapshot = await docRef.get();

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/api/database_service.dart';
+
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/appbar_action.dart';
-import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/user_info.dart';
+import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/cf_user_info.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/submissions.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/search_user.dart';
 
@@ -18,16 +21,23 @@ class Codeforces extends StatefulWidget {
 
 class _CodeforcesState extends State<Codeforces> {
   int _currentIndex = 0;
-  late String handle;
+  String? handle;
 
-  void fetchHandle() {
-    handle = widget.handle;
+  void fetchHandle() async {
+    if (handle == "") {
+      
+      FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+      DatabaseService database = DatabaseService();
+      String uid = firebaseAuth.currentUser!.uid;
+      handle = await database.fetchHandle(uid);
+      setState(() {});
+    }
   }
 
   @override
   void initState() {
     super.initState();
-
+    handle = widget.handle;
     fetchHandle();
   }
 
@@ -60,8 +70,8 @@ class _CodeforcesState extends State<Codeforces> {
 
   Widget _screens(int index) {
     return switch (_currentIndex) {
-      0 => UserInfo(
-        handle: handle,
+      0 => CfUserInfo(
+        handle: handle!,
       ),
       1 => const Submissions(),
       2 => SearchUser(),

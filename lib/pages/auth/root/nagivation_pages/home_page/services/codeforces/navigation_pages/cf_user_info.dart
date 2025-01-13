@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/api/codeforces_api.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/api/cf_user_info.dart';
 
-class UserInfo extends StatefulWidget {
+class CfUserInfo extends StatefulWidget {
   final String handle;
 
-  const UserInfo({
+  const CfUserInfo({
     super.key,
     required this.handle,
   });
 
   @override
-  State<UserInfo> createState() => _UserInfoState();
+  State<CfUserInfo> createState() => _UserInfoState();
 }
 
-class _UserInfoState extends State<UserInfo> {
+class _UserInfoState extends State<CfUserInfo> {
   late String handle;
   bool dataFetching = true;
   final CodeforcesApi _codeforcesApi = CfGetUserInfo();
