@@ -33,7 +33,17 @@ class _ContestListState extends State<ContestList> {
 
   @override
   Widget build(BuildContext context) {
-    return _showContestList();
+    return Scaffold(
+      backgroundColor: Colors.green[100],
+      appBar: AppBar(
+        title: const Text("Upcoming Contests"),
+        centerTitle: true,
+        foregroundColor: Colors.white,
+        backgroundColor: Colors.green[700],
+        elevation: 1.0,
+      ),
+      body: _showContestList(),
+    );
   }
 
   Widget _showContestList() {

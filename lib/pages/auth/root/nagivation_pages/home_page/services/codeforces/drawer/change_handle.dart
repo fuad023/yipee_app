@@ -24,11 +24,9 @@ class _AppbarActionState extends State<ChangeHandle> {
 
   void checkValidity(BuildContext context) async {
     isValidating = true;
-    print("here1");
     setState(() {});
     CodeforcesApi codeforcesApi = CfGetUserInfo();
     isValid = await codeforcesApi.checkValidity(_handleController.text);
-    print(isValid);
     isValidating = false;
     if (!mounted) return;
 
@@ -37,8 +35,6 @@ class _AppbarActionState extends State<ChangeHandle> {
       setName(context);
     } else{
       _handleController.text = "handle doesn't exist";
-        
-      print("SetState ->$isValidating");
       setState(() {});
     }
   }
@@ -58,7 +54,6 @@ class _AppbarActionState extends State<ChangeHandle> {
 
   @override
   Widget build(BuildContext context) {
-    print("return ->$isValidating");
     return Scaffold(
       backgroundColor: Colors.green[100],
 

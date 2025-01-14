@@ -6,7 +6,6 @@ import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/
 
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/cf_user_info.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/submissions.dart';
-import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/contest_list.dart';
 
 class Codeforces extends StatefulWidget {
   final String handle;
@@ -68,7 +67,7 @@ class _CodeforcesState extends State<Codeforces> {
       1 => Submissions(
         handle: handle!,
       ),
-      2 => const ContestList(),
+      2 => Container(),
       
       int() => throw UnimplementedError(),
     };
