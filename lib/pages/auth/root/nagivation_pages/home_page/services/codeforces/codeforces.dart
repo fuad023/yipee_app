@@ -6,6 +6,7 @@ import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/
 
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/cf_user_info.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/submissions.dart';
+import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/user_rating_history.dart';
 
 class Codeforces extends StatefulWidget {
   final String handle;
@@ -61,13 +62,9 @@ class _CodeforcesState extends State<Codeforces> {
 
   Widget _screens(int index) {
     return switch (_currentIndex) {
-      0 => CfUserInfo(
-        handle: handle!,
-      ),
-      1 => Submissions(
-        handle: handle!,
-      ),
-      2 => Container(),
+      0 => CfUserInfo(handle: handle!),
+      1 => Submissions(handle: handle!),
+      2 => UserRatingHistory(handle: handle!),
       
       int() => throw UnimplementedError(),
     };
