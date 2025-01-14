@@ -4,6 +4,7 @@ import 'package:http/http.dart';
 import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/api/codeforces_api.dart';
+import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/api/codeforces_submissions.dart';
 
 class CfGetUserInfo extends CodeforcesApi {
 
@@ -72,7 +73,7 @@ class CfGetUserInfo extends CodeforcesApi {
   }
   
   @override
-  Future<void> fetchSubmissions(String handle) { throw UnimplementedError(); }
+  Future<List<Result>?> fetchSubmissions(String handle) { throw UnimplementedError(); }
 }
 
 class CodeforcesUserInfo {

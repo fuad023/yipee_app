@@ -19,10 +19,10 @@ class _SubmissionsState extends State<Submissions> {
   bool dataFetching = true;
   bool dataFetched = false;
   final CodeforcesApi _codeforcesApi = CodeforcesSubmissions();
-  // late CodeforcesSubmissions _codeforcesSubmissions;
+  List<Result> _dataList = [];
 
   void fetchSubmissions(String handle) async {
-    await _codeforcesApi.fetchSubmissions(handle);
+    _dataList = (await _codeforcesApi.fetchSubmissions(handle))!;
     dataFetching = false;
     setState(() {});
   }
@@ -44,8 +44,57 @@ class _SubmissionsState extends State<Submissions> {
       fetchSubmissions(handle);
     }
 
-    return const Center(
-      child: Text("Please setup handle name."),
+    return dataFetching
+    ? Center(
+      child: CircularProgressIndicator(
+        color: Colors.green[700],
+      ),
+    )
+    : ListView.builder(
+      itemCount: _dataList.length,
+      itemBuilder: (context, index) {
+        return Center(
+          child: Column(
+            children: [
+              ListTile(
+                leading: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _myText(_dataList[index].getIdName(), true),
+                    _myText("Rating: ${_dataList[index].getRating()}", false),
+                    _myText("Participant: ${_dataList[index].getParticipantType()}", false),
+                    _myText(_dataList[index].getCreatedWhen(), false),
+                  ],
+                ),
+                
+                trailing: setVerdict(_dataList[index].getVerdict()),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Divider(color: Colors.green[700],),
+              )
+            ],
+          ),
+        );
+      }
+    );
+  }
+
+  Widget _myText(String text, bool bold) {
+    return Text(
+      text,
+      style: TextStyle(
+        fontWeight: bold ? FontWeight.bold : FontWeight.normal,
+      ),
+    );
+  }
+
+  Widget setVerdict(String verdict) {
+    return Text(
+      verdict,
+      style: TextStyle(
+        color: (verdict == "OK") ? Colors.green[700] : Colors.red,
+      ),
     );
   }
 }
