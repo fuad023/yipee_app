@@ -16,18 +16,18 @@ class _ContestListState extends State<ContestList> {
 
   void _fetchContestList() async {
     try {
-      await _codeforcesApi.fetchContestList();
+      _dataList = (await _codeforcesApi.fetchContestList())!;
       if (!mounted) return;
 
-      // setState(() {
-      //     dataFetching = false;
-      // });
+      setState(() {
+        dataFetching = false;
+      });
     } catch (e) {
-      // if (mounted) {
-      //   setState(() {
-      //     dataFetching = false;
-      //   });
-      // }
+      if (mounted) {
+        setState(() {
+          dataFetching = false;
+        });
+      }
     }
   }
 
@@ -50,17 +50,41 @@ class _ContestListState extends State<ContestList> {
     : ListView.builder(
       itemCount: _dataList.length,
       itemBuilder: (context, index) {
-        return const Center(
+        return Center(
           child: Column(
             children: [
               ListTile(
-                leading: Text("Sample Text"),
-              )
+                leading: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _myText(_dataList[index].getName(), true),
+                    _myText("Duration: ${_dataList[index].getDuration()}", false),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0),
+                child: Column(
+                  children: [
+                    _myText(_dataList[index].getStartTime(), true),
+                    Divider(color: Colors.green[700],),
+                  ],
+                ),
+              ),
             ],
           ),
         );
       }
-    )
-    ;
+    );
+  }
+
+  Widget _myText(String text, bool bold) {
+    return Text(
+      text,
+      style: TextStyle(
+        fontWeight: bold ? FontWeight.bold : FontWeight.normal,
+      ),
+    );
   }
 }

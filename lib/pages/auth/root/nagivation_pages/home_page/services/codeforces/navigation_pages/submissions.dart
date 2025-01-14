@@ -82,7 +82,7 @@ class _SubmissionsState extends State<Submissions> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Divider(color: Colors.green[700],),
-              )
+              ),
             ],
           ),
         );
