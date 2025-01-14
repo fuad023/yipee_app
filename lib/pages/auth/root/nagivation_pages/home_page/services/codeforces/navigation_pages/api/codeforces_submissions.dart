@@ -3,12 +3,13 @@ import 'dart:convert';
 
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/api/cf_user_info.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/api/codeforces_api.dart';
+import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/api/codeforces_contest_list.dart';
 
 class CodeforcesSubmissions extends CodeforcesApi {
-  List<Result> result = [];
+  List<ResultSubmissions> result = [];
 
   @override
-  Future<List<Result>?> fetchSubmissions(String handle) async {
+  Future<List<ResultSubmissions>?> fetchSubmissions(String handle) async {
     try {
       Response response = await get(Uri.parse("${baseURL}user.status?handle=$handle"));
       Map<String, dynamic> data = jsonDecode(response.body);
@@ -20,7 +21,7 @@ class CodeforcesSubmissions extends CodeforcesApi {
 
         for (var map in dataList) {
           result.add(
-            Result(
+            ResultSubmissions(
               creationTimeSeconds: map["creationTimeSeconds"],
               problem: Problem(
                 contestId: map["problem"]["contestId"],
@@ -38,7 +39,7 @@ class CodeforcesSubmissions extends CodeforcesApi {
         return result;
       }
     } on Exception catch (e) {
-      print('Caught an error in UserInfo class: $e'); // ignore: avoid_print
+      print('Caught an error in CodeforcesSubmissions class: $e'); // ignore: avoid_print
     }
     return null;
   }
@@ -49,15 +50,18 @@ class CodeforcesSubmissions extends CodeforcesApi {
   CodeforcesUserInfo getUserInfo() { throw UnimplementedError(); }
   @override
   Future<void> setUserInfo(String handle) { throw UnimplementedError(); }
+
+  @override
+  Future<List<ResultContestList>?> fetchContestList() { throw UnimplementedError(); }
 }
 
-class Result {
+class ResultSubmissions {
   int creationTimeSeconds;
   Problem problem;
   Author author;
   String? verdict;
 
-  Result({
+  ResultSubmissions({
     required this.creationTimeSeconds,
     required this.problem,
     required this.author,

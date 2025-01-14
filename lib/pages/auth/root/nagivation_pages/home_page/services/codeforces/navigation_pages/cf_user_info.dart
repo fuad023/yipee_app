@@ -21,11 +21,22 @@ class _UserInfoState extends State<CfUserInfo> {
   late CodeforcesUserInfo _userInfo;
 
   void getUserInfo(String handleId) async {
-    await _codeforcesApi.setUserInfo(handleId);
-    handle = _codeforcesApi.getUserInfo().handle;
-    _userInfo = _codeforcesApi.getUserInfo();
-    dataFetching = false;
-    setState(() {});
+    try {
+      await _codeforcesApi.setUserInfo(handleId);
+      handle = _codeforcesApi.getUserInfo().handle;
+      _userInfo = _codeforcesApi.getUserInfo();
+      if (!mounted) return;
+      
+      setState(() {
+          dataFetching = false;
+      });
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          dataFetching = false;
+        });
+      }
+    }
   }
 
   @override

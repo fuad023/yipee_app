@@ -19,12 +19,23 @@ class _SubmissionsState extends State<Submissions> {
   bool dataFetching = true;
   bool dataFetched = false;
   final CodeforcesApi _codeforcesApi = CodeforcesSubmissions();
-  List<Result> _dataList = [];
+  List<ResultSubmissions> _dataList = [];
 
   void fetchSubmissions(String handle) async {
-    _dataList = (await _codeforcesApi.fetchSubmissions(handle))!;
-    dataFetching = false;
-    setState(() {});
+    try {
+      _dataList = (await _codeforcesApi.fetchSubmissions(handle))!;
+      if (!mounted) return;
+
+      setState(() {
+          dataFetching = false;
+      });
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          dataFetching = false;
+        });
+      }
+    }
   }
 
   @override
