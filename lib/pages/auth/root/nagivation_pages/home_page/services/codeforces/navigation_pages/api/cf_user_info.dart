@@ -70,6 +70,9 @@ class CfGetUserInfo extends CodeforcesApi {
   CodeforcesUserInfo getUserInfo() {
     return userInfo;
   }
+  
+  @override
+  Future<void> fetchSubmissions(String handle) { throw UnimplementedError(); }
 }
 
 class CodeforcesUserInfo {

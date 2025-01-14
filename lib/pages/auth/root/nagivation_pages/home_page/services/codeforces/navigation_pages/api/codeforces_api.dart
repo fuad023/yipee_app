@@ -7,4 +7,6 @@ abstract class CodeforcesApi {
   Future<void> setUserInfo(String handle);
   CodeforcesUserInfo getUserInfo();
   Future<bool> checkValidity(String handle);
+
+  Future<void> fetchSubmissions(String handle);
 }
