@@ -3,7 +3,7 @@ import 'package:student_app/pages/auth/ui_components/my_textfield.dart';
 import 'package:student_app/pages/auth/ui_components/my_button.dart';
 
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/codeforces.dart';
-import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/api/database_service.dart';
+import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/database_service.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/api/codeforces_api.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/api/cf_user_info.dart';
 
