@@ -5,7 +5,7 @@ import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/appbar_action.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/cf_user_info.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/submissions.dart';
-import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/search_user.dart';
+import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/contest_list.dart';
 
 class Codeforces extends StatefulWidget {
   final String handle;
@@ -90,7 +90,7 @@ class _CodeforcesState extends State<Codeforces> {
       1 => Submissions(
         handle: handle!,
       ),
-      2 => SearchUser(),
+      2 => const ContestList(),
       
       int() => throw UnimplementedError(),
     };
@@ -116,8 +116,8 @@ class _CodeforcesState extends State<Codeforces> {
           label: 'Submissions',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.search_rounded),
-          label: 'Search',
+          icon: Icon(Icons.calendar_month_outlined),
+          label: 'Contest List',
         ),
       ],
     );

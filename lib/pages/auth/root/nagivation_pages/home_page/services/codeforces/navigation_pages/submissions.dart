@@ -17,7 +17,6 @@ class Submissions extends StatefulWidget {
 class _SubmissionsState extends State<Submissions> {
   late String handle;
   bool dataFetching = true;
-  bool dataFetched = false;
   final CodeforcesApi _codeforcesApi = CodeforcesSubmissions();
   List<ResultSubmissions> _dataList = [];
 
