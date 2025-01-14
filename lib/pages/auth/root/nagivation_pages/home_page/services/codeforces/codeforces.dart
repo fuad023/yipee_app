@@ -22,7 +22,6 @@ class Codeforces extends StatefulWidget {
 class _CodeforcesState extends State<Codeforces> {
   int _currentIndex = 0;
   String? handle;
-  bool changeIcon = false;
 
   void fetchHandle() async {
     if (handle == "") {
@@ -33,11 +32,6 @@ class _CodeforcesState extends State<Codeforces> {
       handle = await database.fetchHandle(uid);
       setState(() {});
     }
-  }
-
-  void changeAppBarActionIcon() {
-    changeIcon = changeIcon ? false : true;
-    setState(() {});
   }
 
   @override
@@ -61,23 +55,10 @@ class _CodeforcesState extends State<Codeforces> {
         foregroundColor: Colors.white,
         backgroundColor: Colors.green[700],
         elevation: 1.0,
-        actions: [
-          GestureDetector(
-            onLongPress: changeAppBarActionIcon,
-            child: changeIcon
-            ? IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.search_rounded),
-            )
-            : IconButton(
-              onPressed: setupHandle,
-              icon: const Icon(Icons.manage_accounts_outlined),
-            ),
-          ),
-        ],
       ),
       body: _screens(_currentIndex),
-
+      drawerEnableOpenDragGesture: true,
+      endDrawer: _myDrawer(),
       bottomNavigationBar: _bottomNavigationBar(),
     );
   }
@@ -120,6 +101,64 @@ class _CodeforcesState extends State<Codeforces> {
           label: 'Contest List',
         ),
       ],
+    );
+  }
+
+  Widget _myDrawer() {
+    return Drawer(
+      child: Container(
+        color: Colors.green,
+        child: ListView(
+          children: [
+            const DrawerHeader(
+              child: Center(
+                child: Text(
+                    "Settings",
+                    style: TextStyle(
+                      fontSize: 32.0,
+                      color: Colors.white,
+                      letterSpacing: 4.0,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+              ),
+            ),
+            const SizedBox(height: 32.0),
+            Padding(
+              padding: const EdgeInsets.only(left: 16.0),
+              child:  Column(
+                children: [
+                  ListTile(
+                    leading: const Icon(Icons.manage_accounts_outlined, color: Colors.white,),
+                    title: _myText("Change Handle"),
+                    onTap: setupHandle,
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.person_search_rounded, color: Colors.white,),
+                    title: _myText("Search Profile"),
+                    onTap: () {},
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.calendar_month_outlined, color: Colors.white,),
+                    title: _myText("Contest List"),
+                    onTap: () {},
+                  ),
+                ],
+              ),
+            ),
+          ] 
+        ),
+      ),
+    );
+  }
+
+  Widget _myText(String text) {
+    return Text(
+      text,
+      style: const TextStyle(
+        color: Colors.white,
+        // letterSpacing: 2.0,
+      ),
     );
   }
 }
