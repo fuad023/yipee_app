@@ -6,7 +6,6 @@ import 'package:student_app/pages/auth/root/nagivation_pages/emergency.dart';
 import 'package:student_app/pages/auth/root/drawer_screen.dart';
 
 class RootPage extends StatefulWidget {
-  
   const RootPage({super.key});
 
   @override
@@ -16,16 +15,18 @@ class RootPage extends StatefulWidget {
 class _RootPageState extends State<RootPage> {
   int _currentIndex = 0;
 
-  final List<Widget> _screens = [
-    const HomePage(),
-    MessagePage(),
-    const EmergencyPage(),
-  ];
+  
 
   @override
   Widget build(BuildContext context) {
-  final User? user = FirebaseAuth.instance.currentUser;
-  final String userName = user?.email ?? 'No email';
+    final User? user = FirebaseAuth.instance.currentUser;
+    final String userEmail = user?.email ?? 'No email';
+    final String userName = user?.email?.split('@').first ?? 'No username';
+    final List<Widget> _screens = [
+    HomePage(userName: userName,),
+    MessagePage(),
+    const EmergencyPage(),
+  ];
 
     return GestureDetector(
       onTap: () {
@@ -33,192 +34,47 @@ class _RootPageState extends State<RootPage> {
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'YieppeApp',
-            style: TextStyle(
-              color: Colors.white
-            ),
-          ),
-          centerTitle: true,
-          backgroundColor: Color(0xFF2b5f56),
-          iconTheme: IconThemeData(
-            color: Colors.white
-          ),
-          elevation: 10.0,
+        body: _screens[_currentIndex],
+        drawer: DrawerScreen(email: userName),
+        floatingActionButton: Padding(
+          padding: EdgeInsets.all(18.0),
         ),
-        drawer: DrawerScreen(email: userName,),
-        body: Stack(
-          children: [
-            Align(
-              alignment: const Alignment(0.0, 0.0),
-              child: ClipRRect(
-                child: Image.asset(
-                  'assets/home_bg.png',
-                  height: double.infinity,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                  alignment: const Alignment(0.0, 0.0),
-                ),
-              ),
+        bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Colors.green,
+          selectedItemColor: Colors.white,
+          currentIndex: _currentIndex,
+          onTap: (index) {
+            setState(() {
+              _currentIndex = index;
+            });
+          },
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
             ),
-            Column(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Align(
-                  alignment: const AlignmentDirectional(0.0, 0.0),
-                  child: Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(20.0, 30.0, 20.0, 0.0),
-                    child: Container(
-                      width: double.infinity,
-                      height: 100.0,
-                      decoration: BoxDecoration(
-                        color: const Color(0x44FFFFFF),
-                        boxShadow: const [
-                          BoxShadow(
-                            blurRadius: 10.0,
-                            color: Color(0x334D3030),
-                            offset: Offset(
-                              0.0,
-                              12.0,
-                            ),
-                          )
-                        ],
-                        borderRadius: BorderRadius.circular(18.0),
-                      ),
-                      
-                      alignment: const AlignmentDirectional(-1.0, -1.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
-                            child: Text(
-                              'Good Morning!\nSajid',
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 23.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(20, 10, 20, 10),
-                            child: Container(
-                              height: 100,
-                              width: 100,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: Image.asset(
-                                    'assets/profine.png',
-                                  ).image,
-                                ),
-                                shape: BoxShape.circle,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(20, 30, 20, 0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: 165.0,
-                        height: 100,
-                        decoration: BoxDecoration(
-                          color: const Color(0x44FFFFFF),
-                          borderRadius: BorderRadius.circular(18.0),
-                        ),
-                        child: const Padding(
-                          padding: EdgeInsets.only(left: 10, right: 10),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    '30°C',
-                                    style: TextStyle(
-                                      fontSize: 28.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  Text(
-                                    'Friday',
-                                    style: TextStyle(
-                                      fontSize: 15.0,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Icon(
-                                Icons.cloudy_snowing,
-                                size: 50.0,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: 165.0,
-                        height: 100,
-                        decoration: BoxDecoration(
-                          color: const Color(0x44FFFFFF),
-                          borderRadius: BorderRadius.circular(18.0),
-                        ),
-                        child: const Padding(
-                          padding: EdgeInsets.only(left: 10, right: 10),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    '2:17',
-                                    style: TextStyle(
-                                      fontSize: 28.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  Text(
-                                    '14 JAN',
-                                    style: TextStyle(
-                                      fontSize: 15.0,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Icon(
-                                Icons.watch_later,
-                                size: 50.0,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+            BottomNavigationBarItem(
+              icon: Icon(Icons.textsms_rounded),
+              label: 'YipeeChat',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.emergency),
+              label: 'Emergency',
             ),
           ],
         ),
+        // Wrap the Scaffold in a Builder widget to ensure we can access the context correctly
+        // floatingActionButton: Builder(
+        //   builder: (BuildContext context) {
+        //     return IconButton(
+        //       icon: const Icon(Icons.dehaze),
+        //       color: Colors.white,
+        //       onPressed: () {
+        //         Scaffold.of(context).openDrawer(); // Open the drawer
+        //       },
+        //     );
+        //   },
+        // ),
       ),
     );
   }

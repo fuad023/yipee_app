@@ -48,7 +48,7 @@ class RegisterPage extends StatelessWidget {
       return;
     }
 
-    if(_passwordController.text.length >= 8) {
+    if(_passwordController.text.length < 8) {
       showDialog(
         context: context,
         builder: (context) => const AlertDialog(
