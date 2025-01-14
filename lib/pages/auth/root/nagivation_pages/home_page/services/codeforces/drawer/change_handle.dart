@@ -7,15 +7,15 @@ import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/api/codeforces_api.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/api/cf_user_info.dart';
 
-class AppbarAction extends StatefulWidget {  
+class ChangeHandle extends StatefulWidget {  
 
-  const AppbarAction({super.key});
+  const ChangeHandle({super.key});
 
   @override
-  State<AppbarAction> createState() => _AppbarActionState();
+  State<ChangeHandle> createState() => _AppbarActionState();
 }
 
-class _AppbarActionState extends State<AppbarAction> {
+class _AppbarActionState extends State<ChangeHandle> {
   final DatabaseService _database = DatabaseService();
   final TextEditingController _handleController = TextEditingController();
 
@@ -24,11 +24,23 @@ class _AppbarActionState extends State<AppbarAction> {
 
   void checkValidity(BuildContext context) async {
     isValidating = true;
+    print("here1");
     setState(() {});
     CodeforcesApi codeforcesApi = CfGetUserInfo();
     isValid = await codeforcesApi.checkValidity(_handleController.text);
+    print(isValid);
     isValidating = false;
-    setName(context); // ignore: use_build_context_synchronously
+    if (!mounted) return;
+
+    if (isValid) {
+      // ignore: use_build_context_synchronously
+      setName(context);
+    } else{
+      _handleController.text = "handle doesn't exist";
+        
+      print("SetState ->$isValidating");
+      setState(() {});
+    }
   }
 
   void setName(BuildContext context) async {
@@ -46,6 +58,7 @@ class _AppbarActionState extends State<AppbarAction> {
 
   @override
   Widget build(BuildContext context) {
+    print("return ->$isValidating");
     return Scaffold(
       backgroundColor: Colors.green[100],
 

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/drawer/my_drawer.dart';
+
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/api/database_service.dart';
 
-import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/appbar_action.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/cf_user_info.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/submissions.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/contest_list.dart';
@@ -41,10 +42,6 @@ class _CodeforcesState extends State<Codeforces> {
     fetchHandle();
   }
 
-  void setupHandle() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => const AppbarAction()));
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,7 +55,7 @@ class _CodeforcesState extends State<Codeforces> {
       ),
       body: _screens(_currentIndex),
       drawerEnableOpenDragGesture: true,
-      endDrawer: _myDrawer(),
+      endDrawer: const MyDrawer(),
       bottomNavigationBar: _bottomNavigationBar(),
     );
   }
@@ -101,64 +98,6 @@ class _CodeforcesState extends State<Codeforces> {
           label: 'Contest List',
         ),
       ],
-    );
-  }
-
-  Widget _myDrawer() {
-    return Drawer(
-      child: Container(
-        color: Colors.green,
-        child: ListView(
-          children: [
-            const DrawerHeader(
-              child: Center(
-                child: Text(
-                    "Settings",
-                    style: TextStyle(
-                      fontSize: 32.0,
-                      color: Colors.white,
-                      letterSpacing: 4.0,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-              ),
-            ),
-            const SizedBox(height: 32.0),
-            Padding(
-              padding: const EdgeInsets.only(left: 16.0),
-              child:  Column(
-                children: [
-                  ListTile(
-                    leading: const Icon(Icons.manage_accounts_outlined, color: Colors.white,),
-                    title: _myText("Change Handle"),
-                    onTap: setupHandle,
-                  ),
-                  ListTile(
-                    leading: const Icon(Icons.person_search_rounded, color: Colors.white,),
-                    title: _myText("Search Profile"),
-                    onTap: () {},
-                  ),
-                  ListTile(
-                    leading: const Icon(Icons.calendar_month_outlined, color: Colors.white,),
-                    title: _myText("Contest List"),
-                    onTap: () {},
-                  ),
-                ],
-              ),
-            ),
-          ] 
-        ),
-      ),
-    );
-  }
-
-  Widget _myText(String text) {
-    return Text(
-      text,
-      style: const TextStyle(
-        color: Colors.white,
-        // letterSpacing: 2.0,
-      ),
     );
   }
 }
