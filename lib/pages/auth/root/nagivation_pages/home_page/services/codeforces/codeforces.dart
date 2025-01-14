@@ -22,6 +22,7 @@ class Codeforces extends StatefulWidget {
 class _CodeforcesState extends State<Codeforces> {
   int _currentIndex = 0;
   String? handle;
+  bool changeIcon = false;
 
   void fetchHandle() async {
     if (handle == "") {
@@ -32,6 +33,11 @@ class _CodeforcesState extends State<Codeforces> {
       handle = await database.fetchHandle(uid);
       setState(() {});
     }
+  }
+
+  void changeAppBarActionIcon() {
+    changeIcon = changeIcon ? false : true;
+    setState(() {});
   }
 
   @override
@@ -56,9 +62,17 @@ class _CodeforcesState extends State<Codeforces> {
         backgroundColor: Colors.green[700],
         elevation: 1.0,
         actions: [
-          IconButton(
-            onPressed: setupHandle,
-            icon: const Icon(Icons.manage_accounts_outlined),
+          GestureDetector(
+            onLongPress: changeAppBarActionIcon,
+            child: changeIcon
+            ? IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.search_rounded),
+            )
+            : IconButton(
+              onPressed: setupHandle,
+              icon: const Icon(Icons.manage_accounts_outlined),
+            ),
           ),
         ],
       ),
