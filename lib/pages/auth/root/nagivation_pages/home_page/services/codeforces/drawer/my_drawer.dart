@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/drawer/change_handle.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/drawer/contest_list.dart';
+import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/drawer/search_user/search_user.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
 
   void _chageRouteSetupHandle(BuildContext context) {
     Navigator.push(context, MaterialPageRoute(builder: (context) => const ChangeHandle()));
+  }
+
+  void _changeRouteSearchUser(BuildContext context) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const SearchUser()));
   }
 
   void _chageRouteContestList(BuildContext context) {
@@ -45,8 +50,8 @@ class MyDrawer extends StatelessWidget {
                   ),
                   ListTile(
                     leading: const Icon(Icons.person_search_rounded, color: Colors.white,),
-                    title: _myText("Search Profile"),
-                    onTap: () {},
+                    title: _myText("Search User"),
+                    onTap: () => _changeRouteSearchUser(context),
                   ),
                   ListTile(
                     leading: const Icon(Icons.calendar_month_outlined, color: Colors.white,),

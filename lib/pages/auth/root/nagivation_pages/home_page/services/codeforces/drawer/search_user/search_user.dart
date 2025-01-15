@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/drawer/search_user/public.dart';
 import 'package:student_app/pages/auth/ui_components/my_textfield.dart';
 import 'package:student_app/pages/auth/ui_components/my_button.dart';
 
-import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/codeforces.dart';
-import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/database_service.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/api/codeforces_api.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/api/codeforces_user.dart';
 
-class ChangeHandle extends StatefulWidget {  
+class SearchUser extends StatefulWidget {  
 
-  const ChangeHandle({super.key});
+  const SearchUser({super.key});
 
   @override
-  State<ChangeHandle> createState() => _AppbarActionState();
+  State<SearchUser> createState() => _AppbarActionState();
 }
 
-class _AppbarActionState extends State<ChangeHandle> {
-  final DatabaseService _database = DatabaseService();
+class _AppbarActionState extends State<SearchUser> {
   final TextEditingController _handleController = TextEditingController();
 
   bool isValidating = false;
@@ -32,24 +30,16 @@ class _AppbarActionState extends State<ChangeHandle> {
 
     if (isValid) {
       // ignore: use_build_context_synchronously
-      setName(context);
+      changeRoute(context);
     } else{
       _handleController.text = "handle doesn't exist";
       setState(() {});
     }
   }
 
-  void setName(BuildContext context) async {
-    await _database.setHandle(_handleController.text);    
-    changeRoute(context); // ignore: use_build_context_synchronously
-  }
-
   void changeRoute(BuildContext context) {
     FocusScope.of(context).unfocus();
-
-    Navigator.pop(context);
-    Navigator.pop(context);
-    Navigator.push(context, MaterialPageRoute(builder: (context) => const Codeforces()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Public(handle: _handleController.text)));
   }
 
   @override
@@ -58,7 +48,7 @@ class _AppbarActionState extends State<ChangeHandle> {
       backgroundColor: Colors.green[100],
 
       appBar: AppBar(
-        title: const Text("Go back?"),
+        title: const Text("Search User"),
         centerTitle: true,
         foregroundColor: Colors.white,
         backgroundColor: Colors.green[700],
@@ -77,25 +67,15 @@ class _AppbarActionState extends State<ChangeHandle> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                "Set up handle here",
-                style: TextStyle(
-                  color: Colors.green[900],
-                  fontSize: 24.0,
-                  letterSpacing: 1.5,
-                )
-              ),
-              const SizedBox(height: 15.0),
-
               MyTextfield(
                 controller: _handleController,
-                hintText: "handle name",
+                hintText: "handle",
                 obscureText: false
               ),
               const SizedBox(height: 15.0),
 
               MyButton(
-                text: "S  E  T",
+                text: "Search",
                 onTap: () => checkValidity(context),
               ),
             ],

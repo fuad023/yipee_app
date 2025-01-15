@@ -9,12 +9,7 @@ import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/user_rating_history.dart';
 
 class Codeforces extends StatefulWidget {
-  final String handle;
-
-  const Codeforces({
-    super.key,
-    required this.handle,
-  });
+  const Codeforces({super.key});
 
   @override
   State<Codeforces> createState() => _CodeforcesState();
@@ -22,23 +17,19 @@ class Codeforces extends StatefulWidget {
 
 class _CodeforcesState extends State<Codeforces> {
   int _currentIndex = 0;
-  String? handle;
+  String? handle = "";
 
-  void fetchHandle() async {
-    if (handle == "") {
-      
-      FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-      DatabaseService database = DatabaseService();
-      String uid = firebaseAuth.currentUser!.uid;
-      handle = await database.fetchHandle(uid);
-      setState(() {});
-    }
+  void fetchHandle() async {      
+    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+    DatabaseService database = DatabaseService();
+    String uid = firebaseAuth.currentUser!.uid;
+    handle = await database.fetchHandle(uid);
+    setState(() {});
   }
 
   @override
   void initState() {
     super.initState();
-    handle = widget.handle;
     fetchHandle();
   }
 

@@ -20,7 +20,7 @@ class HomePage extends StatelessWidget {
           
           0 => ImageOrTextButton(
             text: 'assets/codeforces.png',
-            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const Codeforces(handle: "")))
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const Codeforces()))
           ),
 
           1 => ImageOrTextButton(
