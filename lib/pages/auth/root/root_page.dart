@@ -15,18 +15,18 @@ class RootPage extends StatefulWidget {
 class _RootPageState extends State<RootPage> {
   int _currentIndex = 0;
 
-  
-
   @override
   Widget build(BuildContext context) {
     final User? user = FirebaseAuth.instance.currentUser;
     final String userEmail = user?.email ?? 'No email';
     final String userName = user?.email?.split('@').first ?? 'No username';
     final List<Widget> _screens = [
-    HomePage(userName: userName,),
-    MessagePage(),
-    const EmergencyPage(),
-  ];
+      HomePage(
+        userName: userName,
+      ),
+      MessagePage(),
+      const EmergencyPage(),
+    ];
 
     return GestureDetector(
       onTap: () {
@@ -34,9 +34,52 @@ class _RootPageState extends State<RootPage> {
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
-        body: _screens[_currentIndex],
         drawer: DrawerScreen(email: userName),
-        floatingActionButton: Padding(
+        body: Stack(
+          children: [
+            //   Padding(
+            //   padding: const EdgeInsets.only(left: 20, top: 30),
+            //   child: Builder(
+            //     builder: (context) => IconButton(
+            //       icon: const Icon(Icons.dehaze),
+            //       color: Colors.white,
+            //       onPressed: () {
+            //         Scaffold.of(context).openDrawer();
+            //       },
+            //     ),
+            //   ),
+            // ),
+            Align(
+              alignment: const Alignment(0.0, 0.0),
+              child: ClipRRect(
+                child: Image.asset(
+                  'assets/home_bg.png',
+                  height: double.infinity,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                  alignment: const Alignment(0.0, 0.0),
+                ),
+              ),
+            ),
+            Positioned(
+              top: 20,
+              left: 1,
+              child: Builder(
+                builder: (context) => IconButton(
+                  icon: const Icon(Icons.dehaze, color: Colors.white),
+                  onPressed: () {
+                    Scaffold.of(context).openDrawer();
+                  },
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.center, // Ensure the screen is centered
+              child: _screens[_currentIndex], // Display the current screen
+            ),
+          ],
+        ),
+        floatingActionButton: const Padding(
           padding: EdgeInsets.all(18.0),
         ),
         bottomNavigationBar: BottomNavigationBar(
