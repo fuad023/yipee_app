@@ -12,11 +12,24 @@ class UserRatingHistory extends StatefulWidget {
   State<UserRatingHistory> createState() => _UserRatingHistoryState();
 }
 
-class _UserRatingHistoryState extends State<UserRatingHistory> {late String handle;
+class _UserRatingHistoryState extends State<UserRatingHistory> {
+  late String handle;
   bool dataFetching = false;
 
   void fetchSubmissions(String handle) async {
+    try {
+      if (!mounted) return;
 
+      setState(() {
+          dataFetching = false;
+      });
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          dataFetching = false;
+        });
+      }
+    }
   }
 
   @override

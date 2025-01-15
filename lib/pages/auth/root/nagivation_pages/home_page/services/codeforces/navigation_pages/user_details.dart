@@ -1,30 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/api/codeforces_api.dart';
-import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/api/cf_user_info.dart';
+import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/api/codeforces_user.dart';
 
-class CfUserInfo extends StatefulWidget {
+class UserDetails extends StatefulWidget {
   final String handle;
 
-  const CfUserInfo({
+  const UserDetails({
     super.key,
     required this.handle,
   });
 
   @override
-  State<CfUserInfo> createState() => _UserInfoState();
+  State<UserDetails> createState() => _UserInfoState();
 }
 
-class _UserInfoState extends State<CfUserInfo> {
-  late String handle;
+class _UserInfoState extends State<UserDetails> {
+  late String _handle;
   bool dataFetching = true;
-  final CodeforcesApi _codeforcesApi = CfGetUserInfo();
-  late CodeforcesUserInfo _userInfo;
+  final CodeforcesApi _codeforcesApi = CodeforcesUser();
+  late ResultUser _user;
 
-  void getUserInfo(String handleId) async {
+  void _fetchUser(String handle) async {
     try {
-      await _codeforcesApi.setUserInfo(handleId);
-      handle = _codeforcesApi.getUserInfo().handle;
-      _userInfo = _codeforcesApi.getUserInfo();
+      _user = (await _codeforcesApi.fetchUser(handle))!;
       if (!mounted) return;
       
       setState(() {
@@ -46,8 +44,8 @@ class _UserInfoState extends State<CfUserInfo> {
 
   @override
   Widget build(BuildContext context) {
-    handle = widget.handle;
-    return handle.isEmpty ? _requestSetup() : _showUserInfo();
+    _handle = widget.handle;
+    return _handle.isEmpty ? _requestSetup() : _showUserInfo();
   }
 
   Widget _requestSetup() {
@@ -58,7 +56,7 @@ class _UserInfoState extends State<CfUserInfo> {
 
   Widget _showUserInfo() {
     if (dataFetching) {
-      getUserInfo(handle);
+      _fetchUser(_handle);
     }
 
     return dataFetching
@@ -79,12 +77,12 @@ class _UserInfoState extends State<CfUserInfo> {
               children: [
                 CircleAvatar(
                   radius: 64.0,
-                  backgroundImage: NetworkImage(_userInfo.titlePhoto),
+                  backgroundImage: NetworkImage(_user.titlePhoto),
                 ),
                 const SizedBox(height: 16.0,),
           
                 Text(
-                  _userInfo.handle,
+                  _handle,
                   style: const TextStyle(
                     decoration: TextDecoration.none,
                     color: Colors.black,
@@ -105,17 +103,17 @@ class _UserInfoState extends State<CfUserInfo> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _textfield("Name: ", "${_userInfo.firstName} ${_userInfo.lastName}"),
-                  _textfield("Country: ", "${_userInfo.country}"),
+                  _textfield("Name: ", "${_user.getFirstName} ${_user.getLastName}"),
+                  _textfield("Country: ", _user.getCountry),
 
-                  _textfield("Max Rank: ", "${_userInfo.maxRank}"),
-                  _textfield("Rank: ", "${_userInfo.rank}"),
-                  _textfield("Max Rating: ", "${_userInfo.maxRating}"),
-                  _textfield("Rating: ", "${_userInfo.rating}"),
+                  _textfield("Max Rank: ", _user.getMaxRank),
+                  _textfield("Rank: ", _user.getRank),
+                  _textfield("Max Rating: ", _user.getMaxRating),
+                  _textfield("Rating: ", _user.getRating),
                   
-                  _textfield("Last seen: ", _userInfo.lastOnlineTimeSeconds),
-                  _textfield("Reegistered on: ", _userInfo.registrationTimeSeconds),
-                  _textfield("Friends: ", _userInfo.friendOfCount),
+                  _textfield("Last seen: ", _user.getLastOnlineTimeSeconds),
+                  _textfield("Reegistered on: ", _user.getRegistrationTimeSeconds),
+                  _textfield("Friends: ", _user.getFriendOfCount),
                 ],
               ),
             ),
