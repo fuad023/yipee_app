@@ -60,33 +60,38 @@ class _UserRatingHistoryState extends State<UserRatingHistory> {
         color: Colors.green[700],
       ),
     )
-    : ListView.builder(
-      itemCount: _dataList.length,
-      itemBuilder: (context, index) {
-        return Center(
-          child: Column(
-            children: [
-              index == 0 ? const Padding(padding: EdgeInsets.all(4.0)) : Container(),
-              ListTile(
-                leading: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _myText(_dataList[index].getContestName, true),
-                    _myTextTwo("Rank: ", _dataList[index].getRank),
-                    _myTextTwo("Updated Rating: ", _dataList[index].getNewRating),
-                    _myTextTwo("Update Time: ", _dataList[index].getRatingUpdateTimeSeconds),
-                  ],
+    : Scrollbar(
+      interactive: true,
+      thickness: 8.0,
+      radius: const Radius.circular(8.0),
+      child: ListView.builder(
+        itemCount: _dataList.length,
+        itemBuilder: (context, index) {
+          return Center(
+            child: Column(
+              children: [
+                index == 0 ? const Padding(padding: EdgeInsets.all(4.0)) : Container(),
+                ListTile(
+                  title: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _myText(_dataList[index].getContestName, true),
+                      _myTextTwo("Rank: ", _dataList[index].getRank),
+                      _myTextTwo("Updated Rating: ", _dataList[index].getNewRating),
+                      _myTextTwo("Update Time: ", _dataList[index].getRatingUpdateTimeSeconds),
+                    ],
+                  ),
+                  trailing: _setRatingDiff(_dataList[index].getRatingDiff),
                 ),
-                trailing: _setRatingDiff(_dataList[index].getRatingDiff),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Divider(color: Colors.green[700],),
-              ),
-            ],
-          ),
-        );
-      },
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Divider(color: Colors.green[700],),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 
@@ -95,6 +100,7 @@ class _UserRatingHistoryState extends State<UserRatingHistory> {
       text,
       style: TextStyle(
         fontWeight: bold ? FontWeight.bold : FontWeight.normal,
+        fontSize: 10.0
       ),
     );
   }
@@ -107,12 +113,14 @@ class _UserRatingHistoryState extends State<UserRatingHistory> {
           text,
           style: const TextStyle(
             fontWeight: FontWeight.w300,
+            fontSize: 10.0
           ),
         ),
         Text(
           key,
           style: const TextStyle(
             fontWeight: FontWeight.w400,
+            fontSize: 10.0
           ),
         ),
       ],
@@ -123,7 +131,7 @@ class _UserRatingHistoryState extends State<UserRatingHistory> {
     return Text(
       diff < 0 ? "$diff" : "+$diff",
       style: TextStyle(
-        color: (diff < 0) ? Colors.red : Colors.green,
+        color: (diff < 0) ? Colors.red : Colors.green[600],
       ),
     );
   }

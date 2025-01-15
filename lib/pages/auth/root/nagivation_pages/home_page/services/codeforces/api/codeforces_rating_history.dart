@@ -61,31 +61,16 @@ class ResultRatingHistory {
   });
 
   String get getContestId => contestId == null ? "" : "$contestId";
-  String get getContestName {
-    if (contestName == null) {
-      return "";
-    } else if (contestName!.length > 50) {
-      int spaceIndex = contestName!.indexOf(' ', 50);
-      if (spaceIndex != -1) {
-        return ('${contestName!.substring(0, spaceIndex)}\n${contestName!.substring(spaceIndex + 1)}');
-      }
-    }
-    return contestName!;
-  }
+  String get getContestName => contestName ?? "";
   String get getHandle => handle ?? "";
   String get getRank => rank == null ? "" : "$rank";
   String get getRatingUpdateTimeSeconds => ratingUpdateTimeSeconds == null ? "" : getFormattedTimeDateOnly(ratingUpdateTimeSeconds!);
   String get getOldRating => oldRating == null ? "" : "$oldRating";
   String get getNewRating => newRating == null ? "" : "$newRating";
 
-  String getFormattedTime(int unixTimestamp) {
-    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(unixTimestamp * 1000);
-    return DateFormat('yyyy-MM-dd HH:mm:ss').format(dateTime);
-  }
-
   String getFormattedTimeDateOnly(int unixTimestamp) {
     DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(unixTimestamp * 1000);
-    return DateFormat('yyyy-MM-dd').format(dateTime);
+    return DateFormat('dd MMM yyyy').format(dateTime);
   }
 
   int get getRatingDiff {

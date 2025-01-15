@@ -60,33 +60,39 @@ class _SubmissionsState extends State<Submissions> {
         color: Colors.green[700],
       ),
     )
-    : ListView.builder(
-      itemCount: _dataList.length,
-      itemBuilder: (context, index) {
-        return Center(
-          child: Column(
-            children: [
-              ListTile(
-                leading: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _myText(_dataList[index].getIdName(), true),
-                    _myText("Rating: ${_dataList[index].getRating()}", false),
-                    _myText("Participant: ${_dataList[index].getParticipantType()}", false),
-                    _myText(_dataList[index].getCreatedWhen(), false),
-                  ],
+    : Scrollbar(
+      interactive: true,
+      thickness: 8.0,
+      radius: const Radius.circular(8.0),
+      child: ListView.builder(
+        itemCount: _dataList.length,
+        itemBuilder: (context, index) {
+          return Center(
+            child: Column(
+              children: [
+                index == 0 ? const Padding(padding: EdgeInsets.all(4.0)) : Container(),
+                ListTile(
+                  title: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _myText(_dataList[index].getIdName(), true),
+                      _myTextTwo("Rating: ", _dataList[index].getRating()),
+                      _myTextTwo("Participant: ", _dataList[index].getParticipantType()),
+                      const SizedBox(height: 8.0),
+                      _myText(_dataList[index].getCreatedWhen(), false),
+                    ],
+                  ),
+                  trailing: setVerdict(_dataList[index].getVerdict()),
                 ),
-                
-                trailing: setVerdict(_dataList[index].getVerdict()),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Divider(color: Colors.green[700],),
-              ),
-            ],
-          ),
-        );
-      }
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Divider(color: Colors.green[700],),
+                ),
+              ],
+            ),
+          );
+        }
+      ),
     );
   }
 
@@ -95,7 +101,30 @@ class _SubmissionsState extends State<Submissions> {
       text,
       style: TextStyle(
         fontWeight: bold ? FontWeight.bold : FontWeight.normal,
+        fontSize: 10.0
       ),
+    );
+  }
+
+  Widget _myTextTwo(String text, String key) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          text,
+          style: const TextStyle(
+            fontWeight: FontWeight.w300,
+            fontSize: 10.0
+          ),
+        ),
+        Text(
+          key,
+          style: const TextStyle(
+            fontWeight: FontWeight.w400,
+            fontSize: 10.0
+          ),
+        ),
+      ],
     );
   }
 
