@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/api/codeforces_api.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/api/codeforces_user.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/api/codeforces_submissions.dart';
+import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/api/codeforces_rating_history.dart';
 
 class CodeforcesContestList extends CodeforcesApi {
   List<ResultContestList> result = [];
@@ -47,6 +48,8 @@ class CodeforcesContestList extends CodeforcesApi {
   Future<ResultUser?> fetchUser(String handle) { throw UnimplementedError(); }
   @override
   Future<List<ResultSubmissions>?> fetchSubmissions(String handle) { throw UnimplementedError(); }
+  @override
+  Future<List<ResultRatingHistory>?> fetchRatingHistory(String handle) => throw UnimplementedError();
 }
 
 class ResultContestList {

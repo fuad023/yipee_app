@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/api/codeforces_api.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/api/codeforces_submissions.dart';
+import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/api/codeforces_rating_history.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/api/codeforces_contest_list.dart';
 
 class CodeforcesUser extends CodeforcesApi {
@@ -38,6 +39,8 @@ class CodeforcesUser extends CodeforcesApi {
   @override
   Future<List<ResultSubmissions>?> fetchSubmissions(String handle) => throw UnimplementedError();
   @override
+  Future<List<ResultRatingHistory>?> fetchRatingHistory(String handle) => throw UnimplementedError();
+  @override
   Future<List<ResultContestList>?> fetchContestList() => throw UnimplementedError();
 }
 
@@ -56,8 +59,7 @@ class ResultUser {
   late String avatar;
   late String titlePhoto;
 
-  ResultUser(
-  {
+  ResultUser({
     this.firstName,
     this.lastName,
     this.country,
@@ -72,6 +74,25 @@ class ResultUser {
     required this.avatar,
     required this.titlePhoto,
   });
+
+  String get getFirstName => firstName ?? "";
+  String get getLastName => lastName ?? "";
+  String get getCountry => country ?? "";
+  String get getContribution => "$contribution";
+  String get getRank => rank ?? "";
+  String get getRating => rating == null ? "" : "$rating";
+  String get getMaxRank => maxRank ?? "";
+  String get getMaxRating => rating == null ? "" : "$maxRating";
+  String get getFriendOfCount => "$friendOfCount";
+  String get getLastOnlineTimeSeconds => getFormattedTime(lastOnlineTimeSeconds);
+  String get getRegistrationTimeSeconds => getFormattedTime(registrationTimeSeconds);
+  String get getAvatar => avatar;
+  String get getTitlePhoto => titlePhoto;
+
+  String getFormattedTime(int unixTimestamp) {
+    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(unixTimestamp * 1000);
+    return DateFormat('yyyy-MM-dd HH:mm:ss').format(dateTime);
+  }
 
   ResultUser.fromJson(Map<String, dynamic> json) {
     firstName = json['firstName'];
@@ -89,20 +110,6 @@ class ResultUser {
     titlePhoto = json['titlePhoto'];
   }
 
-  String get getFirstName => firstName ?? "";
-  String get getLastName => lastName ?? "";
-  String get getCountry => country ?? "";
-  String get getContribution => "$contribution";
-  String get getRank => rank ?? "";
-  String get getRating => rating == null ? "" : "$rating";
-  String get getMaxRank => maxRank ?? "";
-  String get getMaxRating => rating == null ? "" : "$maxRating";
-  String get getFriendOfCount => "$friendOfCount";
-  String get getLastOnlineTimeSeconds => getFormattedTime(lastOnlineTimeSeconds);
-  String get getRegistrationTimeSeconds => getFormattedTime(registrationTimeSeconds);
-  String get getAvatar => avatar;
-  String get getTitlePhoto => titlePhoto;
-
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['firstName'] = firstName;
@@ -119,10 +126,5 @@ class ResultUser {
     data['avatar'] = avatar;
     data['titlePhoto'] = titlePhoto;
     return data;
-  }
-
-  String getFormattedTime(int unixTimestamp) {
-    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(unixTimestamp * 1000);
-    return DateFormat('yyyy-MM-dd HH:mm:ss').format(dateTime);
   }
 }

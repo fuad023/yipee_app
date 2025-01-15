@@ -90,8 +90,8 @@ class _CodeforcesState extends State<Codeforces> {
           label: 'Submissions',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.calendar_month_outlined),
-          label: 'Contest List',
+          icon: Icon(Icons.history_rounded),
+          label: 'Rating History',
         ),
       ],
     );
