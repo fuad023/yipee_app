@@ -57,35 +57,44 @@ class _ContestListState extends State<ContestList> {
         color: Colors.green[700],
       ),
     )
-    : ListView.builder(
-      itemCount: _dataList.length,
-      itemBuilder: (context, index) {
-        return Center(
-          child: Column(
-            children: [
-              ListTile(
-                leading: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _myText(_dataList[index].getName(), true),
-                    _myText("Duration: ${_dataList[index].getDuration()}", false),
-                  ],
+    : _dataList.isEmpty
+    ? const Center(
+      child: Text("No nearby contest available :("),
+    )
+    : Scrollbar(
+      interactive: true,
+      thickness: 8.0,
+      radius: const Radius.circular(8.0),
+      child: ListView.builder(
+        itemCount: _dataList.length,
+        itemBuilder: (context, index) {
+          return Center(
+            child: Column(
+              children: [
+                ListTile(
+                  leading: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _myText(_dataList[index].getName(), true),
+                      _myText("Duration: ${_dataList[index].getDuration()}", false),
+                    ],
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0),
-                child: Column(
-                  children: [
-                    _myText(_dataList[index].getStartTime(), true),
-                    Divider(color: Colors.green[700],),
-                  ],
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0),
+                  child: Column(
+                    children: [
+                      _myText(_dataList[index].getStartTime(), true),
+                      Divider(color: Colors.green[700],),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-        );
-      }
+              ],
+            ),
+          );
+        }
+      ),
     );
   }
 

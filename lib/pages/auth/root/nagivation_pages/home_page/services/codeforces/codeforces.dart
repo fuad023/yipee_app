@@ -52,6 +52,18 @@ class _CodeforcesState extends State<Codeforces> {
         foregroundColor: Colors.white,
         backgroundColor: Colors.green[700],
         elevation: 1.0,
+        actions: [
+          Builder(
+            builder:(BuildContext context) {
+              return IconButton(
+                icon: const Icon(Icons.settings_outlined),
+                onPressed: () {
+                  Scaffold.of(context).openEndDrawer();
+                },
+              );
+            }
+          ),
+        ],
       ),
       body: _screens(_currentIndex),
       drawerEnableOpenDragGesture: true,

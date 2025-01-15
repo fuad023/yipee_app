@@ -60,6 +60,10 @@ class _SubmissionsState extends State<Submissions> {
         color: Colors.green[700],
       ),
     )
+    : _dataList.isEmpty
+    ? const Center(
+      child: Text("Haven't made any submission yet?"),
+    )
     : Scrollbar(
       interactive: true,
       thickness: 8.0,

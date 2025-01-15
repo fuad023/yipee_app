@@ -60,6 +60,10 @@ class _UserRatingHistoryState extends State<UserRatingHistory> {
         color: Colors.green[700],
       ),
     )
+    : _dataList.isEmpty
+    ? const Center(
+      child: Text("Haven't participated in any contest yet?"),
+    )
     : Scrollbar(
       interactive: true,
       thickness: 8.0,
