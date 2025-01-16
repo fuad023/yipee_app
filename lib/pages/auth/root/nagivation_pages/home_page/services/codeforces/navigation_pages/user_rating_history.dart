@@ -3,7 +3,7 @@ import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/api/codeforces_rating_history.dart';
 
 class UserRatingHistory extends StatefulWidget {
-  final String handle;
+  final String? handle;
 
   const UserRatingHistory({
     super.key,
@@ -15,7 +15,7 @@ class UserRatingHistory extends StatefulWidget {
 }
 
 class _UserRatingHistoryState extends State<UserRatingHistory> {
-  late String _handle;
+  String? _handle;
   bool _dataFetching = true;
   final CodeforcesApi _codeforcesApi = CodeforcesRatingHistory();
   List<ResultRatingHistory> _dataList = [];
@@ -26,7 +26,7 @@ class _UserRatingHistoryState extends State<UserRatingHistory> {
       if (!mounted) return;
 
       setState(() {
-          _dataFetching = false;
+        _dataFetching = false;
       });
     } catch (e) {
       if (mounted) {
@@ -38,9 +38,14 @@ class _UserRatingHistoryState extends State<UserRatingHistory> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     _handle = widget.handle;
-    return _handle.isEmpty ? _requestSetup() : _showSubmissions();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _handle == null ? _requestSetup() : _showSubmissions();
   }
 
   Widget _requestSetup() {
@@ -51,7 +56,7 @@ class _UserRatingHistoryState extends State<UserRatingHistory> {
 
   Widget _showSubmissions() {
     if (_dataFetching) {
-      fetchSubmissions(_handle);
+      fetchSubmissions(_handle!);
     }
 
     return _dataFetching

@@ -3,7 +3,7 @@ import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/api/codeforces_user.dart';
 
 class UserDetails extends StatefulWidget {
-  final String handle;
+  final String? handle;
 
   const UserDetails({
     super.key,
@@ -15,7 +15,7 @@ class UserDetails extends StatefulWidget {
 }
 
 class _UserInfoState extends State<UserDetails> {
-  late String _handle;
+  String? _handle;
   bool dataFetching = true;
   final CodeforcesApi _codeforcesApi = CodeforcesUser();
   late ResultUser _user;
@@ -40,12 +40,12 @@ class _UserInfoState extends State<UserDetails> {
   @override
   void initState() {
     super.initState();
+    _handle = widget.handle;
   }
 
   @override
   Widget build(BuildContext context) {
-    _handle = widget.handle;
-    return _handle.isEmpty ? _requestSetup() : _showUserInfo();
+    return _handle == null ? _requestSetup() : _showUserInfo();
   }
 
   Widget _requestSetup() {
@@ -56,7 +56,7 @@ class _UserInfoState extends State<UserDetails> {
 
   Widget _showUserInfo() {
     if (dataFetching) {
-      _fetchUser(_handle);
+      _fetchUser(_handle!);
     }
 
     return dataFetching
@@ -82,7 +82,7 @@ class _UserInfoState extends State<UserDetails> {
                 const SizedBox(height: 16.0,),
           
                 Text(
-                  _handle,
+                  _handle!,
                   style: const TextStyle(
                     decoration: TextDecoration.none,
                     color: Colors.black,

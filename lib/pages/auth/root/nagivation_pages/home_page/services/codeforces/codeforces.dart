@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/drawer/my_drawer.dart';
-
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/database_service.dart';
 
+import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/drawer/my_drawer.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/user_details.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/submissions.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/user_rating_history.dart';
@@ -17,13 +16,15 @@ class Codeforces extends StatefulWidget {
 
 class _CodeforcesState extends State<Codeforces> {
   int _currentIndex = 0;
-  String? handle = "";
+  String? handle;
+  bool isFetched = false;
 
   void fetchHandle() async {      
     FirebaseAuth firebaseAuth = FirebaseAuth.instance;
     DatabaseService database = DatabaseService();
     String uid = firebaseAuth.currentUser!.uid;
     handle = await database.fetchHandle(uid);
+    isFetched = true;
     setState(() {});
   }
 
@@ -64,10 +65,16 @@ class _CodeforcesState extends State<Codeforces> {
   }
 
   Widget _screens(int index) {
-    return switch (_currentIndex) {
-      0 => UserDetails(handle: handle!),
-      1 => Submissions(handle: handle!),
-      2 => UserRatingHistory(handle: handle!),
+    return !isFetched 
+    ? Center(
+      child: CircularProgressIndicator(
+        color: Colors.green[700],
+      ),
+    )
+    : switch (_currentIndex) {
+      0 => UserDetails(handle: handle),
+      1 => Submissions(handle: handle),
+      2 => UserRatingHistory(handle: handle),
       
       int() => throw UnimplementedError(),
     };

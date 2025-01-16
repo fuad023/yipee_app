@@ -3,7 +3,7 @@ import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/api/codeforces_submissions.dart';
 
 class Submissions extends StatefulWidget {
-  final String handle;
+  final String? handle;
 
   const Submissions({
     super.key,
@@ -15,8 +15,8 @@ class Submissions extends StatefulWidget {
 }
 
 class _SubmissionsState extends State<Submissions> {
-  late String handle;
-  bool dataFetching = true;
+  String? _handle;
+  bool _dataFetching = true;
   final CodeforcesApi _codeforcesApi = CodeforcesSubmissions();
   List<ResultSubmissions> _dataList = [];
 
@@ -26,21 +26,26 @@ class _SubmissionsState extends State<Submissions> {
       if (!mounted) return;
 
       setState(() {
-          dataFetching = false;
+        _dataFetching = false;
       });
     } catch (e) {
       if (mounted) {
         setState(() {
-          dataFetching = false;
+          _dataFetching = false;
         });
       }
     }
   }
 
   @override
+  void initState() {
+    super.initState();
+    _handle = widget.handle;
+  }
+
+  @override
   Widget build(BuildContext context) {
-    handle = widget.handle;
-    return handle.isEmpty ? _requestSetup() : _showSubmissions();
+    return _handle == null ? _requestSetup() : _showSubmissions();
   }
 
   Widget _requestSetup() {
@@ -50,11 +55,11 @@ class _SubmissionsState extends State<Submissions> {
   }
 
   Widget _showSubmissions() {
-    if (dataFetching) {
-      fetchSubmissions(handle);
+    if (_dataFetching) {
+      fetchSubmissions(_handle!);
     }
 
-    return dataFetching
+    return _dataFetching
     ? Center(
       child: CircularProgressIndicator(
         color: Colors.green[700],
