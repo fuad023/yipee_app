@@ -25,8 +25,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
   @override
   void dispose() {
-    _focusNode.dispose(); 
-    _emailController.dispose(); 
+    _focusNode.dispose();
+    _emailController.dispose();
     super.dispose();
   }
 
@@ -41,7 +41,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       );
       return;
     }
-    
 
     try {
       await authServices.resetPassword(_emailController.text);
@@ -82,8 +81,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 borderRadius: BorderRadius.circular(50.0),
                 child: Image.asset(
                   'assets/1.png',
-                  width: double.infinity,
-                  height: 450.0,
+                  width: MediaQuery.of(context).size.width * 1.0,
+                  height: MediaQuery.of(context).size.height * 0.6,
                   fit: BoxFit.cover,
                   alignment: const Alignment(0.0, 0.0),
                 ),
@@ -97,8 +96,12 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 Align(
                   alignment: const Alignment(1.0, -1.0),
                   child: Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(
-                        0.0, 50.0, 30.0, 0.0),
+                    padding: EdgeInsetsDirectional.fromSTEB(
+                      0.0,
+                      MediaQuery.of(context).size.width * 0.15,
+                      MediaQuery.of(context).size.width * 0.1,
+                      0.0,
+                    ),
                     child: InkWell(
                       splashColor: Colors.transparent,
                       focusColor: Colors.transparent,
@@ -124,17 +127,19 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Align(
+                  Align(
                     alignment: Alignment(-1, -1),
                     child: Padding(
-                      padding: EdgeInsets.only(left: 60.0, top: 100.0),
-                      child: Text(
+                      padding: EdgeInsets.only(
+                        left: MediaQuery.of(context).size.width * 0.16,
+                        top: MediaQuery.of(context).size.height * 0.15,
+                      ),
+                      child: const Text(
                         'Email',
                         style: TextStyle(
                           color: Colors.white,
                         ),
                       ),
-
                     ),
                   ),
                   Expanded(
@@ -143,7 +148,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       child: Padding(
                         padding: const EdgeInsets.only(top: 10.0),
                         child: SizedBox(
-                          width: 300.0,
+                          width: MediaQuery.of(context).size.width * 0.8,
                           child: LoginTextField(
                             controlText: _emailController,
                             secureText: false,
@@ -157,27 +162,23 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   Align(
                     alignment: const Alignment(0.0, -1.0),
                     child: Padding(
-                      padding: const EdgeInsets.only(bottom: 200),
-                      child: GestureDetector(
-                        onTap: () {
-                          resetPassword();
-                        },
-                        child: Container(
-                          width: 300,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFBED2D0),
-                            borderRadius: BorderRadius.circular(24.0)
-                          ),
-                          child: const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 90, vertical: 10),
-                            child: Text(
-                              'Reset Password',
-                              style: TextStyle(
-                                color: Color(0xFF2B5F56),
-                                fontSize: 14.0,
-                                fontWeight: FontWeight.w500,
-                              ),
+                      padding: EdgeInsets.only(top: MediaQuery.sizeOf(context).height * 0.1,),
+                      child: Container(
+                        width: 331.0,
+                        height: 40.0,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(24.0),
+                          color: Colors.white,
+                        ),
+                        child: TextButton(
+                          onPressed: () {
+                            resetPassword();
+                          },
+                          child: Text(
+                            'Register',
+                            style: TextStyle(
+                              color: Colors.green.shade900,
+                              fontWeight: FontWeight.w800,
                             ),
                           ),
                         ),

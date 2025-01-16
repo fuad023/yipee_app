@@ -14,9 +14,55 @@ class RootPage extends StatefulWidget {
 
 class _RootPageState extends State<RootPage> {
   int _currentIndex = 0;
+  bool _isImageLoaded = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_isImageLoaded) {
+      _preloadBackgroundImage();
+    }
+  }
+
+  Future<void> _preloadBackgroundImage() async {
+    try {
+      await precacheImage(const AssetImage('assets/home_bg.png'), context);
+      setState(() {
+        _isImageLoaded = true;
+      });
+    } catch (e) {
+      debugPrint("Error loading image: $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    if (!_isImageLoaded) {
+      return Scaffold(
+        backgroundColor: Color(0xFF2B5F56),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const CircularProgressIndicator(
+                color: Colors.white,
+              ),
+              SizedBox(
+                height: MediaQuery.sizeOf(context).height * 0.015,
+              ),
+              const Text(
+                'A moment please...',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
     final User? user = FirebaseAuth.instance.currentUser;
     final String userName = user?.email?.split('@').first ?? 'No username';
     final List<Widget> screens = [
@@ -36,18 +82,6 @@ class _RootPageState extends State<RootPage> {
         drawer: DrawerScreen(email: userName),
         body: Stack(
           children: [
-            //   Padding(
-            //   padding: const EdgeInsets.only(left: 20, top: 30),
-            //   child: Builder(
-            //     builder: (context) => IconButton(
-            //       icon: const Icon(Icons.dehaze),
-            //       color: Colors.white,
-            //       onPressed: () {
-            //         Scaffold.of(context).openDrawer();
-            //       },
-            //     ),
-            //   ),
-            // ),
             Align(
               alignment: const Alignment(0.0, 0.0),
               child: ClipRRect(
@@ -73,13 +107,10 @@ class _RootPageState extends State<RootPage> {
               ),
             ),
             Align(
-              alignment: Alignment.center, // Ensure the screen is centered
-              child: screens[_currentIndex], // Display the current screen
+              alignment: Alignment.center,
+              child: screens[_currentIndex],
             ),
           ],
-        ),
-        floatingActionButton: const Padding(
-          padding: EdgeInsets.all(18.0),
         ),
         bottomNavigationBar: BottomNavigationBar(
           backgroundColor: const Color.fromARGB(255, 9, 88, 39),
@@ -105,18 +136,6 @@ class _RootPageState extends State<RootPage> {
             ),
           ],
         ),
-        // Wrap the Scaffold in a Builder widget to ensure we can access the context correctly
-        // floatingActionButton: Builder(
-        //   builder: (BuildContext context) {
-        //     return IconButton(
-        //       icon: const Icon(Icons.dehaze),
-        //       color: Colors.white,
-        //       onPressed: () {
-        //         Scaffold.of(context).openDrawer(); // Open the drawer
-        //       },
-        //     );
-        //   },
-        // ),
       ),
     );
   }
