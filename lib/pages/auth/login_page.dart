@@ -84,7 +84,7 @@ class LoginPage extends StatelessWidget {
               ),
             ),
             Align(
-              alignment: AlignmentDirectional(0.0, 0.0),
+              alignment: const AlignmentDirectional(0.0, 0.0),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -159,17 +159,17 @@ class LoginPage extends StatelessWidget {
 
                   // Text
                   Padding(
-                    padding: EdgeInsets.only(left: 200),
+                    padding: const EdgeInsets.only(left: 200),
                     child: GestureDetector(
                       onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => ForgotPasswordPage(),
+                            builder: (context) => const ForgotPasswordPage(),
                           ),
                         );
                       },
-                      child: Text(
+                      child: const Text(
                         'Forgot password?',
                         style: TextStyle(
                           color: Colors.white,
@@ -180,7 +180,7 @@ class LoginPage extends StatelessWidget {
 
                   // Button
                   Padding(
-                    padding: EdgeInsets.only(top: 25),
+                    padding: const EdgeInsets.only(top: 25),
                     child: Container(
                       width: 331.0,
                       height: 40.0,

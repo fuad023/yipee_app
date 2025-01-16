@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:student_app/pages/auth/ui_components/my_button.dart';
-import 'package:student_app/pages/auth/ui_components/my_textfield.dart';
-import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/api/codeforces_api.dart';
-import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/api/cf_user_info.dart';
-import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/user_info.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/database_service.dart';
+
+import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/drawer/my_drawer.dart';
+import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/user_details.dart';
+import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/submissions.dart';
+import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/user_rating_history.dart';
 
 class Codeforces extends StatefulWidget {
-
   const Codeforces({super.key});
 
   @override
@@ -14,20 +15,23 @@ class Codeforces extends StatefulWidget {
 }
 
 class _CodeforcesState extends State<Codeforces> {
-  final TextEditingController _handlerName = TextEditingController();
-  late CodeforcesApi _codeforcesApi;
-  CfUserInfo? _cfUserInfo;
+  int _currentIndex = 0;
+  String? handle;
+  bool isFetched = false;
 
-  void searchUser(BuildContext context) async {
-    String handle = _handlerName.text;
-    _handlerName.clear();
-    _codeforcesApi = CfGetUserInfo(handle: handle);
-    _cfUserInfo = await _codeforcesApi.getUserInfo();
-    
-    if (_cfUserInfo != null) {
-      // ignore: use_build_context_synchronously
-      Navigator.push(context, MaterialPageRoute(builder: (context) => UserInfo(cfUserInfo: _cfUserInfo,)));
-    }
+  void fetchHandle() async {      
+    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+    DatabaseService database = DatabaseService();
+    String uid = firebaseAuth.currentUser!.uid;
+    handle = await database.fetchHandle(uid);
+    isFetched = true;
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchHandle();
   }
 
   @override
@@ -40,29 +44,66 @@ class _CodeforcesState extends State<Codeforces> {
         foregroundColor: Colors.white,
         backgroundColor: Colors.green[700],
         elevation: 1.0,
-      ),
-      body: _searchUser(),
-    );
-  }
-
-  Widget _searchUser() {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          MyTextfield(
-            controller: _handlerName,
-            hintText: "Handler name",
-            obscureText: false
-          ),
-
-          const SizedBox(height: 15.0),
-          MyButton(
-            text: "Search",
-            onTap: () => searchUser(context),
+        actions: [
+          Builder(
+            builder:(BuildContext context) {
+              return IconButton(
+                icon: const Icon(Icons.settings_outlined),
+                onPressed: () {
+                  Scaffold.of(context).openEndDrawer();
+                },
+              );
+            }
           ),
         ],
       ),
+      body: _screens(_currentIndex),
+      drawerEnableOpenDragGesture: true,
+      endDrawer: const MyDrawer(),
+      bottomNavigationBar: _bottomNavigationBar(),
+    );
+  }
+
+  Widget _screens(int index) {
+    return !isFetched 
+    ? Center(
+      child: CircularProgressIndicator(
+        color: Colors.green[700],
+      ),
+    )
+    : switch (_currentIndex) {
+      0 => UserDetails(handle: handle),
+      1 => Submissions(handle: handle),
+      2 => UserRatingHistory(handle: handle),
+      
+      int() => throw UnimplementedError(),
+    };
+  }
+
+  Widget _bottomNavigationBar() {
+    return BottomNavigationBar(
+      backgroundColor: Colors.green,
+      selectedItemColor: Colors.white,
+      currentIndex: _currentIndex,
+      onTap: (index) {
+        setState(() {
+          _currentIndex = index;
+        });
+      },
+      items: const [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.perm_identity),
+          label: 'User Info',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.code_rounded),
+          label: 'Submissions',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.history_rounded),
+          label: 'Rating History',
+        ),
+      ],
     );
   }
 }
