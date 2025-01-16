@@ -71,23 +71,23 @@ class ResultContestList {
 
   String _getFormattedTime() {
     DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(startTimeSeconds! * 1000);
-    return DateFormat('yyyy-MM-dd HH:mm:ss').format(dateTime);
+    return DateFormat('dd MMM yyyy | h:mm aa').format(dateTime);
   }
 
   String _durationString() {
     String duration = "";
     int sec = durationSeconds;
-    
+
     if (sec > 86400) {
-      duration += "${sec/86400} day(s) ";
+      duration += "${sec~/86400} day(s) ";
       sec %= 86400;
     }
     if (sec > 3600) {
-      duration += "${sec/3600} hours(s) ";
+      duration += "${sec~/3600} hours(s) ";
       sec %= 3600;
     }
     if (sec > 60) {
-      duration += "${sec/60} minute(s) ";
+      duration += "${sec~/60} minute(s) ";
       sec %= 60;
     }
     if (sec > 0) {

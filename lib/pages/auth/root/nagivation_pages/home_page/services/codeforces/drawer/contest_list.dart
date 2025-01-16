@@ -10,7 +10,7 @@ class ContestList extends StatefulWidget {
 }
 
 class _ContestListState extends State<ContestList> {
-  late bool dataFetching = true;
+  bool _dataFetching = true;
   final CodeforcesApi _codeforcesApi = CodeforcesContestList();
   List<ResultContestList> _dataList = [];
 
@@ -20,12 +20,12 @@ class _ContestListState extends State<ContestList> {
       if (!mounted) return;
 
       setState(() {
-        dataFetching = false;
+        _dataFetching = false;
       });
     } catch (e) {
       if (mounted) {
         setState(() {
-          dataFetching = false;
+          _dataFetching = false;
         });
       }
     }
@@ -40,18 +40,17 @@ class _ContestListState extends State<ContestList> {
         centerTitle: true,
         foregroundColor: Colors.white,
         backgroundColor: Colors.green[700],
-        elevation: 1.0,
       ),
       body: _showContestList(),
     );
   }
 
   Widget _showContestList() {
-    if (dataFetching) {
+    if (_dataFetching) {
       _fetchContestList();
     }
 
-    return dataFetching
+    return _dataFetching
     ? Center(
       child: CircularProgressIndicator(
         color: Colors.green[700],
@@ -72,8 +71,7 @@ class _ContestListState extends State<ContestList> {
             child: Column(
               children: [
                 ListTile(
-                  leading: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  title: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       _myText(_dataList[index].getName(), true),
@@ -82,7 +80,7 @@ class _ContestListState extends State<ContestList> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Column(
                     children: [
                       _myText(_dataList[index].getStartTime(), true),
@@ -103,6 +101,7 @@ class _ContestListState extends State<ContestList> {
       text,
       style: TextStyle(
         fontWeight: bold ? FontWeight.bold : FontWeight.normal,
+        fontSize: 12.0
       ),
     );
   }
