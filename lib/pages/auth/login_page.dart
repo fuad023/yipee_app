@@ -85,168 +85,170 @@ class LoginPage extends StatelessWidget {
             ),
             Align(
               alignment: const AlignmentDirectional(0.0, 0.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // Text
-                 const Text(
-                    'Login',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 26,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                  SizedBox(
-                    height: MediaQuery.sizeOf(context).height *0.01,
-                  ),
-
-                  // Text
-                  const Text(
-                    'Sign in to continue',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  SizedBox(
-                    height: MediaQuery.sizeOf(context).height *0.05,
-                  ),
-
-                  // Text
-                  Padding(
-                    padding: EdgeInsets.only(
-                      right: MediaQuery.of(context).size.width * 0.65,
-                    ),
-                    child: const Text(
-                      'Email',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                  SizedBox(
-                    height: MediaQuery.sizeOf(context).height *0.01,
-                  ),
-
-                  // TextField
-                  LoginTextField(
-                    hitText: 'user@gmail.com',
-                    secureText: false,
-                    controlText: _emailController,
-                    focusNode: emailFocusNode,
-                  ),
-                  SizedBox(
-                    height: MediaQuery.sizeOf(context).height *0.027,
-                  ),
-
-                  // Icon/Text
-                  Padding(
-                    padding: EdgeInsets.only(
-                      right: MediaQuery.of(context).size.width * 0.6,
-                    ),
-                    child: const Text(
-                      'Password',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                  SizedBox(
-                    height: MediaQuery.sizeOf(context).height *0.01,
-                  ),
-
-                  // TextField
-                  LoginTextField(
-                    hitText: '********',
-                    secureText: true,
-                    controlText: _passwordController,
-                    focusNode: passwordFocusNode,
-                  ),
-                  SizedBox(
-                    height: MediaQuery.sizeOf(context).height *0.027,
-                  ),
-
-                  // Text
-                  Padding(
-                    padding: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.width * 0.54,
-                    ),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ForgotPasswordPage(),
-                          ),
-                        );
-                      },
-                      child: const Text(
-                        'Forgot password?',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-
-                  // Button
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.03,
-                    ),
-                    child: Container(
-                      width: MediaQuery.sizeOf(context).width * 0.8,
-                      height: MediaQuery.sizeOf(context).height * 0.05,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(24.0),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // Text
+                   const Text(
+                      'Login',
+                      style: TextStyle(
                         color: Colors.white,
+                        fontSize: 26,
+                        fontWeight: FontWeight.w800,
                       ),
-                      child: TextButton(
-                        onPressed: () {
-                          signUserIn(context);
+                    ),
+                    SizedBox(
+                      height: MediaQuery.sizeOf(context).height *0.01,
+                    ),
+                
+                    // Text
+                    const Text(
+                      'Sign in to continue',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    SizedBox(
+                      height: MediaQuery.sizeOf(context).height *0.03,
+                    ),
+                
+                    // Text
+                    Padding(
+                      padding: EdgeInsets.only(
+                        right: MediaQuery.of(context).size.width * 0.6,
+                      ),
+                      child: const Text(
+                        'Email',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                    SizedBox(
+                      height: MediaQuery.sizeOf(context).height *0.01,
+                    ),
+                
+                    // TextField
+                    LoginTextField(
+                      hitText: 'user@gmail.com',
+                      secureText: false,
+                      controlText: _emailController,
+                      focusNode: emailFocusNode,
+                    ),
+                    SizedBox(
+                      height: MediaQuery.sizeOf(context).height *0.027,
+                    ),
+                
+                    // Icon/Text
+                    Padding(
+                      padding: EdgeInsets.only(
+                        right: MediaQuery.of(context).size.width * 0.53,
+                      ),
+                      child: const Text(
+                        'Password',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                    SizedBox(
+                      height: MediaQuery.sizeOf(context).height *0.01,
+                    ),
+                
+                    // TextField
+                    LoginTextField(
+                      hitText: '********',
+                      secureText: true,
+                      controlText: _passwordController,
+                      focusNode: passwordFocusNode,
+                    ),
+                    SizedBox(
+                      height: MediaQuery.sizeOf(context).height *0.01,
+                    ),
+                
+                    // Text
+                    Padding(
+                      padding: EdgeInsets.only(
+                        left: MediaQuery.of(context).size.width * 0.45,
+                      ),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ForgotPasswordPage(),
+                            ),
+                          );
                         },
                         child: const Text(
-                          'Login',
+                          'Forgot password?',
                           style: TextStyle(
-                            color:Color.fromARGB(255, 14, 73, 56),
-                            fontWeight: FontWeight.w800,
+                            color: Colors.white,
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: MediaQuery.sizeOf(context).height *0.01,
-                  ),
-
-                  // Row
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: MediaQuery.sizeOf(context).height *0.01,
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        // Text
-                        const Text(
-                          'Don\'t have an Account?',
-                          style: TextStyle(color: Colors.white38),
+                
+                    // Button
+                    Padding(
+                      padding: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.height * 0.03,
+                      ),
+                      child: Container(
+                        width: MediaQuery.sizeOf(context).width * 0.8,
+                        //height: MediaQuery.sizeOf(context).height * 0.05,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(24.0),
+                          color: Colors.white,
                         ),
-                        SizedBox(
-                          width: MediaQuery.sizeOf(context).width * 0.02,
-                        ),
-
-                        // Register Button
-                        GestureDetector(
-                          onTap: onTap,
+                        child: TextButton(
+                          onPressed: () {
+                            signUserIn(context);
+                          },
                           child: const Text(
-                            'Register',
+                            'Login',
                             style: TextStyle(
+                              color:Color.fromARGB(255, 14, 73, 56),
                               fontWeight: FontWeight.w800,
-                              color: Colors.white,
                             ),
                           ),
                         ),
-                      ],
+                      ),
                     ),
-                  ),
-                ],
+                    SizedBox(
+                      height: MediaQuery.sizeOf(context).height *0.01,
+                    ),
+                
+                    // Row
+                    Padding(
+                      padding: EdgeInsets.only(
+                        top: MediaQuery.sizeOf(context).height *0.01,
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          // Text
+                          const Text(
+                            'Don\'t have an Account?',
+                            style: TextStyle(color: Colors.white38),
+                          ),
+                          SizedBox(
+                            width: MediaQuery.sizeOf(context).width * 0.02,
+                          ),
+                
+                          // Register Button
+                          GestureDetector(
+                            onTap: onTap,
+                            child: const Text(
+                              'Register',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w800,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],

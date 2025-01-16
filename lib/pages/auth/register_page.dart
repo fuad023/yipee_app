@@ -101,159 +101,163 @@ class RegisterPage extends StatelessWidget {
             ClipRRect(
               child: Image.asset(
                 'assets/1.png',
-                height: double.infinity,
-                width: double.infinity,
+                height: MediaQuery.sizeOf(context).height * 1.0,
+                width: MediaQuery.sizeOf(context).width * 1.0,
                 fit: BoxFit.cover,
                 alignment: const Alignment(0.0, 0.0),
               ),
             ),
             Align(
               alignment: const AlignmentDirectional(0.0, 0.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // Text
-                 const Text(
-                    'Register',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 26,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                  //const SizedBox(height: 10,),
-      
-                  // Text
-                  const Text(
-                    'Sign up to continue',
-                    style: TextStyle(
-                        color: Colors.white
-                    ),
-                  ),
-                  const SizedBox(height: 10,),
-      
-                  // Icon/Text
-                  const Padding(
-                    padding: EdgeInsets.only(right: 250),
-                    child: Text(
-                          'Email',
-                          style: TextStyle(
-                              color: Colors.white
-                          ),
-                        ),
-                  ),
-                  const SizedBox(height: 10,),
-      
-                  // TextField
-                  LoginTextField(
-                    hitText: 'user@gmail.com',
-                    secureText: false,
-                    controlText: _emailController,
-                    focusNode: emailFocusNode,
-                  ),
-                  const SizedBox(height: 10,),
-      
-                  // Text/Icon
-                  const Padding(
-                    padding: EdgeInsets.only(right: 225),
-                    child: Text(
-                          'Password',
-                          style: TextStyle(
-                              color: Colors.white
-                          ),
-                        ),
-                  ),
-                  const SizedBox(height: 10,),
-      
-                  // TextField
-                  LoginTextField(
-                    hitText: '********',
-                    secureText: true,
-                    controlText: _passwordController,
-                    focusNode: passwordFocusNode,
-                  ),
-                  const SizedBox(height: 10,),
-      
-                  // Text/Icon
-                  const Padding(
-                    padding: EdgeInsets.only(right: 175),
-                    child: Text(
-                          'Confirm Password',
-                          style: TextStyle(
-                              color: Colors.white
-                          ),
-                        ),
-                  ),
-                  const SizedBox(height: 10,),
-      
-                  // TextField
-                  LoginTextField(
-                    hitText: '********',
-                    secureText: true,
-                    controlText: _confirmPasswordController,
-                    focusNode: confirmPasswordFocusNode,
-                  ),
-                  const SizedBox(height: 10,),
-      
-                  // Button
-                  Padding(
-                    padding: const EdgeInsets.only(top: 15),
-                    child: Container(
-                      width: 331.0,
-                      height: 40.0,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(24.0),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // Text
+                   const Text(
+                      'Register',
+                      style: TextStyle(
                         color: Colors.white,
-                      ),
-                      child: TextButton(
-                        onPressed: () {
-                          register(context);
-                        },
-                        child: Text(
-                          'Register',
-                          style: TextStyle(
-                            color: Colors.green.shade900,
-                            fontWeight: FontWeight.w800,
-                          ),
-                        ),
+                        fontSize: 26,
+                        fontWeight: FontWeight.w800,
                       ),
                     ),
-                  ),
-                  //const SizedBox(height: 10,),
-      
-                  // Row
-                  Padding(
-                    padding: const EdgeInsets.only(top: 15),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        // Text
-                        const Text(
-                          'Already have an Account?',
-                          style: TextStyle(
-                              color: Colors.white38
-                          ),
-                        ),
-                        const SizedBox(width: 10,),
-      
-                        // Register Button
-                        GestureDetector(
-                          onTap: onTap,
-                          child: const Text(
-                            'Login',
+                    SizedBox(
+                      height: MediaQuery.sizeOf(context).height * 0.01,
+                    ),
+                      
+                    // Text
+                    const Text(
+                      'Sign up to continue',
+                      style: TextStyle(
+                          color: Colors.white
+                      ),
+                    ),
+                    SizedBox(height: MediaQuery.sizeOf(context).height * 0.03,),
+                      
+                    // Icon/Text
+                    Padding(
+                      padding: EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.6,),
+                      child: const Text(
+                            'Email',
                             style: TextStyle(
-                              color: Colors.white,
+                                color: Colors.white
+                            ),
+                          ),
+                    ),
+                    SizedBox(height: MediaQuery.sizeOf(context).height * 0.01,),
+                      
+                    // TextField
+                    LoginTextField(
+                      hitText: 'user@gmail.com',
+                      secureText: false,
+                      controlText: _emailController,
+                      focusNode: emailFocusNode,
+                    ),
+                    SizedBox(height: MediaQuery.sizeOf(context).height * 0.02,),
+                      
+                    // Text/Icon
+                    Padding(
+                      padding: EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.52,),
+                      child: const Text(
+                            'Password',
+                            style: TextStyle(
+                                color: Colors.white
+                            ),
+                          ),
+                    ),
+                    const SizedBox(height: 10,),
+                      
+                    // TextField
+                    LoginTextField(
+                      hitText: '********',
+                      secureText: true,
+                      controlText: _passwordController,
+                      focusNode: passwordFocusNode,
+                    ),
+                    SizedBox(height: MediaQuery.sizeOf(context).height * 0.02,),
+                      
+                    // Text/Icon
+                    Padding(
+                      padding: EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.37,),
+                      child: const Text(
+                            'Confirm Password',
+                            style: TextStyle(
+                                color: Colors.white
+                            ),
+                          ),
+                    ),
+                    SizedBox(height: MediaQuery.sizeOf(context).height * 0.01,),
+                      
+                    // TextField
+                    LoginTextField(
+                      hitText: '********',
+                      secureText: true,
+                      controlText: _confirmPasswordController,
+                      focusNode: confirmPasswordFocusNode,
+                    ),
+                    const SizedBox(height: 10,),
+                      
+                    // Button
+                    Padding(
+                      padding: EdgeInsets.only(top: MediaQuery.sizeOf(context).height * 0.03,),
+                      child: Container(
+                        width: 331.0,
+                        height: 40.0,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(24.0),
+                          color: Colors.white,
+                        ),
+                        child: TextButton(
+                          onPressed: () {
+                            register(context);
+                          },
+                          child: Text(
+                            'Register',
+                            style: TextStyle(
+                              color: Colors.green.shade900,
                               fontWeight: FontWeight.w800,
                             ),
                           ),
                         ),
-                      ],
+                      ),
                     ),
-                  ),
-      
-                ],
+                    //const SizedBox(height: 10,),
+                      
+                    // Row
+                    Padding(
+                      padding: EdgeInsets.only(top: MediaQuery.sizeOf(context).height * 0.02,),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          // Text
+                          const Text(
+                            'Already have an Account?',
+                            style: TextStyle(
+                                color: Colors.white38
+                            ),
+                          ),
+                          SizedBox(width: MediaQuery.sizeOf(context).width * 0.02,),
+                      
+                          // Register Button
+                          GestureDetector(
+                            onTap: onTap,
+                            child: const Text(
+                              'Login',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                      
+                  ],
+                ),
               ),
             ),
           ],
