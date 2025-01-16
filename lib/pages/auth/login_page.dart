@@ -77,8 +77,8 @@ class LoginPage extends StatelessWidget {
             ClipRRect(
               child: Image.asset(
                 'assets/1.png',
-                height: double.infinity,
-                width: double.infinity,
+                height: MediaQuery.sizeOf(context).height * 1.0,
+                width: MediaQuery.sizeOf(context).width * 1.0,
                 fit: BoxFit.cover,
                 alignment: const Alignment(0.0, 0.0),
               ),
@@ -112,9 +112,11 @@ class LoginPage extends StatelessWidget {
                   ),
 
                   // Icon/Text
-                  const Padding(
-                    padding: EdgeInsets.only(right: 250),
-                    child: Text(
+                  Padding(
+                    padding: EdgeInsets.only(
+                      right: MediaQuery.of(context).size.width * 0.7,
+                    ),
+                    child: const Text(
                       'Email',
                       style: TextStyle(color: Colors.white),
                     ),
@@ -135,9 +137,11 @@ class LoginPage extends StatelessWidget {
                   ),
 
                   // Icon/Text
-                  const Padding(
-                    padding: EdgeInsets.only(right: 225),
-                    child: Text(
+                  Padding(
+                    padding: EdgeInsets.only(
+                      right: MediaQuery.of(context).size.width * 0.62,
+                    ),
+                    child: const Text(
                       'Password',
                       style: TextStyle(color: Colors.white),
                     ),
@@ -159,7 +163,9 @@ class LoginPage extends StatelessWidget {
 
                   // Text
                   Padding(
-                    padding: const EdgeInsets.only(left: 200),
+                    padding: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.width * 0.45,
+                    ),
                     child: GestureDetector(
                       onTap: () {
                         Navigator.push(
@@ -180,10 +186,12 @@ class LoginPage extends StatelessWidget {
 
                   // Button
                   Padding(
-                    padding: const EdgeInsets.only(top: 25),
+                    padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.width * 0.05,
+                    ),
                     child: Container(
-                      width: 331.0,
-                      height: 40.0,
+                      width: MediaQuery.sizeOf(context).width * 0.8,
+                      height: MediaQuery.sizeOf(context).height * 0.05,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(24.0),
                         color: Colors.white,

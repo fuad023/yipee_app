@@ -37,7 +37,7 @@ class _LoginTextFieldState extends State<LoginTextField> {
     bool hasText = widget.controlText.text.isNotEmpty; // Check if there's text
 
     return SizedBox(
-      width: 331.0,
+      width: MediaQuery.sizeOf(context).width * 0.8,
       child: TextFormField(
         controller: widget.controlText,
         obscureText: widget.secureText && _isSecureText, // Toggle visibility
