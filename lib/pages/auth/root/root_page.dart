@@ -18,9 +18,8 @@ class _RootPageState extends State<RootPage> {
   @override
   Widget build(BuildContext context) {
     final User? user = FirebaseAuth.instance.currentUser;
-    final String userEmail = user?.email ?? 'No email';
     final String userName = user?.email?.split('@').first ?? 'No username';
-    final List<Widget> _screens = [
+    final List<Widget> screens = [
       HomePage(
         userName: userName,
       ),
@@ -75,7 +74,7 @@ class _RootPageState extends State<RootPage> {
             ),
             Align(
               alignment: Alignment.center, // Ensure the screen is centered
-              child: _screens[_currentIndex], // Display the current screen
+              child: screens[_currentIndex], // Display the current screen
             ),
           ],
         ),
@@ -83,7 +82,7 @@ class _RootPageState extends State<RootPage> {
           padding: EdgeInsets.all(18.0),
         ),
         bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Colors.green,
+          backgroundColor: const Color.fromARGB(255, 9, 88, 39),
           selectedItemColor: Colors.white,
           currentIndex: _currentIndex,
           onTap: (index) {

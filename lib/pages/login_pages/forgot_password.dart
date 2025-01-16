@@ -41,6 +41,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       );
       return;
     }
+    
 
     try {
       await authServices.resetPassword(_emailController.text);
@@ -141,7 +142,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       alignment: const Alignment(0.0, -1.0),
                       child: Padding(
                         padding: const EdgeInsets.only(top: 10.0),
-                        child: Container(
+                        child: SizedBox(
                           width: 300.0,
                           child: LoginTextField(
                             controlText: _emailController,

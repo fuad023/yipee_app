@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:student_app/pages/auth/root/drawer_screen.dart';
-import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/codeforces.dart';
 
 class HomePage extends StatelessWidget {
   final String userName;
@@ -45,11 +43,11 @@ class HomePage extends StatelessWidget {
                       children: [
                         Padding(
                           padding:
-                              EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                              const EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
                           child: Text(
                             'Good Morning,\n' + userName,
                             textAlign: TextAlign.start,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.white,
                               fontSize: 23.0,
                               fontWeight: FontWeight.bold,
@@ -230,7 +228,7 @@ class HomePage extends StatelessWidget {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Material(
-                            color: Color(0x75FFFFFF),
+                            color: const Color(0x75FFFFFF),
                             //elevation: 10.0,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30.0),

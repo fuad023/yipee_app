@@ -98,8 +98,8 @@ class LoginPage extends StatelessWidget {
                       fontWeight: FontWeight.w800,
                     ),
                   ),
-                  const SizedBox(
-                    height: 10,
+                  SizedBox(
+                    height: MediaQuery.sizeOf(context).height *0.01,
                   ),
 
                   // Text
@@ -107,22 +107,22 @@ class LoginPage extends StatelessWidget {
                     'Sign in to continue',
                     style: TextStyle(color: Colors.white),
                   ),
-                  const SizedBox(
-                    height: 10,
+                  SizedBox(
+                    height: MediaQuery.sizeOf(context).height *0.05,
                   ),
 
-                  // Icon/Text
+                  // Text
                   Padding(
                     padding: EdgeInsets.only(
-                      right: MediaQuery.of(context).size.width * 0.7,
+                      right: MediaQuery.of(context).size.width * 0.65,
                     ),
                     child: const Text(
                       'Email',
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
-                  const SizedBox(
-                    height: 10,
+                  SizedBox(
+                    height: MediaQuery.sizeOf(context).height *0.01,
                   ),
 
                   // TextField
@@ -132,22 +132,22 @@ class LoginPage extends StatelessWidget {
                     controlText: _emailController,
                     focusNode: emailFocusNode,
                   ),
-                  const SizedBox(
-                    height: 10,
+                  SizedBox(
+                    height: MediaQuery.sizeOf(context).height *0.027,
                   ),
 
                   // Icon/Text
                   Padding(
                     padding: EdgeInsets.only(
-                      right: MediaQuery.of(context).size.width * 0.62,
+                      right: MediaQuery.of(context).size.width * 0.6,
                     ),
                     child: const Text(
                       'Password',
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
-                  const SizedBox(
-                    height: 10,
+                  SizedBox(
+                    height: MediaQuery.sizeOf(context).height *0.01,
                   ),
 
                   // TextField
@@ -157,14 +157,14 @@ class LoginPage extends StatelessWidget {
                     controlText: _passwordController,
                     focusNode: passwordFocusNode,
                   ),
-                  const SizedBox(
-                    height: 10,
+                  SizedBox(
+                    height: MediaQuery.sizeOf(context).height *0.027,
                   ),
 
                   // Text
                   Padding(
                     padding: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.width * 0.45,
+                      left: MediaQuery.of(context).size.width * 0.54,
                     ),
                     child: GestureDetector(
                       onTap: () {
@@ -187,7 +187,7 @@ class LoginPage extends StatelessWidget {
                   // Button
                   Padding(
                     padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.width * 0.05,
+                      top: MediaQuery.of(context).size.height * 0.03,
                     ),
                     child: Container(
                       width: MediaQuery.sizeOf(context).width * 0.8,
@@ -200,23 +200,25 @@ class LoginPage extends StatelessWidget {
                         onPressed: () {
                           signUserIn(context);
                         },
-                        child: Text(
+                        child: const Text(
                           'Login',
                           style: TextStyle(
-                            color: Colors.green.shade900,
+                            color:Color.fromARGB(255, 14, 73, 56),
                             fontWeight: FontWeight.w800,
                           ),
                         ),
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 10,
+                  SizedBox(
+                    height: MediaQuery.sizeOf(context).height *0.01,
                   ),
 
                   // Row
                   Padding(
-                    padding: const EdgeInsets.only(top: 15),
+                    padding: EdgeInsets.only(
+                      top: MediaQuery.sizeOf(context).height *0.01,
+                    ),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -226,8 +228,8 @@ class LoginPage extends StatelessWidget {
                           'Don\'t have an Account?',
                           style: TextStyle(color: Colors.white38),
                         ),
-                        const SizedBox(
-                          width: 10,
+                        SizedBox(
+                          width: MediaQuery.sizeOf(context).width * 0.02,
                         ),
 
                         // Register Button
