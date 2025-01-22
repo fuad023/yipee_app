@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:student_app/pages/auth/root/drawer_screen.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/codeforces.dart';
 
 class HomePage extends StatelessWidget {
@@ -45,11 +44,11 @@ class HomePage extends StatelessWidget {
                       children: [
                         Padding(
                           padding:
-                              EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                             const EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
                           child: Text(
-                            'Good Morning,\n' + userName,
+                            'Good Morning,\n + $userName',
                             textAlign: TextAlign.start,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.white,
                               fontSize: 23.0,
                               fontWeight: FontWeight.bold,
@@ -229,26 +228,29 @@ class HomePage extends StatelessWidget {
                       Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          Material(
-                            color: Color(0x75FFFFFF),
-                            //elevation: 10.0,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0),
-                            ),
-                            child: Container(
-                              width: 60.0,
-                              height: 60.0,
-                              decoration: BoxDecoration(
-                                color: const Color(0x001E3C63),
-                                image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image:
-                                      Image.asset('assets/cdf.png').image,
+                          GestureDetector(
+                            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const Codeforces())),
+                            child: Material(
+                              color: const Color(0x75FFFFFF),
+                              //elevation: 10.0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),
+                              child: Container(
+                                width: 60.0,
+                                height: 60.0,
+                                decoration: BoxDecoration(
+                                  color: const Color(0x001E3C63),
+                                  image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image:
+                                        Image.asset('assets/cdf.png').image,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  // border: Border.all(
+                                  //   width: 2.0,
+                                  // ),
                                 ),
-                                borderRadius: BorderRadius.circular(10.0),
-                                // border: Border.all(
-                                //   width: 2.0,
-                                // ),
                               ),
                             ),
                           ),
