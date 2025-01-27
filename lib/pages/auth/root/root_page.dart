@@ -18,9 +18,9 @@ class _RootPageState extends State<RootPage> {
   @override
   Widget build(BuildContext context) {
     final User? user = FirebaseAuth.instance.currentUser;
-    final String userEmail = user?.email ?? 'No email';
     final String userName = user?.email?.split('@').first ?? 'No username';
-    final List<Widget> _screens = [
+    final String userFullName = user?.email ?? 'No username';
+    final List<Widget> screens = [
       HomePage(
         userName: userName,
       ),
@@ -34,7 +34,7 @@ class _RootPageState extends State<RootPage> {
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
-        drawer: DrawerScreen(email: userName),
+        drawer: DrawerScreen(email: userFullName),
         body: Stack(
           children: [
             Align(
@@ -63,7 +63,7 @@ class _RootPageState extends State<RootPage> {
             ),
             Align(
               alignment: Alignment.center, // Ensure the screen is centered
-              child: _screens[_currentIndex], // Display the current screen
+              child: screens[_currentIndex], // Display the current screen
             ),
           ],
         ),

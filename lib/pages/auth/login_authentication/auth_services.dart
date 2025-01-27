@@ -75,4 +75,39 @@ class AuthServices {
     }
   }
 
+  // Delete Account
+  // Future<void> deleteAccount() async {
+  //   try {
+  //   await _firestore.collection('Users').doc(_firebaseAuth.currentUser?.uid).delete();
+  //   await _firebaseAuth.currentUser!.delete();
+  //   } catch (e) {
+  //     throw Exception(e.toString());
+  //   }
+  // }
+  Future<void> deleteAccount(String pass) async {
+  try {
+    // Get the current user
+    final user = _firebaseAuth.currentUser;
+
+    if (user != null) {
+      // Re-authenticate the user
+      final credential = EmailAuthProvider.credential(
+        email: user.email!,
+        password: pass, // Prompt the user to enter their password
+      );
+
+      await user.reauthenticateWithCredential(credential);
+
+      // Delete user data from Firestore
+      await _firestore.collection('Users').doc(user.uid).delete();
+
+      // Delete the user account
+      await user.delete();
+    }
+  } on FirebaseAuthException catch (e) {
+    throw Exception(e.toString());
+  }
+}
+
+
 }

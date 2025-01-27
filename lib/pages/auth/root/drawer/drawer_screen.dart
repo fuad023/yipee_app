@@ -58,7 +58,7 @@ class DrawerScreen extends StatelessWidget {
               title: const Text('Settings'),
               onTap: () {
                 Navigator.pop(context);
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const Settings()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Settings()));
               },
             ),
             const Spacer(),
