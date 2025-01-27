@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/codeforces.dart';
+import 'package:student_app/pages/auth/root/nagivation_pages/home_page/iums.dart';
 
 class HomePage extends StatelessWidget {
   final String userName;
@@ -10,6 +11,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String profileName = userName[0].toUpperCase() + userName.substring(1);
     return Stack(  
         children: [
           Column(
@@ -46,7 +48,7 @@ class HomePage extends StatelessWidget {
                           padding:
                              const EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
                           child: Text(
-                            'Good Morning,\n + $userName',
+                            'Good Morning,\n$profileName',
                             textAlign: TextAlign.start,
                             style: const TextStyle(
                               color: Colors.white,
@@ -190,34 +192,42 @@ class HomePage extends StatelessWidget {
                       Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          Material(
-                            color: Colors.transparent,
-                            //elevation: 10.0,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0),
-                            ),
-                            child: Container(
-                              width: 60.0,
-                              height: 60.0,
-                              decoration: BoxDecoration(
-                                color: const Color(0x001E3C63),
-                                image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image:
-                                      Image.asset('assets/calc.png').image,
+                          GestureDetector(
+                              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const StudentIUMS())),
+                              child: Material(
+                                color: Colors.transparent,
+                                //elevation: 10.0,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30.0),
                                 ),
-                                borderRadius: BorderRadius.circular(30.0),
-                                border: Border.all(
-                                  width: 2.0,
+                                child: Container(
+                                  width: 60.0,
+                                  height: 60.0,
+                                  
+                                  decoration: BoxDecoration(
+                                    color: const Color(0x001E3C63),
+                                    // image: DecorationImage(
+                                    //   fit: BoxFit.cover,
+                                    //   image:
+                                    //       Image.asset('assets/calc.png').image,
+                                    // ),
+                                    borderRadius: BorderRadius.circular(30.0),
+                                    border: Border.all(
+                                      width: 2.0,
+                                    ),
+                                  ),
+                                  child: const Icon(
+                                    Icons.school,
+                                    size: 40.0,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
                           const SizedBox(
                             height: 5,
                           ),
                           const Text(
-                            'Calculator',
+                            'Iums',
                             style: TextStyle(
                               color: Color(0xBFF1F4F8),
                               fontSize: 15.0,
