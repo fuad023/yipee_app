@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/api/codeforces_api.dart';
-import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/api/codeforces_contest_list.dart';
+import 'package:student_app/pages/auth/root/navigation_pages/home_page/services/codeforces/api/codeforces_api.dart';
+import 'package:student_app/pages/auth/root/navigation_pages/home_page/services/codeforces/api/codeforces_contest_list.dart';
 
 class ContestList extends StatefulWidget {
   const ContestList({super.key});

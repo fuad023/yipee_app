@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/drawer/search_user/public/public_user_details.dart';
-import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/drawer/search_user/public/public_submissions.dart';
-import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/drawer/search_user/public/public_user_rating_history.dart';
+import 'package:student_app/pages/auth/root/navigation_pages/home_page/services/codeforces/drawer/search_user/public/public_user_details.dart';
+import 'package:student_app/pages/auth/root/navigation_pages/home_page/services/codeforces/drawer/search_user/public/public_submissions.dart';
+import 'package:student_app/pages/auth/root/navigation_pages/home_page/services/codeforces/drawer/search_user/public/public_user_rating_history.dart';
 
 class Public extends StatefulWidget {
   final String handle;

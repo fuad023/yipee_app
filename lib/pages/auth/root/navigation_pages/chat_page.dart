@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:student_app/pages/auth/login_authentication/auth_services.dart';
-import 'package:student_app/pages/auth/root/nagivation_pages/message_componenet/message_bubble.dart';
+import 'package:student_app/pages/auth/root/navigation_pages/message_componenet/message_bubble.dart';
 import 'package:student_app/pages/auth/ui_components/my_textfield.dart';
 import 'package:student_app/services/chat/chat_service.dart';
 

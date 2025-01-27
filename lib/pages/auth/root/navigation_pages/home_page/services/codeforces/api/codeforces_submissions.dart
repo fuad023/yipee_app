@@ -1,10 +1,10 @@
 import 'package:http/http.dart';
 import 'dart:convert';
 
-import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/api/codeforces_api.dart';
-import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/api/codeforces_user.dart';
-import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/api/codeforces_rating_history.dart';
-import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/api/codeforces_contest_list.dart';
+import 'package:student_app/pages/auth/root/navigation_pages/home_page/services/codeforces/api/codeforces_api.dart';
+import 'package:student_app/pages/auth/root/navigation_pages/home_page/services/codeforces/api/codeforces_user.dart';
+import 'package:student_app/pages/auth/root/navigation_pages/home_page/services/codeforces/api/codeforces_rating_history.dart';
+import 'package:student_app/pages/auth/root/navigation_pages/home_page/services/codeforces/api/codeforces_contest_list.dart';
 
 class CodeforcesSubmissions extends CodeforcesApi {
   List<ResultSubmissions> result = [];

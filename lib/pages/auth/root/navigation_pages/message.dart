@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:student_app/pages/auth/login_authentication/auth_services.dart';
-import 'package:student_app/pages/auth/root/nagivation_pages/chat_page.dart';
+import 'package:student_app/pages/auth/root/navigation_pages/chat_page.dart';
 import 'package:student_app/services/chat/chat_service.dart';
 
 import 'message_componenet/user_tile.dart';

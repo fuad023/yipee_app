@@ -1,32 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/api/codeforces_api.dart';
-import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/api/codeforces_submissions.dart';
+import 'package:student_app/pages/auth/root/navigation_pages/home_page/services/codeforces/api/codeforces_api.dart';
+import 'package:student_app/pages/auth/root/navigation_pages/home_page/services/codeforces/api/codeforces_rating_history.dart';
 
-class Submissions extends StatefulWidget {
-  final String? handle;
+class PublicUserRatingHistory extends StatefulWidget {
+  final String handle;
 
-  const Submissions({
+  const PublicUserRatingHistory({
     super.key,
     required this.handle,
   });
 
   @override
-  State<Submissions> createState() => _SubmissionsState();
+  State<PublicUserRatingHistory> createState() => _UserRatingHistoryState();
 }
 
-class _SubmissionsState extends State<Submissions> {
-  String? _handle;
+class _UserRatingHistoryState extends State<PublicUserRatingHistory> {
+  late String _handle;
   bool _dataFetching = true;
-  final CodeforcesApi _codeforcesApi = CodeforcesSubmissions();
-  List<ResultSubmissions> _dataList = [];
+  final CodeforcesApi _codeforcesApi = CodeforcesRatingHistory();
+  List<ResultRatingHistory> _dataList = [];
 
   void fetchSubmissions(String handle) async {
     try {
-      _dataList = (await _codeforcesApi.fetchSubmissions(handle))!;
+      _dataList = (await _codeforcesApi.fetchRatingHistory(handle))!;
       if (!mounted) return;
 
       setState(() {
-        _dataFetching = false;
+          _dataFetching = false;
       });
     } catch (e) {
       if (mounted) {
@@ -38,14 +38,9 @@ class _SubmissionsState extends State<Submissions> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    _handle = widget.handle;
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return _handle == null ? _requestSetup() : _showSubmissions();
+    _handle = widget.handle;
+    return _handle.isEmpty ? _requestSetup() : _showSubmissions();
   }
 
   Widget _requestSetup() {
@@ -56,7 +51,7 @@ class _SubmissionsState extends State<Submissions> {
 
   Widget _showSubmissions() {
     if (_dataFetching) {
-      fetchSubmissions(_handle!);
+      fetchSubmissions(_handle);
     }
 
     return _dataFetching
@@ -67,7 +62,7 @@ class _SubmissionsState extends State<Submissions> {
     )
     : _dataList.isEmpty
     ? const Center(
-      child: Text("Haven't made any submission yet?"),
+      child: Text("Haven't participated in any contest yet?"),
     )
     : Scrollbar(
       interactive: true,
@@ -84,14 +79,13 @@ class _SubmissionsState extends State<Submissions> {
                   title: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _myText(_dataList[index].getIdName(), true),
-                      _myTextTwo("Rating: ", _dataList[index].getRating()),
-                      _myTextTwo("Participant: ", _dataList[index].getParticipantType()),
-                      const SizedBox(height: 8.0),
-                      _myText(_dataList[index].getCreatedWhen(), false),
+                      _myText(_dataList[index].getContestName, true),
+                      _myTextTwo("Rank: ", _dataList[index].getRank),
+                      _myTextTwo("Updated Rating: ", _dataList[index].getNewRating),
+                      _myTextTwo("Update Time: ", _dataList[index].getRatingUpdateTimeSeconds),
                     ],
                   ),
-                  trailing: setVerdict(_dataList[index].getVerdict()),
+                  trailing: _setRatingDiff(_dataList[index].getRatingDiff),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -100,7 +94,7 @@ class _SubmissionsState extends State<Submissions> {
               ],
             ),
           );
-        }
+        },
       ),
     );
   }
@@ -137,11 +131,11 @@ class _SubmissionsState extends State<Submissions> {
     );
   }
 
-  Widget setVerdict(String verdict) {
+  Widget _setRatingDiff(int diff) {
     return Text(
-      verdict,
+      diff < 0 ? "$diff" : "+$diff",
       style: TextStyle(
-        color: (verdict == "OK") ? Colors.green[700] : Colors.red,
+        color: (diff < 0) ? Colors.red : Colors.green[600],
       ),
     );
   }

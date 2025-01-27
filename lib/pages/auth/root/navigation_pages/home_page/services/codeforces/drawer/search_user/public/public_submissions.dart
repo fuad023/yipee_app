@@ -1,51 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/api/codeforces_api.dart';
-import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/api/codeforces_rating_history.dart';
+import 'package:student_app/pages/auth/root/navigation_pages/home_page/services/codeforces/api/codeforces_api.dart';
+import 'package:student_app/pages/auth/root/navigation_pages/home_page/services/codeforces/api/codeforces_submissions.dart';
 
-class UserRatingHistory extends StatefulWidget {
-  final String? handle;
+class PublicSubmissions extends StatefulWidget {
+  final String handle;
 
-  const UserRatingHistory({
+  const PublicSubmissions({
     super.key,
     required this.handle,
   });
 
   @override
-  State<UserRatingHistory> createState() => _UserRatingHistoryState();
+  State<PublicSubmissions> createState() => _SubmissionsState();
 }
 
-class _UserRatingHistoryState extends State<UserRatingHistory> {
-  String? _handle;
-  bool _dataFetching = true;
-  final CodeforcesApi _codeforcesApi = CodeforcesRatingHistory();
-  List<ResultRatingHistory> _dataList = [];
+class _SubmissionsState extends State<PublicSubmissions> {
+  late String handle;
+  bool dataFetching = true;
+  final CodeforcesApi _codeforcesApi = CodeforcesSubmissions();
+  List<ResultSubmissions> _dataList = [];
 
   void fetchSubmissions(String handle) async {
     try {
-      _dataList = (await _codeforcesApi.fetchRatingHistory(handle))!;
+      _dataList = (await _codeforcesApi.fetchSubmissions(handle))!;
       if (!mounted) return;
 
       setState(() {
-        _dataFetching = false;
+          dataFetching = false;
       });
     } catch (e) {
       if (mounted) {
         setState(() {
-          _dataFetching = false;
+          dataFetching = false;
         });
       }
     }
   }
 
   @override
-  void initState() {
-    super.initState();
-    _handle = widget.handle;
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return _handle == null ? _requestSetup() : _showSubmissions();
+    handle = widget.handle;
+    return handle.isEmpty ? _requestSetup() : _showSubmissions();
   }
 
   Widget _requestSetup() {
@@ -55,11 +50,11 @@ class _UserRatingHistoryState extends State<UserRatingHistory> {
   }
 
   Widget _showSubmissions() {
-    if (_dataFetching) {
-      fetchSubmissions(_handle!);
+    if (dataFetching) {
+      fetchSubmissions(handle);
     }
 
-    return _dataFetching
+    return dataFetching
     ? Center(
       child: CircularProgressIndicator(
         color: Colors.green[700],
@@ -67,7 +62,7 @@ class _UserRatingHistoryState extends State<UserRatingHistory> {
     )
     : _dataList.isEmpty
     ? const Center(
-      child: Text("Haven't participated in any contest yet?"),
+      child: Text("Haven't made any submission yet?"),
     )
     : Scrollbar(
       interactive: true,
@@ -84,13 +79,14 @@ class _UserRatingHistoryState extends State<UserRatingHistory> {
                   title: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _myText(_dataList[index].getContestName, true),
-                      _myTextTwo("Rank: ", _dataList[index].getRank),
-                      _myTextTwo("Updated Rating: ", _dataList[index].getNewRating),
-                      _myTextTwo("Update Time: ", _dataList[index].getRatingUpdateTimeSeconds),
+                      _myText(_dataList[index].getIdName(), true),
+                      _myTextTwo("Rating: ", _dataList[index].getRating()),
+                      _myTextTwo("Participant: ", _dataList[index].getParticipantType()),
+                      const SizedBox(height: 8.0),
+                      _myText(_dataList[index].getCreatedWhen(), false),
                     ],
                   ),
-                  trailing: _setRatingDiff(_dataList[index].getRatingDiff),
+                  trailing: setVerdict(_dataList[index].getVerdict()),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -99,7 +95,7 @@ class _UserRatingHistoryState extends State<UserRatingHistory> {
               ],
             ),
           );
-        },
+        }
       ),
     );
   }
@@ -136,11 +132,11 @@ class _UserRatingHistoryState extends State<UserRatingHistory> {
     );
   }
 
-  Widget _setRatingDiff(int diff) {
+  Widget setVerdict(String verdict) {
     return Text(
-      diff < 0 ? "$diff" : "+$diff",
+      verdict,
       style: TextStyle(
-        color: (diff < 0) ? Colors.red : Colors.green[600],
+        color: (verdict == "OK") ? Colors.green[700] : Colors.red,
       ),
     );
   }

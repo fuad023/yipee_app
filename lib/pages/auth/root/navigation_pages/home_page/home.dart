@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/codeforces.dart';
-import 'package:student_app/pages/auth/root/nagivation_pages/home_page/iums.dart';
+import 'package:student_app/pages/auth/root/navigation_pages/home_page/services/codeforces/codeforces.dart';
+import 'package:student_app/pages/auth/root/navigation_pages/home_page/web_view.dart';
 
 class HomePage extends StatelessWidget {
   final String userName;
@@ -193,7 +193,7 @@ class HomePage extends StatelessWidget {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           GestureDetector(
-                              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const StudentIUMS(url: 'https://iums.aust.edu/ums-web/login/',))),
+                              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const WebViewHelper(url: 'https://iums.aust.edu/ums-web/login/',))),
                               child: Material(
                                 color: Colors.transparent,
                                 //elevation: 10.0,
@@ -284,7 +284,7 @@ class HomePage extends StatelessWidget {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           GestureDetector(
-                            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => StudentIUMS(url: 'https://drive.google.com/drive/folders/1qomc9V5zA3FetfpMYo1QSx_fXgmD0EfU?fbclid=IwY2xjawIE3XhleHRuA2FlbQIxMAABHZ4QM4lMpd6nMAupr34tAxP57Uh6waQgpzFmCyHb1ZNJZv_x6JT-tZ1q0w_aem_0tTG-pO1ksH5OCafoDU9Jw'))),
+                            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const WebViewHelper(url: 'https://drive.google.com/drive/folders/1qomc9V5zA3FetfpMYo1QSx_fXgmD0EfU?fbclid=IwY2xjawIE3XhleHRuA2FlbQIxMAABHZ4QM4lMpd6nMAupr34tAxP57Uh6waQgpzFmCyHb1ZNJZv_x6JT-tZ1q0w_aem_0tTG-pO1ksH5OCafoDU9Jw'))),
                             child: Material(
                               color: Colors.transparent,
                               //elevation: 10.0,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/api/codeforces_api.dart';
-import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/api/codeforces_user.dart';
+import 'package:student_app/pages/auth/root/navigation_pages/home_page/services/codeforces/api/codeforces_api.dart';
+import 'package:student_app/pages/auth/root/navigation_pages/home_page/services/codeforces/api/codeforces_user.dart';
 
 class UserDetails extends StatefulWidget {
   final String? handle;

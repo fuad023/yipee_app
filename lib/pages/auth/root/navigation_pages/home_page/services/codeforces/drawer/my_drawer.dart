@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/drawer/change_handle.dart';
-import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/drawer/contest_list.dart';
-import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/drawer/search_user/search_user.dart';
+import 'package:student_app/pages/auth/root/navigation_pages/home_page/services/codeforces/drawer/change_handle.dart';
+import 'package:student_app/pages/auth/root/navigation_pages/home_page/services/codeforces/drawer/contest_list.dart';
+import 'package:student_app/pages/auth/root/navigation_pages/home_page/services/codeforces/drawer/search_user/search_user.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});

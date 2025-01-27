@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class StudentIUMS extends StatefulWidget {
+class WebViewHelper extends StatefulWidget {
   final String url;
-  const StudentIUMS({
+  const WebViewHelper({
     super.key,
     required this.url,
   });
 
   @override
-  State<StudentIUMS> createState() => _StudentIUMSState();
+  State<WebViewHelper> createState() => _StudentIUMSState();
 }
 
-class _StudentIUMSState extends State<StudentIUMS> {
+class _StudentIUMSState extends State<WebViewHelper> {
   late final WebViewController _controller;
 
   @override

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/database_service.dart';
+import 'package:student_app/pages/auth/root/navigation_pages/home_page/services/codeforces/database_service.dart';
 
-import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/drawer/my_drawer.dart';
-import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/user_details.dart';
-import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/submissions.dart';
-import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/navigation_pages/user_rating_history.dart';
+import 'package:student_app/pages/auth/root/navigation_pages/home_page/services/codeforces/drawer/my_drawer.dart';
+import 'package:student_app/pages/auth/root/navigation_pages/home_page/services/codeforces/navigation_pages/user_details.dart';
+import 'package:student_app/pages/auth/root/navigation_pages/home_page/services/codeforces/navigation_pages/submissions.dart';
+import 'package:student_app/pages/auth/root/navigation_pages/home_page/services/codeforces/navigation_pages/user_rating_history.dart';
 
 class Codeforces extends StatefulWidget {
   const Codeforces({super.key});
