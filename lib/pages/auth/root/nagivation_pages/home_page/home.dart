@@ -193,7 +193,7 @@ class HomePage extends StatelessWidget {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           GestureDetector(
-                              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const StudentIUMS())),
+                              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const StudentIUMS(url: 'https://iums.aust.edu/ums-web/login/',))),
                               child: Material(
                                 color: Colors.transparent,
                                 //elevation: 10.0,
@@ -206,11 +206,6 @@ class HomePage extends StatelessWidget {
                                   
                                   decoration: BoxDecoration(
                                     color: const Color(0x001E3C63),
-                                    // image: DecorationImage(
-                                    //   fit: BoxFit.cover,
-                                    //   image:
-                                    //       Image.asset('assets/calc.png').image,
-                                    // ),
                                     borderRadius: BorderRadius.circular(30.0),
                                     border: Border.all(
                                       width: 2.0,
@@ -288,26 +283,29 @@ class HomePage extends StatelessWidget {
                       Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          Material(
-                            color: Colors.transparent,
-                            //elevation: 10.0,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0),
-                            ),
-                            child: Container(
-                              width: 60.0,
-                              height: 60.0,
-                              decoration: BoxDecoration(
-                                color: const Color(0x001E3C63),
-                                image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image:
-                                      Image.asset('assets/drive.png').image,
-                                ),
+                          GestureDetector(
+                            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => StudentIUMS(url: 'https://drive.google.com/drive/folders/1qomc9V5zA3FetfpMYo1QSx_fXgmD0EfU?fbclid=IwY2xjawIE3XhleHRuA2FlbQIxMAABHZ4QM4lMpd6nMAupr34tAxP57Uh6waQgpzFmCyHb1ZNJZv_x6JT-tZ1q0w_aem_0tTG-pO1ksH5OCafoDU9Jw'))),
+                            child: Material(
+                              color: Colors.transparent,
+                              //elevation: 10.0,
+                              shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30.0),
-                                // border: Border.all(
-                                //   width: 2.0,
-                                // ),
+                              ),
+                              child: Container(
+                                width: 60.0,
+                                height: 60.0,
+                                decoration: BoxDecoration(
+                                  color: const Color(0x001E3C63),
+                                  image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image:
+                                        Image.asset('assets/drive.png').image,
+                                  ),
+                                  borderRadius: BorderRadius.circular(30.0),
+                                  // border: Border.all(
+                                  //   width: 2.0,
+                                  // ),
+                                ),
                               ),
                             ),
                           ),
