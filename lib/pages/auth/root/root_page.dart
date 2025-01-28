@@ -18,7 +18,7 @@ class _RootPageState extends State<RootPage> {
   @override
   Widget build(BuildContext context) {
     final User? user = FirebaseAuth.instance.currentUser;
-    final String userEmail = user?.email ?? 'No email';
+    // final String userEmail = user?.email ?? 'No email';
     final String userName = user?.email?.split('@').first ?? 'No username';
     final List<Widget> screens = [
       HomePage(

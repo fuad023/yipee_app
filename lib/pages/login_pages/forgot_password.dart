@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:student_app/components/login_textField.dart';
+import 'package:student_app/components/login_textfield.dart';
 import 'package:student_app/pages/auth/login_authentication/auth_services.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
@@ -19,6 +19,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   void initState() {
     super.initState();
     Future.delayed(Duration.zero, () {
+      if (!mounted) return;
       FocusScope.of(context).unfocus(); // Removes focus
     });
   }
@@ -44,6 +45,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
     try {
       await authServices.resetPassword(_emailController.text);
+      if (!mounted) return;
       showDialog(
         context: context,
         builder: (context) => const AlertDialog(
@@ -141,7 +143,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       alignment: const Alignment(0.0, -1.0),
                       child: Padding(
                         padding: const EdgeInsets.only(top: 10.0),
-                        child: Container(
+                        child: SizedBox(
                           width: 300.0,
                           child: LoginTextField(
                             controlText: _emailController,
