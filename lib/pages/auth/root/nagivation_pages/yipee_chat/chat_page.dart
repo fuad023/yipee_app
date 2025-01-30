@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:student_app/pages/auth/login_authentication/auth_services.dart';
+import 'package:student_app/pages/auth/auth_service/login_authentication/auth_services.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/yipee_chat/componenets/message_bubble.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/yipee_chat/componenets/message_textfield.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/yipee_chat/service/chat_service.dart';

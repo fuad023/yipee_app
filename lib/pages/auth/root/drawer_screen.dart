@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:student_app/pages/auth/login_authentication/auth_services.dart';
-import 'package:student_app/pages/login_pages/developer_handle.dart';
+import 'package:student_app/pages/auth/auth_service/login_authentication/auth_services.dart';
+import 'package:student_app/pages/auth/auth_service/login_pages/developer_handle.dart';
 
 class DrawerScreen extends StatelessWidget {
 

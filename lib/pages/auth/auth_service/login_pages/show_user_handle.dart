@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:student_app/pages/auth/login_authentication/auth_services.dart';
+import 'package:student_app/pages/auth/auth_service/login_authentication/auth_services.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/yipee_chat/service/chat_service.dart';
 
 class ShowUserHandle extends StatefulWidget {

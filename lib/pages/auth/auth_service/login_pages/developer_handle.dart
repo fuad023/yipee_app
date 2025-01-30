@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:student_app/pages/login_pages/show_user_handle.dart';
+import 'package:student_app/pages/auth/auth_service/login_pages/show_user_handle.dart';
 
 class DeveloperHandle extends StatefulWidget {
   const DeveloperHandle({super.key});
