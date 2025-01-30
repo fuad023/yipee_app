@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 class AuthServices {
   // Instance of firebase Authentication
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
 
   // Get current user
   User? getCurrentUser() {
@@ -12,7 +12,7 @@ class AuthServices {
   }
 
   // Sign in
-  Future<UserCredential> signwithEmailandPassword(
+  Future<UserCredential> signInWithEmailAndPassword(
       String email, password) async {
     try {
       UserCredential userCredential =
@@ -21,13 +21,13 @@ class AuthServices {
         password: password,
       );
 
-      DocumentSnapshot documentSnapshot = await _firestore
+      DocumentSnapshot documentSnapshot = await _fireStore
           .collection("Users")
           .doc(userCredential.user!.uid)
           .get();
 
       if (!documentSnapshot.exists) {
-        await _firestore.collection("Users").doc(userCredential.user!.uid).set({
+        await _fireStore.collection("Users").doc(userCredential.user!.uid).set({
           "uid": userCredential.user!.uid,
           "email": email,
           "createdAt": FieldValue.serverTimestamp(),
@@ -41,7 +41,7 @@ class AuthServices {
   }
 
   // Sign up
-  Future<UserCredential> signUpwithEmailandPassword(
+  Future<UserCredential> signUpWithEmailAndPassword(
       String email, password) async {
     try {
       UserCredential userCredential =
@@ -50,12 +50,21 @@ class AuthServices {
         password: password,
       );
 
-      _firestore.collection("Users").doc(userCredential.user!.uid).set({
+      _fireStore.collection("Users").doc(userCredential.user!.uid).set({
         'uid': userCredential.user!.uid,
         'email': email,
       });
 
       return userCredential;
+    } on FirebaseException catch (e) {
+      throw Exception(e.code);
+    }
+  }
+
+  // Sign in using email
+  Future<void> signInWithEmail(String email) async {
+    try {
+      await signInWithEmail(email);
     } on FirebaseException catch (e) {
       throw Exception(e.code);
     }
