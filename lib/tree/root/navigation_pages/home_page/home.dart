@@ -87,83 +87,89 @@ class HomePage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Container(
-                        width: 165.0,
-                        height: 100,
-                        decoration: BoxDecoration(
-                          color: const Color(0x44FFFFFF),
-                          borderRadius: BorderRadius.circular(18.0),
-                        ),
-                        child: const Padding(
-                          padding: EdgeInsets.only(left: 10, right: 10),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    '30°C',
-                                    style: TextStyle(
-                                      fontSize: 28.0,
-                                      fontWeight: FontWeight.bold,
+                      Expanded(
+                        child: Container(
+                          // width: 165.0,
+                          height: 100,
+                          decoration: BoxDecoration(
+                            color: const Color(0x44FFFFFF),
+                            borderRadius: BorderRadius.circular(18.0),
+                          ),
+                          child: const Padding(
+                            padding: EdgeInsets.only(left: 10, right: 10),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      '30°C',
+                                      style: TextStyle(
+                                        fontSize: 28.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    'Friday',
-                                    style: TextStyle(
-                                      fontSize: 15.0,
+                                    Text(
+                                      'Friday',
+                                      style: TextStyle(
+                                        fontSize: 15.0,
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                              Icon(
-                                Icons.cloudy_snowing,
-                                size: 50.0,
-                              ),
-                            ],
+                                  ],
+                                ),
+                                Icon(
+                                  Icons.cloudy_snowing,
+                                  size: 50.0,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                      Container(
-                        width: 165.0,
-                        height: 100,
-                        decoration: BoxDecoration(
-                          color: const Color(0x44FFFFFF),
-                          borderRadius: BorderRadius.circular(18.0),
-                        ),
-                        child: const Padding(
-                          padding: EdgeInsets.only(left: 10, right: 10),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    '2:17',
-                                    style: TextStyle(
-                                      fontSize: 28.0,
-                                      fontWeight: FontWeight.bold,
+                      const SizedBox(width: 16.0),
+
+                      Expanded(
+                        child: Container(
+                          // width: 165.0,
+                          height: 100,
+                          decoration: BoxDecoration(
+                            color: const Color(0x44FFFFFF),
+                            borderRadius: BorderRadius.circular(18.0),
+                          ),
+                          child: const Padding(
+                            padding: EdgeInsets.only(left: 10, right: 10),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      '2:17',
+                                      style: TextStyle(
+                                        fontSize: 28.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    '14 JAN',
-                                    style: TextStyle(
-                                      fontSize: 15.0,
+                                    Text(
+                                      '14 JAN',
+                                      style: TextStyle(
+                                        fontSize: 15.0,
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                              Icon(
-                                Icons.watch_later,
-                                size: 50.0,
-                              ),
-                            ],
+                                  ],
+                                ),
+                                Icon(
+                                  Icons.watch_later,
+                                  size: 50.0,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
