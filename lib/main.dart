@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:student_app/firebase_options.dart';
-import 'package:student_app/pages/auth/auth_service/login_authentication/auth_get.dart';
+import 'package:student_app/pages/auth_service/login_authentication/auth_get.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
