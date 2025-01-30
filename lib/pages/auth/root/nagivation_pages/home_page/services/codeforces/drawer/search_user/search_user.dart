@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/drawer/search_user/public.dart';
-import 'package:student_app/pages/auth/ui_components/my_textfield.dart';
-import 'package:student_app/pages/auth/ui_components/my_button.dart';
+import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/drawer/components/codeforces_textfield.dart';
+import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/drawer/components/codeforces_button.dart';
 
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/api/codeforces_api.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/api/codeforces_user.dart';
@@ -67,14 +67,14 @@ class _AppbarActionState extends State<SearchUser> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              MyTextfield(
+              CodeforcesTextfield(
                 controller: _handleController,
                 hintText: "handle",
                 obscureText: false
               ),
               const SizedBox(height: 15.0),
 
-              MyButton(
+              CodeforcesButton(
                 text: "Search",
                 onTap: () => checkValidity(context),
               ),

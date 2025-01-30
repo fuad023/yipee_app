@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:student_app/pages/auth/ui_components/my_textfield.dart';
-import 'package:student_app/pages/auth/ui_components/my_button.dart';
+import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/drawer/components/codeforces_textfield.dart';
+import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/drawer/components/codeforces_button.dart';
 
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/codeforces.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/services/codeforces/database_service.dart';
@@ -87,14 +87,14 @@ class _AppbarActionState extends State<ChangeHandle> {
               ),
               const SizedBox(height: 15.0),
 
-              MyTextfield(
+              CodeforcesTextfield(
                 controller: _handleController,
                 hintText: "handle name",
                 obscureText: false
               ),
               const SizedBox(height: 15.0),
 
-              MyButton(
+              CodeforcesButton(
                 text: "S  E  T",
                 onTap: () => checkValidity(context),
               ),

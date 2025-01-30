@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class MyTextfield extends StatelessWidget {
+class CodeforcesTextfield extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
   final bool obscureText;
   final FocusNode? focusNode;
 
-  const MyTextfield({
+  const CodeforcesTextfield({
     super.key,
     required this.controller,
     required this.hintText,
