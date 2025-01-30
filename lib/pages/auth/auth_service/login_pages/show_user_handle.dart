@@ -22,6 +22,7 @@ class _ShowUserHandleState extends State<ShowUserHandle> {
     try {
       await _authServices.signInWithEmailAndPassword(email, pass);
     } catch (e) {
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Login failed: $e'),
