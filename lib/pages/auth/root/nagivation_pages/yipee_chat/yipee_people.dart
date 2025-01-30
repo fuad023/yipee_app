@@ -5,10 +5,10 @@ import 'package:student_app/pages/auth/root/nagivation_pages/yipee_chat/service/
 
 import 'componenets/user_tile.dart';
 
-class MessagePage extends StatelessWidget {
+class YipeePeople extends StatelessWidget {
   final ChatService _chatService = ChatService();
   final AuthServices _authServices = AuthServices();
-  MessagePage({super.key});
+  YipeePeople({super.key});
 
   @override
   Widget build(BuildContext context) {

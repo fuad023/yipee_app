@@ -146,7 +146,7 @@ class RegisterPage extends StatelessWidget {
                   const SizedBox(height: 10,),
       
                   // TextField
-                  LoginTextField(
+                  LoginTextfield(
                     hitText: 'user@gmail.com',
                     secureText: false,
                     controlText: _emailController,
@@ -167,7 +167,7 @@ class RegisterPage extends StatelessWidget {
                   const SizedBox(height: 10,),
       
                   // TextField
-                  LoginTextField(
+                  LoginTextfield(
                     hitText: '********',
                     secureText: true,
                     controlText: _passwordController,
@@ -188,7 +188,7 @@ class RegisterPage extends StatelessWidget {
                   const SizedBox(height: 10,),
       
                   // TextField
-                  LoginTextField(
+                  LoginTextfield(
                     hitText: '********',
                     secureText: true,
                     controlText: _confirmPasswordController,

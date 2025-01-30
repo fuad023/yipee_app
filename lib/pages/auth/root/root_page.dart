@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/home_page/home.dart';
-import 'package:student_app/pages/auth/root/nagivation_pages/yipee_chat/message.dart';
+import 'package:student_app/pages/auth/root/nagivation_pages/yipee_chat/yipee_people.dart';
 import 'package:student_app/pages/auth/root/nagivation_pages/emergency.dart';
 import 'package:student_app/pages/auth/root/drawer_screen.dart';
 
@@ -24,7 +24,7 @@ class _RootPageState extends State<RootPage> {
       HomePage(
         userName: userName,
       ),
-      MessagePage(),
+      YipeePeople(),
       const EmergencyPage(),
     ];
 

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class LoginTextField extends StatefulWidget {
+class LoginTextfield extends StatefulWidget {
   final TextEditingController controlText;
   final FocusNode focusNode;
   final bool secureText; // Indicates if the field is for passwords
   final String hitText;
   
 
-  const LoginTextField({
+  const LoginTextfield({
     super.key,
     required this.controlText,
     required this.secureText,
@@ -16,10 +16,10 @@ class LoginTextField extends StatefulWidget {
   });
 
   @override
-  State<LoginTextField> createState() => _LoginTextFieldState();
+  State<LoginTextfield> createState() => _LoginTextfieldState();
 }
 
-class _LoginTextFieldState extends State<LoginTextField> {
+class _LoginTextfieldState extends State<LoginTextfield> {
   late bool _isSecureText; // Internal state to manage visibility
 
   @override

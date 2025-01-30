@@ -151,7 +151,7 @@ class LoginPage extends StatelessWidget {
                         ),
                     
                         // TextField
-                        LoginTextField(
+                        LoginTextfield(
                           hitText: 'user@gmail.com',
                           secureText: false,
                           controlText: _emailController,
@@ -176,7 +176,7 @@ class LoginPage extends StatelessWidget {
                         ),
                     
                         // TextField
-                        LoginTextField(
+                        LoginTextfield(
                           hitText: '********',
                           secureText: true,
                           controlText: _passwordController,

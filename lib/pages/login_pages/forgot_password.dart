@@ -145,7 +145,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                         padding: const EdgeInsets.only(top: 10.0),
                         child: SizedBox(
                           width: 300.0,
-                          child: LoginTextField(
+                          child: LoginTextfield(
                             controlText: _emailController,
                             secureText: false,
                             hitText: 'Enter Email',
