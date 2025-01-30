@@ -1,14 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 
-class Messaging {
+class MessageItem {
   final String senderID;
   final String senderEmail;
   final String recieverID;
   final String message;
   final Timestamp timestamp;
 
-  Messaging({
+  MessageItem({
     required this.senderID,
     required this.senderEmail,
     required this.recieverID,

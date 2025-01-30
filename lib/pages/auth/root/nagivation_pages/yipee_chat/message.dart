@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:student_app/pages/auth/login_authentication/auth_services.dart';
-import 'package:student_app/pages/auth/root/nagivation_pages/chat_page.dart';
-import 'package:student_app/services/chat/chat_service.dart';
+import 'package:student_app/pages/auth/root/nagivation_pages/yipee_chat/chat_page.dart';
+import 'package:student_app/pages/auth/root/nagivation_pages/yipee_chat/service/chat_service.dart';
 
-import 'message_componenet/user_tile.dart';
+import 'componenets/user_tile.dart';
 
 class MessagePage extends StatelessWidget {
   final ChatService _chatService = ChatService();

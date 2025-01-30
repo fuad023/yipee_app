@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:student_app/pages/auth/models/messaging.dart';
+import 'package:student_app/pages/auth/root/nagivation_pages/yipee_chat/model/message_item.dart';
 
 class ChatService {
   // Firebase instance
@@ -25,7 +25,7 @@ class ChatService {
     final Timestamp timestamp = Timestamp.now();
 
     // Create a new message
-    Messaging messaging = Messaging(senderID: currentUserID, senderEmail: currentUserEmail, recieverID: recieverID, message: message, timestamp: timestamp);
+    MessageItem messaging = MessageItem(senderID: currentUserID, senderEmail: currentUserEmail, recieverID: recieverID, message: message, timestamp: timestamp);
 
     // Create chatroom
     List<String> ids = [currentUserID, recieverID];
