@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:student_app/pages/auth/auth_service/login_authentication/auth_services.dart';
-import 'package:student_app/pages/auth/root/nagivation_pages/yipee_chat/service/chat_service.dart';
+import 'package:student_app/pages/auth/root/navigation_pages/yipee_chat/service/chat_service.dart';
 
 class ShowUserHandle extends StatefulWidget {
   const ShowUserHandle({super.key});

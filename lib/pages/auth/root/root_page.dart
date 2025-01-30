@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:student_app/pages/auth/root/nagivation_pages/home_page/home.dart';
-import 'package:student_app/pages/auth/root/nagivation_pages/yipee_chat/yipee_people.dart';
-import 'package:student_app/pages/auth/root/nagivation_pages/emergency.dart';
+import 'package:student_app/pages/auth/root/navigation_pages/home_page/home.dart';
+import 'package:student_app/pages/auth/root/navigation_pages/yipee_chat/yipee_people.dart';
+import 'package:student_app/pages/auth/root/navigation_pages/emergency.dart';
 import 'package:student_app/pages/auth/root/drawer_screen.dart';
 
 class RootPage extends StatefulWidget {
