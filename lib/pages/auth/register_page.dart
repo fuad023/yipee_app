@@ -61,13 +61,13 @@ class RegisterPage extends StatelessWidget {
 
     if(_confirmPasswordController.text == _passwordController.text) {
     try {
-      await authservices.signUpwithEmailandPassword(_emailController.text, _passwordController.text);
+      await authservices.signUpWithEmailAndPassword(_emailController.text, _passwordController.text);
     } catch (e) {
       showDialog(
           context: context, // ignore: use_build_context_synchronously
           builder: (context) => const AlertDialog(
             title: Text('Error'),
-            content: Text('Couldn\'t Signup'),
+            content: Text('Could not Signup'),
           )
       );
     }

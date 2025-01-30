@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:student_app/pages/auth/login_authentication/auth_services.dart';
+import 'package:student_app/pages/login_pages/developer_handle.dart';
 
 class DrawerScreen extends StatelessWidget {
 
@@ -57,6 +58,13 @@ class DrawerScreen extends StatelessWidget {
               title: const Text('Settings'),
               onTap: () {
                 Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.developer_board),
+              title: const Text('Developer Handle'),
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const DeveloperHandle()));
               },
             ),
             const Spacer(),
