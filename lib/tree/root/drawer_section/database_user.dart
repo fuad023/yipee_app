@@ -1,14 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class AccountDatabaseService {
+class DatabaseUser {
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   late String currentUserID;
   Map<String, dynamic> userInfo = {};
 
-  AccountDatabaseService() {
+  DatabaseUser() {
     currentUserID = _firebaseAuth.currentUser!.uid;
   }
 
@@ -26,19 +26,31 @@ class AccountDatabaseService {
       );
   }
 
-  // Future<void> setEmail(String email) async {
-  //   Map<String, dynamic> handleMap = {"handle" : email};
+  Future<void> setEmail(String email) async {
+    Map<String, dynamic> handleMap = {"email" : email};
 
-  //   await _firestore
-  //     .collection("Users")
-  //     .doc(currentUserID)
-  //     .set(
-  //       handleMap,
-  //       SetOptions(merge: true),
-  //     );
-  // }
+    await _firestore
+      .collection("Users")
+      .doc(currentUserID)
+      .set(
+        handleMap,
+        SetOptions(merge: true),
+      );
+  }
 
-  Future<void> setYear(int year) async {
+  Future<void> setID(String id) async {
+    Map<String, dynamic> handleMap = {"id" : id};
+
+    await _firestore
+      .collection("Users")
+      .doc(currentUserID)
+      .set(
+        handleMap,
+        SetOptions(merge: true),
+      );
+  }
+
+  Future<void> setYear(String year) async {
     Map<String, dynamic> handleMap = {"year" : year};
 
     await _firestore
@@ -50,7 +62,7 @@ class AccountDatabaseService {
       );
   }
 
-  Future<void> setSemester(int semester) async {
+  Future<void> setSemester(String semester) async {
     Map<String, dynamic> handleMap = {"semester" : semester};
 
     await _firestore
