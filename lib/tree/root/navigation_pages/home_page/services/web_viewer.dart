@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class StudentIUMS extends StatefulWidget {
-  const StudentIUMS({super.key});
+class WebViewer extends StatefulWidget {
+  final String url;
+  const WebViewer({
+    super.key,
+    required this.url,
+  });
 
   @override
-  State<StudentIUMS> createState() => _StudentIUMSState();
+  State<WebViewer> createState() => _StudentIUMSState();
 }
 
-class _StudentIUMSState extends State<StudentIUMS> {
+class _StudentIUMSState extends State<WebViewer> {
   late final WebViewController _controller;
 
   @override
@@ -16,7 +20,7 @@ class _StudentIUMSState extends State<StudentIUMS> {
     super.initState();
     _controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..loadRequest(Uri.parse(sanitizeUrl('https://iums.aust.edu/ums-web/login/')));
+      ..loadRequest(Uri.parse(sanitizeUrl(widget.url)));
   }
 
   String sanitizeUrl(String url) {

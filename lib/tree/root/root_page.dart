@@ -37,23 +37,11 @@ class _RootPageState extends State<RootPage> {
         drawer: DrawerScreen(email: userName),
         body: Stack(
           children: [
-            //   Padding(
-            //   padding: const EdgeInsets.only(left: 20, top: 30),
-            //   child: Builder(
-            //     builder: (context) => IconButton(
-            //       icon: const Icon(Icons.dehaze),
-            //       color: Colors.white,
-            //       onPressed: () {
-            //         Scaffold.of(context).openDrawer();
-            //       },
-            //     ),
-            //   ),
-            // ),
             Align(
               alignment: const Alignment(0.0, 0.0),
               child: ClipRRect(
                 child: Image.asset(
-                  'assets/home_bg.png',
+                  'assets/home_bg1.png',
                   height: double.infinity,
                   width: double.infinity,
                   fit: BoxFit.cover,
@@ -62,7 +50,7 @@ class _RootPageState extends State<RootPage> {
               ),
             ),
             Positioned(
-              top: 20,
+              top: MediaQuery.of(context).size.height * 0.05,
               left: 1,
               child: Builder(
                 builder: (context) => IconButton(
@@ -73,18 +61,12 @@ class _RootPageState extends State<RootPage> {
                 ),
               ),
             ),
-            Align(
-              alignment: Alignment.center, // Ensure the screen is centered
-              child: screens[_currentIndex], // Display the current screen
-            ),
+            Center(child: screens[_currentIndex]),
           ],
         ),
-        floatingActionButton: const Padding(
-          padding: EdgeInsets.all(18.0),
-        ),
         bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Colors.green,
-          selectedItemColor: Colors.white,
+          backgroundColor: const Color.fromARGB(255, 215, 224, 216),
+          selectedItemColor: Colors.green,
           currentIndex: _currentIndex,
           onTap: (index) {
             setState(() {
@@ -106,18 +88,6 @@ class _RootPageState extends State<RootPage> {
             ),
           ],
         ),
-        // Wrap the Scaffold in a Builder widget to ensure we can access the context correctly
-        // floatingActionButton: Builder(
-        //   builder: (BuildContext context) {
-        //     return IconButton(
-        //       icon: const Icon(Icons.dehaze),
-        //       color: Colors.white,
-        //       onPressed: () {
-        //         Scaffold.of(context).openDrawer(); // Open the drawer
-        //       },
-        //     );
-        //   },
-        // ),
       ),
     );
   }
