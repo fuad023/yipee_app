@@ -19,10 +19,8 @@ class HomePage extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Align(
-                  alignment: const AlignmentDirectional(0.0, 0.0),
                   child: Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(
-                        20.0, 80.0, 20.0, 0.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Container(
                       width: double.infinity,
                       height: 100.0,
