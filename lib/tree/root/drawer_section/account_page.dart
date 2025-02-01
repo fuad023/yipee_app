@@ -30,6 +30,7 @@ class _AccountManagePageState extends State<AccountManagePage> {
     'id' : Field(),
     'year': Field(),
     'semester': Field(),
+    'handle': Field(),
   };
 
   void fetchHandle() async {
@@ -93,6 +94,14 @@ class _AccountManagePageState extends State<AccountManagePage> {
                   labelSecond: 'SEMESTER',
                   fieldSecond: _semesterField(),
                 ),
+                const SizedBox(height: 16.0),
+
+                _singleTextField(
+                  label: 'CODEFORCES',
+                  field: _handleField(),
+                ),
+                const SizedBox(height: 16.0),
+
               ],
             ),
           ),
@@ -112,7 +121,7 @@ class _AccountManagePageState extends State<AccountManagePage> {
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: SizedBox(
-        height: 91,
+        height: 91.0,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -198,7 +207,7 @@ class _AccountManagePageState extends State<AccountManagePage> {
   Widget _nameField() {
     return _buildEditableField(
       field: "name",
-      hint: "Alex Clreck",
+      hint: "Alex Clerk",
       helper: "",
       userData: userData['name'] ?? "",
       isEditing: fieldMap['name']!.isEditing,
@@ -314,7 +323,7 @@ class _AccountManagePageState extends State<AccountManagePage> {
       field: "year",
       hint: "2",
       helper: "",
-      userData: userData['year'].toString() == "null" ? "" : userData['year'].toString(),
+      userData: userData['year'] ?? "",
       isEditing: fieldMap['year']!.isEditing,
       canEdit: fieldMap['year']!.canEdit,
       controller: fieldMap['year']!.controller,
@@ -380,6 +389,44 @@ class _AccountManagePageState extends State<AccountManagePage> {
             value.canEdit = key != 'semester' ? false : true;
           });
           fieldMap['semester']!.controller.text = userData['semester'] ?? "";
+        });
+      },
+    );
+  }
+
+  Widget _handleField() {
+    return _buildEditableField(
+      field: "handle",
+      hint: "fuad023",
+      helper: "You can always change your handle here.",
+      userData: userData['handle'] ?? "",
+      isEditing: fieldMap['handle']!.isEditing,
+      canEdit: fieldMap['handle']!.canEdit,
+      controller: fieldMap['handle']!.controller,
+      textCapitalization: TextCapitalization.none,
+      keyboardType: TextInputType.name,
+      validator: (value) {
+        if (value == null || value.isWhitespace()) {
+          return "Enter a valid handle!";
+        } return null;
+      },
+      onSave: (newField) {
+        setState(() {
+          userData['handle'] = newField;
+          database.setHandle(newField);
+          fieldMap['handle']!.isEditing = false;
+          fieldMap.forEach((key, value) {
+            value.canEdit = true;
+          });
+        });
+      },
+      onEdit: () {
+        setState(() {
+          fieldMap['handle']!.isEditing = true;
+          fieldMap.forEach((key, value) {
+            value.canEdit = key != 'handle' ? false : true;
+          });
+          fieldMap['handle']!.controller.text = userData['handle'] ?? "";
         });
       },
     );
@@ -456,4 +503,65 @@ class _AccountManagePageState extends State<AccountManagePage> {
       ],
     );
   }
+
+//   Widget _yearDropDown() {
+//     return _dropDownField(
+//       userData: userData['year'] ?? "",
+//       items: ['1', '2', '3', '4', '5'],
+//       isEditing: fieldMap['year']!.isEditing,
+//       canEdit: fieldMap['year']!.canEdit,
+//       onEdit: () {
+//         setState(() {
+//           fieldMap['year']!.isEditing = !fieldMap['year']!.isEditing;
+//         });
+//       }
+//     );
+//   }
+
+//   Widget _dropDownField({
+//     required dynamic userData,
+//     required List<dynamic> items,
+//     required bool isEditing,
+//     required bool canEdit,
+//     required VoidCallback onEdit,
+//   }) {
+//     return Row(
+//       children: [
+//         Expanded(
+//           child: isEditing
+//             ? DropdownButton(
+//             value: userData,
+//             items: items.map(
+//               (dynamic item) {
+//                 return DropdownMenuItem(
+//                   value: item,
+//                   child: Text(item),
+//                 );
+//               }
+//             ).toList(),
+//             onChanged: (dynamic item) {
+//               setState(() {
+//                 userData = item;
+//               });
+//             },
+//             iconEnabledColor: Colors.green[100],
+//           )
+//           : Padding(
+//             padding: const EdgeInsets.only(top: 16.0),
+//             child: Text(userData, style: TextStyle(fontSize: 18.0, color: Colors.green[100])),
+//           ),
+//         ),
+//         canEdit
+//         ? IconButton(
+//           icon: Icon(
+//             isEditing ? Icons.delete : Icons.edit,
+//             color: deleteIcon && isEditing ? Colors.red : Colors.green[100],
+//           ),
+//           onPressed: onEdit,
+//         )
+//         : Container(),
+//       ],
+//     );
+//   }
+
 }

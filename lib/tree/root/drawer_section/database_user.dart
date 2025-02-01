@@ -74,6 +74,18 @@ class DatabaseUser {
       );
   }
 
+  Future<void> setHandle(String handle) async {
+    Map<String, dynamic> handleMap = {"handle" : handle};
+
+    await _firestore
+      .collection("Users")
+      .doc(currentUserID)
+      .set(
+        handleMap,
+        SetOptions(merge: true),
+      );
+  }
+
   // fetching
 
   Future<Map<String, dynamic>> fetchData() async {
