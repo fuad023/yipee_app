@@ -37,23 +37,11 @@ class _RootPageState extends State<RootPage> {
         drawer: DrawerScreen(email: userName),
         body: Stack(
           children: [
-            //   Padding(
-            //   padding: const EdgeInsets.only(left: 20, top: 30),
-            //   child: Builder(
-            //     builder: (context) => IconButton(
-            //       icon: const Icon(Icons.dehaze),
-            //       color: Colors.white,
-            //       onPressed: () {
-            //         Scaffold.of(context).openDrawer();
-            //       },
-            //     ),
-            //   ),
-            // ),
             Align(
               alignment: const Alignment(0.0, 0.0),
               child: ClipRRect(
                 child: Image.asset(
-                  'assets/home_bg.png',
+                  'assets/home_bg1.png',
                   height: double.infinity,
                   width: double.infinity,
                   fit: BoxFit.cover,
