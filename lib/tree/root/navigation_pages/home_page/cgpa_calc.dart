@@ -162,7 +162,7 @@ class _CgpaCalcState extends State<CgpaCalc> {
                             final index = entry.key;
                             final selectedItem2 = entry.value;
                             return Container(
-                                width: 150,
+                                width: 125,
                                 height: 50,
                                 padding: const EdgeInsets.all(15.0),
                                 margin: const EdgeInsets.only(bottom: 10),
