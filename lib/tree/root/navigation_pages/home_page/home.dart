@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:student_app/tree/root/navigation_pages/home_page/cgpa_calc.dart';
 import 'package:student_app/tree/root/navigation_pages/home_page/services/codeforces/codeforces.dart';
 import 'package:student_app/tree/root/navigation_pages/home_page/services/web_viewer.dart';
 
@@ -339,23 +340,31 @@ class HomePage extends StatelessWidget {
                         Column(
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            Material(
-                              color: Colors.transparent,
-                              //elevation: 10.0,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30.0),
+                            GestureDetector(
+                              onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const CgpaCalc(),
+                                )
                               ),
-                              child: Container(
-                                width: 60.0,
-                                height: 60.0,
-                                decoration: BoxDecoration(
-                                  color: Colors.transparent,
-                                  image: DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image: Image.asset('assets/cg_calc.png')
-                                        .image,
-                                  ),
+                              child: Material(
+                                color: Colors.transparent,
+                                //elevation: 10.0,
+                                shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(30.0),
+                                ),
+                                child: Container(
+                                  width: 60.0,
+                                  height: 60.0,
+                                  decoration: BoxDecoration(
+                                    color: Colors.transparent,
+                                    image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: Image.asset('assets/cg_calc.png')
+                                          .image,
+                                    ),
+                                    borderRadius: BorderRadius.circular(30.0),
+                                  ),
                                 ),
                               ),
                             ),
