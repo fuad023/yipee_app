@@ -25,14 +25,14 @@ class _CgpaCalcState extends State<CgpaCalc> {
   ];
   List<Item> items2 = [
     Item('A+', 4.00),
-    Item('A', 3.75),
+    Item('A ', 3.75),
     Item('A-', 3.50),
     Item('B+', 3.25),
-    Item('B', 3.00),
+    Item('B ', 3.00),
     Item('B-', 2.75),
     Item('C+', 2.50),
-    Item('C', 2.25),
-    Item('C-', 2.00),
+    Item('C ', 2.25),
+    Item('D', 2.00),
   ];
   @override
   void initState() {
@@ -45,6 +45,15 @@ class _CgpaCalcState extends State<CgpaCalc> {
     setState(() {
       selectedItems.add(items[0]);
       selectedItems2.add(items2[0]);
+    });
+  }
+
+  void deleteCourse() {
+    setState(() {
+      if(selectedItems.isNotEmpty) {
+        selectedItems.removeLast();
+        selectedItems2.removeLast();
+      }
     });
   }
 
@@ -128,7 +137,7 @@ class _CgpaCalcState extends State<CgpaCalc> {
                             return Container(
                                 width: 150,
                                 height: 50,
-                                padding: const EdgeInsets.all(15.0),
+                                padding: const EdgeInsets.all(10.0),
                                 margin: const EdgeInsets.only(bottom: 10),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
@@ -146,7 +155,7 @@ class _CgpaCalcState extends State<CgpaCalc> {
                                     return DropdownMenuItem<Item>(
                                       value: item,
                                       child: Text(
-                                          '${item.optionName}: ${item.optionData}'),
+                                          '${item.optionName} : ${item.optionData}'),
                                     );
                                   }).toList(),
                                 ));
@@ -162,9 +171,9 @@ class _CgpaCalcState extends State<CgpaCalc> {
                             final index = entry.key;
                             final selectedItem2 = entry.value;
                             return Container(
-                                width: 125,
+                                width: 150,
                                 height: 50,
-                                padding: const EdgeInsets.all(15.0),
+                                padding: const EdgeInsets.all(10.0),
                                 margin: const EdgeInsets.only(bottom: 10),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
@@ -181,8 +190,18 @@ class _CgpaCalcState extends State<CgpaCalc> {
                                       .map<DropdownMenuItem<Item>>((Item item) {
                                     return DropdownMenuItem<Item>(
                                       value: item,
-                                      child: Text(
-                                          '${item.optionName}: ${item.optionData}'),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Text(
+                                              '${item.optionData}',
+                                            ),
+                                            const SizedBox(width: 20,),
+                                          Text(
+                                            '(${item.optionName})',
+                                          ),
+                                        ],
+                                      ),
                                     );
                                   }).toList(),
                                 ));
@@ -208,6 +227,20 @@ class _CgpaCalcState extends State<CgpaCalc> {
                   )
                 ),
                 const SizedBox(width: 10,),
+            const SizedBox(width: 10,),
+            Container(
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(12.0)),
+                    child: TextButton.icon(
+                      onPressed: deleteCourse,
+                      label: const Text('Delete Course'),
+                      icon: const Icon(Icons.remove),
+                  )
+                ),
+              ],
+          ),
+          const SizedBox(height: 5,),
             Container(
                 decoration: BoxDecoration(
                     color: Colors.white,
@@ -219,10 +252,7 @@ class _CgpaCalcState extends State<CgpaCalc> {
                   child: const Text('Calculate')
                 ),
             ),
-              ],
-            ),
-            
-          ],
+        ],
         ),
       ),
     );
