@@ -91,7 +91,7 @@ class DatabaseUser {
   Future<Map<String, dynamic>> fetchData() async {
     DocumentSnapshot docSnapshot = await _firestore.collection("Users").doc(currentUserID).get();
     List<String> keys = [
-      "email", "uid", "name",  "username", "year", "semester", "id", "phone_number", "display_picture",
+      "email", "uid", "name",  "username", "year", "semester", "id", "handle", "phone_number", "display_picture",
     ];
 
     for (var key in keys) {

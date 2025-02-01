@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:student_app/tree/root/navigation_pages/home_page/services/codeforces/drawer/change_handle.dart';
+// import 'package:student_app/tree/root/navigation_pages/home_page/services/codeforces/drawer/change_handle.dart';
 import 'package:student_app/tree/root/navigation_pages/home_page/services/codeforces/drawer/contest_list.dart';
 import 'package:student_app/tree/root/navigation_pages/home_page/services/codeforces/drawer/search_user/search_user.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
 
-  void _chageRouteSetupHandle(BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => const ChangeHandle()));
-  }
+  // void _chageRouteSetupHandle(BuildContext context) {
+  //   Navigator.push(context, MaterialPageRoute(builder: (context) => const ChangeHandle()));
+  // }
 
   void _changeRouteSearchUser(BuildContext context) {
     Navigator.push(context, MaterialPageRoute(builder: (context) => const SearchUser()));
@@ -43,11 +43,11 @@ class MyDrawer extends StatelessWidget {
               padding: const EdgeInsets.only(left: 16.0),
               child:  Column(
                 children: [
-                  ListTile(
-                    leading: const Icon(Icons.manage_accounts_outlined, color: Colors.white,),
-                    title: _myText("Change Handle"),
-                    onTap: () => _chageRouteSetupHandle(context),
-                  ),
+                  // ListTile(
+                  //   leading: const Icon(Icons.manage_accounts_outlined, color: Colors.white,),
+                  //   title: _myText("Change Handle"),
+                  //   onTap: () => _chageRouteSetupHandle(context),
+                  // ),
                   ListTile(
                     leading: const Icon(Icons.person_search_rounded, color: Colors.white,),
                     title: _myText("Search User"),

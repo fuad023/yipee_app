@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:student_app/tree/root/navigation_pages/home_page/services/codeforces/database_service.dart';
+import 'package:student_app/tree/root/navigation_pages/home_page/services/codeforces/database_codeforces.dart';
 
 import 'package:student_app/tree/root/navigation_pages/home_page/services/codeforces/drawer/my_drawer.dart';
 import 'package:student_app/tree/root/navigation_pages/home_page/services/codeforces/navigation_pages/user_details.dart';
@@ -20,10 +19,8 @@ class _CodeforcesState extends State<Codeforces> {
   bool isFetched = false;
 
   void fetchHandle() async {      
-    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-    DatabaseService database = DatabaseService();
-    String uid = firebaseAuth.currentUser!.uid;
-    handle = await database.fetchHandle(uid);
+    DatabaseCodeforces database = DatabaseCodeforces();
+    handle = await database.fetchHandle();
     isFetched = true;
     setState(() {});
   }
