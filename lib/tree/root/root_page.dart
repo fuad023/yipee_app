@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:student_app/tree/root/navigation_pages/home_page/home.dart';
 import 'package:student_app/tree/root/navigation_pages/yipee_chat/yipee_people.dart';
 import 'package:student_app/tree/root/navigation_pages/emergency.dart';
-import 'package:student_app/tree/root/drawer_screen.dart';
+import 'package:student_app/tree/root/drawer/drawer_screen.dart';
 
 class RootPage extends StatefulWidget {
   const RootPage({super.key});

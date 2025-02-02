@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:student_app/tree/auth_service/login_authentication/auth_services.dart';
 import 'package:student_app/tree/auth_service/login_pages/developer_handle.dart';
+import 'package:student_app/tree/root/drawer/settings/settings.dart';
 
 class DrawerScreen extends StatelessWidget {
 
@@ -58,6 +59,7 @@ class DrawerScreen extends StatelessWidget {
               title: const Text('Settings'),
               onTap: () {
                 Navigator.pop(context);
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const Settings()));
               },
             ),
             ListTile(
