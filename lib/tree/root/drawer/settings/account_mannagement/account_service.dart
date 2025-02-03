@@ -139,7 +139,7 @@ class _VerifyUserState extends State<VerifyUser> {
           backgroundColor: Colors.green,
           title: const Text(
             'Account Mannagement',
-            style: TextStyle(
+            style: TextStyle(       
               color: Colors.white
             ),
           ),
