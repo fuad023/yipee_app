@@ -13,7 +13,7 @@ class DeveloperHandle extends StatefulWidget {
 class _DeveloperHandleState extends State<DeveloperHandle> {
   final AuthServices _authServices = AuthServices();
   final TextEditingController _emailController = TextEditingController();
-  String devCode = '3312';
+  String devCode = '2533';
   String enteredPin = '';
   bool isVerified = false;
   bool creatingNewUser = false;
