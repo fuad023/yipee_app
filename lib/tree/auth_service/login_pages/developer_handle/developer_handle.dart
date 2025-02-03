@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:student_app/tree/auth_service/login_authentication/auth_services.dart';
 import 'package:student_app/tree/auth_service/login_pages/developer_handle/show_user_handle.dart';
 
 class DeveloperHandle extends StatefulWidget {
@@ -10,10 +11,44 @@ class DeveloperHandle extends StatefulWidget {
 }
 
 class _DeveloperHandleState extends State<DeveloperHandle> {
+  final AuthServices _authServices = AuthServices();
+  final TextEditingController _emailController = TextEditingController();
   String devCode = '1234';
   String enteredPin = '';
   bool isVerified = false;
   bool creatingNewUser = false;
+
+  void createAccount(BuildContext context) async {
+    if(_emailController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Enter Email!'),
+          backgroundColor: Colors.red,
+        )
+      );
+    } else {
+      try {
+        await _authServices.signUpWithEmailAndPassword(_emailController.text, '12345678');
+        if(context.mounted){
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Account Created!'),
+              backgroundColor: Colors.green,
+            )
+          );
+        }  
+      } catch (e) {
+        if(context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Unable to create account!'),
+              backgroundColor: Colors.red,
+            )
+          );
+        }
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -129,6 +164,7 @@ class _DeveloperHandleState extends State<DeveloperHandle> {
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.8,
             child: TextField(
+              controller: _emailController,
               decoration: InputDecoration(
                 label: const Text(
                   'Enter Email',
@@ -154,6 +190,16 @@ class _DeveloperHandleState extends State<DeveloperHandle> {
               ),
               cursorColor: Colors.white,
             ),
+          ),
+          const SizedBox(height: 20,),
+          TextButton(
+            onPressed: () => createAccount(context),
+            child: const Text(
+              'Create Account',
+              style: TextStyle(
+                color: Colors.white
+              ),
+            )
           )
         ],
       ),
