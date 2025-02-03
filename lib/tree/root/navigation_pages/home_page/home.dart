@@ -12,7 +12,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String capsName = userName[0].toUpperCase() + userName.substring(1);
+    String name = userName.length > 8 ? userName.substring(0, 5) : userName;
+    String capsName = name[0].toUpperCase() + name.substring(1);
     return SingleChildScrollView(
       child: Stack(  
           children: [
@@ -48,7 +49,7 @@ class HomePage extends StatelessWidget {
                             padding:
                                const EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
                             child: Text(
-                              'Good Morning,\n$capsName.',
+                              'Good Morning,\n$capsName',
                               textAlign: TextAlign.start,
                               style: const TextStyle(
                                 color: Colors.white,

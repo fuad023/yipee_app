@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class LoginTextfield extends StatefulWidget {
   final TextEditingController controlText;
   final FocusNode focusNode;
-  final bool secureText; // Indicates if the field is for passwords
+  final bool secureText;
   final String hitText;
   
 
@@ -20,27 +20,27 @@ class LoginTextfield extends StatefulWidget {
 }
 
 class _LoginTextfieldState extends State<LoginTextfield> {
-  late bool _isSecureText; // Internal state to manage visibility
+  late bool _isSecureText;
 
   @override
   void initState() {
     super.initState();
-    _isSecureText = widget.secureText; // Initialize based on secureText
-    // Listen for changes in text
+    _isSecureText = widget.secureText;
+
     widget.controlText.addListener(() {
-      setState(() {}); // Trigger rebuild to update icon visibility
+      setState(() {});
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    bool hasText = widget.controlText.text.isNotEmpty; // Check if there's text
+    bool hasText = widget.controlText.text.isNotEmpty;
 
     return SizedBox(
       width: MediaQuery.sizeOf(context).width * 0.8,
       child: TextFormField(
         controller: widget.controlText,
-        obscureText: widget.secureText && _isSecureText, // Toggle visibility
+        obscureText: widget.secureText && _isSecureText,
         autofocus: false,
         focusNode: widget.focusNode,
         decoration: InputDecoration(
@@ -72,7 +72,7 @@ class _LoginTextfieldState extends State<LoginTextfield> {
                   ? InkWell(
                       onTap: () {
                         setState(() {
-                          _isSecureText = !_isSecureText; // Toggle visibility
+                          _isSecureText = !_isSecureText;
                         });
                       },
                       child: Icon(
@@ -85,9 +85,9 @@ class _LoginTextfieldState extends State<LoginTextfield> {
               : (hasText
                   ? InkWell(
                       onTap: () {
-                        widget.controlText.clear(); // Clear the text
+                        widget.controlText.clear();
                         setState(
-                            () {}); // Trigger state update to hide the icon
+                            () {});
                       },
                       child: const Icon(
                         Icons.clear,

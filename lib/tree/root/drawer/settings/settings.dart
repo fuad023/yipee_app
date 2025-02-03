@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:student_app/tree/root/drawer/settings/manage_account.dart';
+import 'package:student_app/tree/root/drawer/settings/manage_accounts/manage_account.dart';
 
 class Settings extends StatelessWidget {
   const Settings({super.key});
@@ -41,6 +41,7 @@ class Settings extends StatelessWidget {
               tileColor: const Color.fromARGB(47, 241, 233, 233),
             )
           ],
-        ));
+        )
+      );
   }
 }
