@@ -101,6 +101,22 @@ class _VerifyUserState extends State<VerifyUser> {
     }
   }  
 
+  void deleteUserAccount(BuildContext content) async {
+    try {
+      await _userService.deleteAccount();
+      Navigator.pop(context);
+    } catch (e) {
+      if(context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Couldn\'t delete account!'),
+            backgroundColor: Colors.red,
+          )
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -266,7 +282,9 @@ class _VerifyUserState extends State<VerifyUser> {
                         builder: (context) => AlertDialog(
                           title: const Text('Sure want to delete your account'),
                           actions: [
-                            TextButton(onPressed: () {}, child: const Text('Yes')),
+                            TextButton(onPressed: () {
+                              deleteUserAccount(context);
+                            }, child: const Text('Yes')),
                             TextButton(onPressed: () {
                               Navigator.pop(context);
                             }, child: const Text('No'))
