@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:student_app/tree/root/drawer/settings/manage_accounts/active_textField.dart';
+import 'package:student_app/tree/root/drawer/settings/manage_accounts/active_text_field.dart';
 import 'package:student_app/tree/root/drawer/settings/manage_accounts/user_service.dart';
 
 class VerifyUser extends StatefulWidget {
-
-  const VerifyUser({super.key});
+  final String buildState; // Upon this Change email or password will show
+  const VerifyUser({
+    super.key,
+    required this.buildState,
+  });
 
   @override
   State<VerifyUser> createState() => _VerifyUserState();
@@ -13,6 +16,7 @@ class VerifyUser extends StatefulWidget {
 class _VerifyUserState extends State<VerifyUser> {
   final UserService _userService = UserService();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
   bool isVerifiedUser = false;
   
   void userVerification(BuildContext context) async {
@@ -27,6 +31,10 @@ class _VerifyUserState extends State<VerifyUser> {
           backgroundColor: Colors.green,
         )
       );
+      setState(() {
+        isVerifiedUser = true;
+        _passwordController.clear();
+      });
         }
       } catch (e) {
         if(context.mounted) {
@@ -47,6 +55,50 @@ class _VerifyUserState extends State<VerifyUser> {
       );
     }
   }
+
+  void resetPassword(BuildContext context) async {
+    if(_passwordController.text.isEmpty) {
+      if(context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Enter a New Password!'),
+            backgroundColor: Colors.red,
+          )
+        );
+      }
+    } else if (_passwordController.text != _confirmPasswordController.text) {
+      if(context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Password doesn\'t match!'),
+            backgroundColor: Colors.red,
+          )
+        );
+      }
+    } else {
+      try {
+        await _userService.updatePassword(_passwordController.text);
+        if(context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Password reset successfully!'),
+            backgroundColor: Colors.green,
+          )
+        );
+        Navigator.pop(context);
+      }
+      } catch (e) {
+        if(context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Couldn\'t reset password!'),
+            backgroundColor: Colors.red,
+          )
+        );
+      }
+      }  
+    }
+  }  
 
   @override
   Widget build(BuildContext context) {
@@ -69,36 +121,7 @@ class _VerifyUserState extends State<VerifyUser> {
             color: Colors.white
           ),
         ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Enter New Email information: '
-              ),
-              SizedBox(height: 20,),
-              ActiveTextfield(labelText: 'New Email', obsecureText: false),
-              const SizedBox(height: 20,),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(
-                    color: Colors.black
-                  )
-                ),
-                child: TextButton(
-                  onPressed: () => userVerification(context),
-                  child: const Text(
-                    'Confirm Email',
-                    style: TextStyle(
-                      color: Colors.black
-                    ),
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
+        body: !isVerifiedUser ? verifyUsers() : changePassword() 
       ),
     );
   }
@@ -116,9 +139,10 @@ class _VerifyUserState extends State<VerifyUser> {
                 ),
               ),
               const SizedBox(height: 20,),
-              const ActiveTextfield(
+              ActiveTextfield(
                 labelText: 'Password',
-                obsecureText: true,
+                isobsecureText: true,
+                controller: _passwordController,
               ),
               const SizedBox(height: 20,),
               Container(
@@ -132,6 +156,49 @@ class _VerifyUserState extends State<VerifyUser> {
                   onPressed: () => userVerification(context),
                   child: const Text(
                     'Confirm password',
+                    style: TextStyle(
+                      color: Colors.black
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        );
+  }
+
+  Widget changePassword() {
+    return Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                'Enter New Password: '
+              ),
+              const SizedBox(height: 20,),
+              ActiveTextfield(
+                labelText: 'New Password',
+                isobsecureText: true,
+                controller: _passwordController,
+              ),
+              const SizedBox(height: 20,),
+              ActiveTextfield(
+                labelText: 'Confirm Password',
+                isobsecureText: true,
+                controller: _confirmPasswordController,
+              ),
+              const SizedBox(height: 20,),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(
+                    color: Colors.black
+                  )
+                ),
+                child: TextButton(
+                  onPressed: () => resetPassword(context),
+                  child: const Text(
+                    'Confirm',
                     style: TextStyle(
                       color: Colors.black
                     ),

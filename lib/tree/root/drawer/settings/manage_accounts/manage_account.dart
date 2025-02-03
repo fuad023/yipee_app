@@ -24,7 +24,7 @@ class ManageAccount extends StatelessWidget {
       body: ListView(
           children: [
             ListTile(
-              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const VerifyUser())),
+              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const VerifyUser(buildState: 'password',))),
               leading: const Icon(
                 Icons.restore,
               ),
@@ -36,7 +36,7 @@ class ManageAccount extends StatelessWidget {
             ),
             const SizedBox(height: 10,),
             ListTile(
-              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const VerifyUser())),
+              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const VerifyUser(buildState: 'email',))),
               leading: const Icon(
                 Icons.remove_circle_outline,
               ),
