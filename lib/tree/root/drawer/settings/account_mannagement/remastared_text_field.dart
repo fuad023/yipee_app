@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 class ActiveTextfield extends StatefulWidget {
   final String labelText;
   final bool isobsecureText;
-    final TextEditingController controller;
+  final TextEditingController controller;
+  final bool prefixIconForOtherInput;
   const ActiveTextfield({
     super.key,
     required this.labelText,
     required this.isobsecureText,
-    required this.controller
+    required this.controller,
+    required this.prefixIconForOtherInput
   });
 
   @override
@@ -70,7 +72,9 @@ class _ActiveTextfieldState extends State<ActiveTextfield> {
                     ),
                     prefixIcon: widget.isobsecureText
                     ? const Icon(Icons.key_off)
-                    : const Icon(Icons.email_sharp),
+                    : widget.prefixIconForOtherInput
+                      ? const Icon(Icons.confirmation_num)
+                      : const Icon(Icons.email_sharp),
                     suffixIcon: widget.isobsecureText
                       ? 
                         widget.controller.text.isEmpty

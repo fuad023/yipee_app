@@ -41,4 +41,12 @@ class UserService {
       }
     }
   }
+
+  Future<void> deleteAccount() async {
+    try {
+      await user?.delete();
+    } on FirebaseException catch (e) {
+      throw Exception(e.hashCode);
+    }
+  }
 }

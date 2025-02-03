@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:student_app/tree/root/drawer/settings/manage_accounts/verify_user.dart';
+import 'package:student_app/tree/root/drawer/settings/account_mannagement/account_service.dart';
 
 class ManageAccount extends StatelessWidget {
 
@@ -36,7 +36,7 @@ class ManageAccount extends StatelessWidget {
             ),
             const SizedBox(height: 10,),
             ListTile(
-              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const VerifyUser(buildState: 'email',))),
+              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const VerifyUser(buildState: 'delete',))),
               leading: const Icon(
                 Icons.remove_circle_outline,
               ),
@@ -46,6 +46,8 @@ class ManageAccount extends StatelessWidget {
               ),
               tileColor: const Color.fromARGB(47, 241, 233, 233),
             ),
+            const SizedBox(height: 10,),
+            
           ],
         ),
     );
