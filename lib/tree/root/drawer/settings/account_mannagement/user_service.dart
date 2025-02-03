@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class UserService {
   User? user = FirebaseAuth.instance.currentUser;
+  final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
 
   String getCurrentUserEmail() {
     return user?.email ?? 'No User Email';
@@ -45,6 +47,7 @@ class UserService {
   Future<void> deleteAccount() async {
     try {
       await user?.delete();
+      await _firebaseFirestore.collection('Users').doc(user?.uid).delete();
     } on FirebaseException catch (e) {
       throw Exception(e.hashCode);
     }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:student_app/tree/auth_service/login_authentication/auth_get.dart';
 import 'package:student_app/tree/root/drawer/settings/account_mannagement/remastared_text_field.dart';
 import 'package:student_app/tree/root/drawer/settings/account_mannagement/user_service.dart';
 
@@ -104,7 +105,15 @@ class _VerifyUserState extends State<VerifyUser> {
   void deleteUserAccount(BuildContext content) async {
     try {
       await _userService.deleteAccount();
-      Navigator.pop(context);
+      if(context.mounted) {
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const AuthGet()));
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Account Deleted!'),
+            backgroundColor: Colors.red,
+          )
+        );
+      }
     } catch (e) {
       if(context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
