@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:student_app/tree/auth_service/login_authentication/auth_services.dart';
-import 'package:student_app/tree/root/drawer_section/account_page.dart';
+import 'package:student_app/tree/root/drawer_section/manage_account/account_page.dart';
 
 class DrawerScreen extends StatelessWidget {
   final String email;

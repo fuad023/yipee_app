@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:student_app/tree/root/drawer_section/database_user.dart';
-import 'package:student_app/tree/root/drawer_section/components/my_input_theme.dart';
-import 'package:student_app/tree/root/drawer_section/components/string_extentions.dart';
+import 'package:student_app/tree/root/drawer_section/manage_account/database_user.dart';
+import 'package:student_app/tree/root/drawer_section/manage_account/components/my_input_theme.dart';
+import 'package:student_app/tree/root/drawer_section/manage_account/components/string_extentions.dart';
 
 class AccountManagePage extends StatefulWidget {
   const AccountManagePage({super.key});
@@ -117,7 +117,7 @@ class _AccountManagePageState extends State<AccountManagePage> {
     return Container(
       padding: const EdgeInsets.all(12.0),
       decoration: BoxDecoration(
-        color: Colors.green[700],
+        color: Colors.green[800],
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: SizedBox(
@@ -150,7 +150,7 @@ class _AccountManagePageState extends State<AccountManagePage> {
     return Container(
       padding: const EdgeInsets.all(12.0),
       decoration: BoxDecoration(
-        color: Colors.green[700],
+        color: Colors.green[800],
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: SizedBox(
