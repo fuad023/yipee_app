@@ -13,6 +13,7 @@ class VerifyUser extends StatefulWidget {
 class _VerifyUserState extends State<VerifyUser> {
   final UserService _userService = UserService();
   final TextEditingController _passwordController = TextEditingController();
+  bool isVerifiedUser = false;
   
   void userVerification(BuildContext context) async {
     if(_passwordController.text.isNotEmpty) {
@@ -72,6 +73,41 @@ class _VerifyUserState extends State<VerifyUser> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Text(
+                'Enter New Email information: '
+              ),
+              SizedBox(height: 20,),
+              ActiveTextfield(labelText: 'New Email', obsecureText: false),
+              const SizedBox(height: 20,),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(
+                    color: Colors.black
+                  )
+                ),
+                child: TextButton(
+                  onPressed: () => userVerification(context),
+                  child: const Text(
+                    'Confirm Email',
+                    style: TextStyle(
+                      color: Colors.black
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget verifyUsers() {
+    return Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
               const Text(
                 'Enter password for verfication: ',
                 style: TextStyle(
@@ -104,8 +140,6 @@ class _VerifyUserState extends State<VerifyUser> {
               )
             ],
           ),
-        ),
-      ),
-    );
+        );
   }
 }

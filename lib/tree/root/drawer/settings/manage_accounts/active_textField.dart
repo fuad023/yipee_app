@@ -28,7 +28,7 @@ class _ActiveTextfieldState extends State<ActiveTextfield> {
     _focusNode.addListener(() {
       if(!_focusNode.hasFocus) {
         setState(() {
-          _obsecureText = true;
+          _obsecureText = widget.obsecureText;
         });
       }
     });
@@ -56,8 +56,12 @@ class _ActiveTextfieldState extends State<ActiveTextfield> {
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12)
                     ),
-                    prefixIcon: const Icon(Icons.key_off),
-                    suffixIcon: _passwordController.text.isEmpty
+                    prefixIcon: widget.obsecureText
+                    ? const Icon(Icons.key_off)
+                    : const Icon(Icons.email_sharp),
+                    suffixIcon: widget.obsecureText
+                    ? 
+                    _passwordController.text.isEmpty
                     ? null
                     : _obsecureText 
                     ? InkWell(
@@ -71,7 +75,16 @@ class _ActiveTextfieldState extends State<ActiveTextfield> {
                         _obsecureText = true;
                       }),
                       child: const Icon(Icons.visibility_off)
-                    ),
+                    )
+                    : _passwordController.text.isEmpty
+                    ? null
+                    : InkWell(
+                        onTap: () => _passwordController.clear(),
+                        child: const Icon(Icons.clear)
+                      )
+                  ),
+                  style: const TextStyle(
+                    color: Colors.black
                   ),
                 ),
               );
