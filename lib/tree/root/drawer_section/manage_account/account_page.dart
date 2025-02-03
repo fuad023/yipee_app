@@ -26,6 +26,7 @@ class _AccountManagePageState extends State<AccountManagePage> {
 
   Map<String, Field> fieldMap = {
     'name': Field(),
+    'user_id': Field(),
     'email': Field(),
     'id' : Field(),
     'year': Field(),
@@ -77,6 +78,12 @@ class _AccountManagePageState extends State<AccountManagePage> {
                 const SizedBox(height: 16.0),
 
                 _singleTextField(
+                  label: 'USER ID',
+                  field: _userIdField(),
+                ),
+                const SizedBox(height: 16.0),
+
+                _singleTextField(
                   label: 'EMAIL',
                   field: _emailField(),
                 ),
@@ -117,11 +124,11 @@ class _AccountManagePageState extends State<AccountManagePage> {
     return Container(
       padding: const EdgeInsets.all(12.0),
       decoration: BoxDecoration(
-        color: Colors.green[800],
+        color: Colors.green.shade600,
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: SizedBox(
-        height: 91.0,
+        // height: 91.0,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -150,11 +157,11 @@ class _AccountManagePageState extends State<AccountManagePage> {
     return Container(
       padding: const EdgeInsets.all(12.0),
       decoration: BoxDecoration(
-        color: Colors.green[800],
+        color: Colors.green.shade600,
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: SizedBox(
-        height: 91,
+        // height: 91,
         child: Row(
           children: [
             Expanded(
@@ -237,6 +244,44 @@ class _AccountManagePageState extends State<AccountManagePage> {
             value.canEdit = key != 'name' ? false : true;
           });
           fieldMap['name']!.controller.text = userData['name'] ?? "";
+        });
+      },
+    );
+  }
+
+  Widget _userIdField() {
+    return _buildEditableField(
+      field: "user_id",
+      hint: "@fuadxlr8",
+      helper: "",
+      userData: userData['user_id'] ?? "",
+      isEditing: fieldMap['user_id']!.isEditing,
+      canEdit: fieldMap['user_id']!.canEdit,
+      controller: fieldMap['user_id']!.controller,
+      textCapitalization: TextCapitalization.none,
+      keyboardType: TextInputType.emailAddress,
+      validator: (value) {
+        if (value == null || value.isWhitespace()) {
+          return "This ID is not available!";
+        } return null;
+      },
+      onSave: (newField) {
+        setState(() {
+          userData['user_id'] = newField;
+          database.setUserId(newField);
+          fieldMap['user_id']!.isEditing = false;
+          fieldMap.forEach((key, value) {
+            value.canEdit = true;
+          });
+        });
+      },
+      onEdit: () {
+        setState(() {
+          fieldMap['user_id']!.isEditing = true;
+          fieldMap.forEach((key, value) {
+            value.canEdit = key != 'user_id' ? false : true;
+          });
+          fieldMap['user_id']!.controller.text = userData['user_id'] ?? "";
         });
       },
     );

@@ -31,7 +31,7 @@ class MyInputTheme {
     // constraints: const BoxConstraints(maxWidth: 150.0),
 
     // Borders
-    // Enabled and not showing erro
+    // Enabled and not showing error
     enabledBorder: _buildBorder(Colors.grey[600]!),
     // Has error but not focus
     errorBorder: _buildBorder(Colors.red),
@@ -53,7 +53,7 @@ class MyInputTheme {
     errorStyle: _buildTextStyle(Colors.red, size: 12.0),
     helperStyle: _buildTextStyle(Colors.black, size: 12.0),
     hintStyle: _buildTextStyle(Colors.grey, weight: FontWeight.w300),
-    labelStyle: _buildTextStyle(Colors.black),
+    labelStyle: _buildTextStyle(Colors.grey.shade300),
     prefixStyle: _buildTextStyle(Colors.black),
   );
 }

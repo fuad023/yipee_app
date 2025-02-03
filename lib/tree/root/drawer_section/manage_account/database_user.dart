@@ -26,6 +26,18 @@ class DatabaseUser {
       );
   }
 
+  Future<void> setUserId(String userId) async {
+    Map<String, dynamic> handleMap = {"user_id" : userId};
+
+    await _firestore
+      .collection("Users")
+      .doc(currentUserID)
+      .set(
+        handleMap,
+        SetOptions(merge: true),
+      );
+  }
+
   Future<void> setEmail(String email) async {
     Map<String, dynamic> handleMap = {"email" : email};
 
@@ -91,7 +103,7 @@ class DatabaseUser {
   Future<Map<String, dynamic>> fetchData() async {
     DocumentSnapshot docSnapshot = await _firestore.collection("Users").doc(currentUserID).get();
     List<String> keys = [
-      "email", "uid", "name",  "username", "year", "semester", "id", "handle", "phone_number", "display_picture",
+      "name",  "user_id", "email", "id", "year", "semester", "handle", "uid", "phone_number", "display_picture",
     ];
 
     for (var key in keys) {
@@ -107,40 +119,6 @@ class DatabaseUser {
     return userInfo;
   }
 
-  Future<String?> fetchEmail() async {
-    DocumentReference docRef = _firestore.collection("Users").doc(currentUserID);
-
-    try {
-      DocumentSnapshot docSnapshot = await docRef.get();
-
-      if (docSnapshot.exists) {
-        return docSnapshot.get("email") as String?;
-      } else {
-        return null;
-      }
-    } catch (e) {
-      print("Error fetching email: $e"); // ignore: avoid_print
-      return null;
-    }
-  }
-
-  Future<String?> fetchUID() async {
-    DocumentReference docRef = _firestore.collection("Users").doc(currentUserID);
-
-    try {
-      DocumentSnapshot docSnapshot = await docRef.get();
-
-      if (docSnapshot.exists) {
-        return docSnapshot.get("uid") as String?;
-      } else {
-        return null;
-      }
-    } catch (e) {
-      print("Error fetching uid: $e"); // ignore: avoid_print
-      return null;
-    }
-  }
-
   Future<String?> fetchName() async {
     DocumentReference docRef = _firestore.collection("Users").doc(currentUserID);
 
@@ -154,57 +132,6 @@ class DatabaseUser {
       }
     } catch (e) {
       print("Error fetching uinamed: $e"); // ignore: avoid_print
-      return null;
-    }
-  }
-
-  Future<String?> fetchYear() async {
-    DocumentReference docRef = _firestore.collection("Users").doc(currentUserID);
-
-    try {
-      DocumentSnapshot docSnapshot = await docRef.get();
-
-      if (docSnapshot.exists) {
-        return docSnapshot.get("year") as String?;
-      } else {
-        return null;
-      }
-    } catch (e) {
-      print("Error fetching year: $e"); // ignore: avoid_print
-      return null;
-    }
-  }
-
-  Future<String?> fetchSemester() async {
-    DocumentReference docRef = _firestore.collection("Users").doc(currentUserID);
-
-    try {
-      DocumentSnapshot docSnapshot = await docRef.get();
-
-      if (docSnapshot.exists) {
-        return docSnapshot.get("semester") as String?;
-      } else {
-        return null;
-      }
-    } catch (e) {
-      print("Error fetching semester: $e"); // ignore: avoid_print
-      return null;
-    }
-  }
-
-  Future<String?> fetchHandle() async {
-    DocumentReference docRef = _firestore.collection("Users").doc(currentUserID);
-
-    try {
-      DocumentSnapshot docSnapshot = await docRef.get();
-
-      if (docSnapshot.exists) {
-        return docSnapshot.get("handle") as String?;
-      } else {
-        return null;
-      }
-    } catch (e) {
-      print("Error fetching handle: $e"); // ignore: avoid_print
       return null;
     }
   }
