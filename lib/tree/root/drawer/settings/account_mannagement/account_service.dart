@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:student_app/tree/root/drawer/settings/manage_accounts/active_text_field.dart';
-import 'package:student_app/tree/root/drawer/settings/manage_accounts/user_service.dart';
+import 'package:student_app/tree/root/drawer/settings/account_mannagement/remastared_text_field.dart';
+import 'package:student_app/tree/root/drawer/settings/account_mannagement/user_service.dart';
 
 class VerifyUser extends StatefulWidget {
   final String buildState; // Upon this Change email or password will show
