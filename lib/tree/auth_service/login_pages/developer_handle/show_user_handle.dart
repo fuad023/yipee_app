@@ -22,18 +22,18 @@ class _ShowUserHandleState extends State<ShowUserHandle> {
     try {
       await _authServices.signInWithEmailAndPassword(email, pass);
     } catch (e) {
-      // ignore: use_build_context_synchronously
+      if(context.mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Login failed: $e'),
           backgroundColor: Colors.red,
         ),
       );
+      }
     } finally {
       setState(() {
         isLoading[email] = false;
       });
-      //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const RootPage()));
     }
   }
 
@@ -66,7 +66,6 @@ class _ShowUserHandleState extends State<ShowUserHandle> {
     final bool loading = isLoading[userData['email']] ?? false;
     return GestureDetector(
       onTap: () {
-        //_authServices.signOut();
         signIn(context, userData['email'], '12345678');
       },
       child: Column(

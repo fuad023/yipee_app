@@ -102,7 +102,7 @@ class _VerifyUserState extends State<VerifyUser> {
     }
   }  
 
-  void deleteUserAccount(BuildContext content) async {
+  void deleteUserAccount(BuildContext context) async {
     try {
       await _userService.deleteAccount();
       if(context.mounted) {

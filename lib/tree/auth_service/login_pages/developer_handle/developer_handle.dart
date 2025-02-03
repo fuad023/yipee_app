@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:student_app/tree/auth_service/login_pages/show_user_handle.dart';
+import 'package:student_app/tree/auth_service/login_pages/developer_handle/show_user_handle.dart';
 
 class DeveloperHandle extends StatefulWidget {
   const DeveloperHandle({super.key});
@@ -13,6 +13,7 @@ class _DeveloperHandleState extends State<DeveloperHandle> {
   String devCode = '1234';
   String enteredPin = '';
   bool isVerified = false;
+  bool creatingNewUser = false;
 
   @override
   Widget build(BuildContext context) {
@@ -38,13 +39,20 @@ class _DeveloperHandleState extends State<DeveloperHandle> {
             color: Colors.white70
           ),
         ),
-        centerTitle: true,
         backgroundColor: Colors.black,
         iconTheme: const IconThemeData(
           color: Colors.white70
-        )
+        ),
+        actions: [
+          IconButton(
+            onPressed: () => setState(() {
+              creatingNewUser = !creatingNewUser;
+            }),
+            icon: creatingNewUser ? const Icon(Icons.done) : const Icon(Icons.add),
+          )
+        ],
       ),
-      body: const ShowUserHandle(),
+      body: creatingNewUser ? developerCreatesNewUser() : const ShowUserHandle()
     );
   }
 
@@ -101,6 +109,52 @@ class _DeveloperHandleState extends State<DeveloperHandle> {
               color: Colors.white70
             ),
           ),
+        ],
+      ),
+    );
+  }
+
+  Widget developerCreatesNewUser() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text(
+            'Enter Email to Create an Account: ',
+            style: TextStyle(
+              color: Colors.white
+            ),
+          ),
+          const SizedBox(height: 20,),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.8,
+            child: TextField(
+              decoration: InputDecoration(
+                label: const Text(
+                  'Enter Email',
+                  style: TextStyle(
+                    color: Colors.grey
+                  ),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                  borderSide: const BorderSide(
+                    color: Colors.white
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                  borderSide: const BorderSide(
+                    color: Colors.white
+                  )
+                )
+              ),
+              style: const TextStyle(
+                color: Colors.white
+              ),
+              cursorColor: Colors.white,
+            ),
+          )
         ],
       ),
     );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:student_app/tree/auth_service/components/login_textfield.dart';
 import 'package:student_app/tree/auth_service/login_authentication/auth_services.dart';
-import 'package:student_app/tree/auth_service/login_pages/developer_handle.dart';
+import 'package:student_app/tree/auth_service/login_pages/developer_handle/developer_handle.dart';
 import 'package:student_app/tree/auth_service/login_pages/forgot_password.dart';
 
 class LoginPage extends StatelessWidget {
