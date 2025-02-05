@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:student_app/tree/root/navigation_pages/home_page/home.dart';
+import 'package:student_app/tree/root/navigation_pages/home_page/home_page.dart';
 import 'package:student_app/tree/root/navigation_pages/yipee_chat/yipee_people.dart';
 import 'package:student_app/tree/root/navigation_pages/emergency.dart';
 import 'package:student_app/tree/root/drawer/drawer_screen.dart';
@@ -22,7 +22,7 @@ class _RootPageState extends State<RootPage> {
     final String userEmail = user?.email ?? 'No Email';
     final List<Widget> screens = [
       HomePage(
-        userName: userName,
+        // userName: userName,
       ),
       YipeePeople(),
       const EmergencyPage(),
@@ -34,11 +34,14 @@ class _RootPageState extends State<RootPage> {
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
+        appBar: AppBar(
+          
+        ),
         drawer: DrawerScreen(email: userEmail),
         body: Stack(
           children: [
             Align(
-              alignment: const Alignment(0.0, 0.0),
+              //alignment: const Alignment(0.0, 0.0),
               child: ClipRRect(
                 child: Image.asset(
                   'assets/home_bg1.png',
@@ -49,19 +52,7 @@ class _RootPageState extends State<RootPage> {
                 ),
               ),
             ),
-            Positioned(
-              top: MediaQuery.of(context).size.height * 0.05,
-              left: 1,
-              child: Builder(
-                builder: (context) => IconButton(
-                  icon: const Icon(Icons.dehaze, color: Colors.white),
-                  onPressed: () {
-                    Scaffold.of(context).openDrawer();
-                  },
-                ),
-              ),
-            ),
-            Center(child: screens[_currentIndex]),
+            screens[_currentIndex],
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
