@@ -14,25 +14,7 @@ class YipeePeople extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const SafeArea(
-          child: Center(
-            child: Text(
-              'Chat List',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-          ),
-        ),
-        const Opacity(
-                opacity: 0.5,
-                child: SizedBox(
-                  width: 300.0,
-                  child: Divider(
-                    height: 10.0,
-                    thickness: 1.0,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
+        
         Expanded(
           // Ensures the ListView takes up remaining space
           child: _buildUserList(),

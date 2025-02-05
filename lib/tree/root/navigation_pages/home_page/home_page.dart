@@ -4,13 +4,15 @@ class HomePage extends StatelessWidget {
   HomePage({super.key});
 
   final List<IconData> icons = [
-    Icons.schedule_rounded,
+    Icons.school,
     Icons.bar_chart,
-    Icons.drive_eta_outlined,
+    Icons.drive_folder_upload,
     Icons.calculate_outlined
   ];
 
-
+  final List<String> buttonNames = [
+    'Iums', 'Code Forces', 'Drive', 'CGPA Calculator'
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,6 @@ class HomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height: MediaQuery.of(context).size.height * 0.05),
             Container(
               width: MediaQuery.of(context).size.width * 0.9,
               height: 125,
@@ -210,10 +211,14 @@ class HomePage extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const Flexible(
+                        const SizedBox(height: 2,),
+                        Flexible(
                           flex: 1,
                           child: Text(
-                            'Sajid'
+                            buttonNames[index],
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold
+                            ),
                           ),
                         )
                       ],

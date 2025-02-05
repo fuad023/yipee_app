@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:student_app/tree/root/navigation_pages/home_page/home_page.dart';
 import 'package:student_app/tree/root/navigation_pages/yipee_chat/yipee_people.dart';
@@ -15,29 +14,41 @@ class RootPage extends StatefulWidget {
 class _RootPageState extends State<RootPage> {
   int _currentIndex = 0;
 
-  @override
-  Widget build(BuildContext context) {
-    final User? user = FirebaseAuth.instance.currentUser;
-    final String userName = user?.email?.split('@').first ?? 'No username';
-    final String userEmail = user?.email ?? 'No Email';
-    final List<Widget> screens = [
-      HomePage(
-        // userName: userName,
-      ),
+  final List<String> screenNames = [
+    '', 'Chat List', ''
+  ];
+
+  final List<Widget> screens = [
+      HomePage(),
       YipeePeople(),
       const EmergencyPage(),
     ];
 
+  @override
+  Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
+        extendBodyBehindAppBar: true,
+        extendBody: true,
         appBar: AppBar(
-          
+          backgroundColor: Colors.transparent,
+          title: Text(
+            screenNames[_currentIndex],
+            style: const TextStyle(
+              color: Colors.white70,
+              fontWeight: FontWeight.bold
+            ),
+          ),
+          centerTitle: true,
+          iconTheme: const IconThemeData(
+            color: Colors.white
+          ),
         ),
-        drawer: DrawerScreen(email: userEmail),
+        drawer: const DrawerScreen(email: 'sajid'),
         body: Stack(
           children: [
             Align(
@@ -52,12 +63,19 @@ class _RootPageState extends State<RootPage> {
                 ),
               ),
             ),
-            screens[_currentIndex],
+            SafeArea(child: screens[_currentIndex]),
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: const Color.fromARGB(255, 215, 224, 216),
-          selectedItemColor: Colors.green,
+          elevation: 0.0,
+          backgroundColor: Colors.transparent,
+          unselectedItemColor: Colors.white,
+          unselectedFontSize: 15,
+          unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
+          selectedItemColor: Colors.black,
+          selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
+          selectedIconTheme: const IconThemeData(size: 35),
+          selectedFontSize: 20,
           currentIndex: _currentIndex,
           onTap: (index) {
             setState(() {

@@ -147,15 +147,13 @@ class _VerifyUserState extends State<AccountActions> {
             color: Colors.white
           ),
         ),
-        body: !isVerifiedUser ? verifyUsers() : widget.buildState == 'password' ? changePassword() : widget.buildState == 'delete' ? deleteUser() : Container(
-          child: const Center(
-            child: Text(
-              'Currently Not Available!',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.blueGrey
-              ),
+        body: !isVerifiedUser ? verifyUsers() : widget.buildState == 'password' ? changePassword() : widget.buildState == 'delete' ? deleteUser() : const Center(
+          child: Text(
+            'Currently Not Available!',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.blueGrey
             ),
           ),
         )
