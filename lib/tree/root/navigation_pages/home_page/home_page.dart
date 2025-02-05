@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:student_app/tree/root/navigation_pages/home_page/cgpa_calc.dart';
+import 'package:student_app/tree/root/navigation_pages/home_page/services/codeforces/codeforces.dart';
+import 'package:student_app/tree/root/navigation_pages/home_page/services/web_viewer.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
@@ -13,6 +16,22 @@ class HomePage extends StatelessWidget {
   final List<String> buttonNames = [
     'Iums', 'Code Forces', 'Drive', 'CGPA Calculator'
   ];
+
+  void onIconPressed(int index, BuildContext context) {
+    switch(index) {
+      case 0:
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const WebViewer(url: 'https://iums.aust.edu/ums-web/login/',)));
+        break;
+      case 1:
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const Codeforces()));
+        break;
+      case 2:
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const WebViewer(url: 'https://drive.google.com/drive/folders/1qomc9V5zA3FetfpMYo1QSx_fXgmD0EfU?fbclid=IwY2xjawIKb-5leHRuA2FlbQIxMAABHTonZ-Ay7iF7gfNJ1fbXAWrjIAl8jaqrLoLGFiQwMI-Kkb-KVC468CriAQ_aem_HDi06StNEeze4T-Lem-IvQ',)));
+        break;
+      case 3:
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const CgpaCalc(),));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -189,7 +208,7 @@ class HomePage extends StatelessWidget {
                 itemCount: icons.length,
                 itemBuilder: (context, index) {
                   return InkWell(
-                    onTap: () {},
+                    onTap: () => onIconPressed(index, context),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
