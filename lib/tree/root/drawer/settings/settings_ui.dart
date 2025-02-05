@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:student_app/tree/root/drawer/settings/account_mannagement/account_mannagement_ui.dart';
+import 'package:student_app/tree/root/drawer/settings/account_management/account_management_ui.dart';
 
 class Settings extends StatelessWidget {
   const Settings({super.key});
@@ -26,7 +26,7 @@ class Settings extends StatelessWidget {
         body: ListView(
           children: [
             ListTile(
-              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const ManageAccount())),
+              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const AccountManagementUi())),
               leading: const Icon(
                 Icons.lock_person_outlined,
               ),

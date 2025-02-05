@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:student_app/tree/root/drawer/settings/account_mannagement/account_service.dart';
+import 'package:student_app/tree/root/drawer/settings/account_management/account_actions.dart';
 
-class ManageAccount extends StatelessWidget {
+class AccountManagementUi extends StatelessWidget {
 
-  const ManageAccount({super.key});
+  const AccountManagementUi({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class ManageAccount extends StatelessWidget {
       body: ListView(
           children: [
             ListTile(
-              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const VerifyUser(buildState: 'password',))),
+              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const AccountActions(buildState: 'password',))),
               leading: const Icon(
                 Icons.restore,
               ),
@@ -36,7 +36,7 @@ class ManageAccount extends StatelessWidget {
             ),
             const SizedBox(height: 10,),
             ListTile(
-              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const VerifyUser(buildState: '',))),
+              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const AccountActions(buildState: '',))),
               leading: const Icon(
                 Icons.mark_email_unread_outlined,
               ),
@@ -48,7 +48,7 @@ class ManageAccount extends StatelessWidget {
             ),
             const SizedBox(height: 10,),
             ListTile(
-              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const VerifyUser(buildState: 'delete',))),
+              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const AccountActions(buildState: 'delete',))),
               leading: const Icon(
                 Icons.remove_circle_outline,
               ),

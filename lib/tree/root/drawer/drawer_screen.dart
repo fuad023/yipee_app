@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:student_app/tree/auth_service/login_authentication/auth_services.dart';
 import 'package:student_app/tree/auth_service/login_pages/developer_handle/developer_handle.dart';
-import 'package:student_app/tree/root/drawer/settings/settings.dart';
+import 'package:student_app/tree/root/drawer/settings/settings_ui.dart';
 
 class DrawerScreen extends StatelessWidget {
 

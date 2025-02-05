@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class ActiveTextfield extends StatefulWidget {
+class RemastaredTextField extends StatefulWidget {
   final String labelText;
   final bool isobsecureText;
   final TextEditingController controller;
   final bool prefixIconForOtherInput;
-  const ActiveTextfield({
+  const RemastaredTextField({
     super.key,
     required this.labelText,
     required this.isobsecureText,
@@ -14,10 +14,10 @@ class ActiveTextfield extends StatefulWidget {
   });
 
   @override
-  State<ActiveTextfield> createState() => _ActiveTextfieldState();
+  State<RemastaredTextField> createState() => _ActiveTextfieldState();
 }
 
-class _ActiveTextfieldState extends State<ActiveTextfield> {
+class _ActiveTextfieldState extends State<RemastaredTextField> {
   final FocusNode _focusNode = FocusNode();
   late bool _obsecureText;
 
