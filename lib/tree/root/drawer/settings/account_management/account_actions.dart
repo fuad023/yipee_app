@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:student_app/tree/auth_service/login_authentication/auth_get.dart';
-import 'package:student_app/tree/root/drawer/settings/account_mannagement/remastared_text_field.dart';
-import 'package:student_app/tree/root/drawer/settings/account_mannagement/user_service.dart';
+import 'package:student_app/tree/root/drawer/settings/account_management/remastared_text_field.dart';
+import 'package:student_app/tree/root/drawer/settings/account_management/account_service.dart';
 
-class VerifyUser extends StatefulWidget {
+class AccountActions extends StatefulWidget {
   final String buildState; // Upon this Change email or password will show
-  const VerifyUser({
+  const AccountActions({
     super.key,
     required this.buildState,
   });
 
   @override
-  State<VerifyUser> createState() => _VerifyUserState();
+  State<AccountActions> createState() => _VerifyUserState();
 }
 
-class _VerifyUserState extends State<VerifyUser> {
-  final UserService _userService = UserService();
+class _VerifyUserState extends State<AccountActions> {
+  final AccountService _accountService = AccountService();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
   final TextEditingController _confirmationController = TextEditingController();
@@ -24,8 +24,8 @@ class _VerifyUserState extends State<VerifyUser> {
   void userVerification(BuildContext context) async {
     if(_passwordController.text.isNotEmpty) {
       try{
-        final userEmail = _userService.getCurrentUserEmail();
-        await _userService.verifyUser(userEmail, _passwordController.text);
+        final userEmail = _accountService.getCurrentUserEmail();
+        await _accountService.verifyUser(userEmail, _passwordController.text);
         if(context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -79,7 +79,7 @@ class _VerifyUserState extends State<VerifyUser> {
       }
     } else {
       try {
-        await _userService.updatePassword(_passwordController.text);
+        await _accountService.updatePassword(_passwordController.text);
         if(context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -104,7 +104,7 @@ class _VerifyUserState extends State<VerifyUser> {
 
   void deleteUserAccount(BuildContext context) async {
     try {
-      await _userService.deleteAccount();
+      await _accountService.deleteAccount();
       if(context.mounted) {
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const AuthGet()));
         ScaffoldMessenger.of(context).showSnackBar(
@@ -147,7 +147,18 @@ class _VerifyUserState extends State<VerifyUser> {
             color: Colors.white
           ),
         ),
-        body: !isVerifiedUser ? verifyUsers() : widget.buildState == 'password' ? changePassword() : widget.buildState == 'delete' ? deleteUser() : Container()
+        body: !isVerifiedUser ? verifyUsers() : widget.buildState == 'password' ? changePassword() : widget.buildState == 'delete' ? deleteUser() : Container(
+          child: const Center(
+            child: Text(
+              'Currently Not Available!',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.blueGrey
+              ),
+            ),
+          ),
+        )
       ),
     );
   }
@@ -165,7 +176,7 @@ class _VerifyUserState extends State<VerifyUser> {
                 ),
               ),
               const SizedBox(height: 20,),
-              ActiveTextfield(
+              RemastaredTextField(
                 labelText: 'Password',
                 isobsecureText: true,
                 controller: _passwordController,
@@ -203,14 +214,14 @@ class _VerifyUserState extends State<VerifyUser> {
                 'Enter New Password: '
               ),
               const SizedBox(height: 20,),
-              ActiveTextfield(
+              RemastaredTextField(
                 labelText: 'New Password',
                 isobsecureText: true,
                 controller: _passwordController,
                 prefixIconForOtherInput: false,
               ),
               const SizedBox(height: 20,),
-              ActiveTextfield(
+              RemastaredTextField(
                 labelText: 'Confirm Password',
                 isobsecureText: true,
                 controller: _confirmPasswordController,
@@ -269,7 +280,7 @@ class _VerifyUserState extends State<VerifyUser> {
                 ],
               ),
               const SizedBox(height: 20,),
-              ActiveTextfield(
+              RemastaredTextField(
                 labelText: '',
                 isobsecureText: false,
                 controller: _confirmationController,

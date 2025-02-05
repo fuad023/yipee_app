@@ -36,6 +36,18 @@ class ManageAccount extends StatelessWidget {
             ),
             const SizedBox(height: 10,),
             ListTile(
+              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const VerifyUser(buildState: '',))),
+              leading: const Icon(
+                Icons.mark_email_unread_outlined,
+              ),
+              title: const Text(
+                'Change Email',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              tileColor: const Color.fromARGB(47, 241, 233, 233),
+            ),
+            const SizedBox(height: 10,),
+            ListTile(
               onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const VerifyUser(buildState: 'delete',))),
               leading: const Icon(
                 Icons.remove_circle_outline,
@@ -46,8 +58,6 @@ class ManageAccount extends StatelessWidget {
               ),
               tileColor: const Color.fromARGB(47, 241, 233, 233),
             ),
-            const SizedBox(height: 10,),
-            
           ],
         ),
     );
