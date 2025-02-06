@@ -55,7 +55,6 @@ class _RootPageState extends State<RootPage> {
         body: Stack(
           children: [
             Align(
-              //alignment: const Alignment(0.0, 0.0),
               child: ClipRRect(
                 child: Image.asset(
                   'assets/home_bg1.png',

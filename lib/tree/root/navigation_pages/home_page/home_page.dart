@@ -10,11 +10,11 @@ class HomePage extends StatelessWidget {
     required this.userName
   });
 
-  final List<IconData> icons = [
-    Icons.school,
-    Icons.bar_chart,
-    Icons.drive_folder_upload_outlined,
-    Icons.calculate_outlined
+  final List<String> paths = [
+    'assets/iums.png',
+    'assets/cf.png',
+    'assets/drive.png',
+    'assets/cg_calc.png'
   ];
 
   final List<String> buttonNames = [
@@ -215,7 +215,7 @@ class HomePage extends StatelessWidget {
                   mainAxisSpacing: 20,
                   mainAxisExtent: 100,
                 ),
-                itemCount: icons.length,
+                itemCount: paths.length,
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () => onIconPressed(index, context),
@@ -233,10 +233,15 @@ class HomePage extends StatelessWidget {
                             ),
                             ),
                             child: Center(
-                              child: Icon(
-                                icons[index],
-                                size: 40,
-                              ),
+                              child: Container(
+                                height: 40,
+                                width: 40,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: Image.asset(paths[index]).image
+                                  )
+                                ),
+                              )
                             ),
                           ),
                         ),
