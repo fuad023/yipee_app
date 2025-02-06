@@ -4,12 +4,16 @@ import 'package:student_app/tree/root/navigation_pages/home_page/services/codefo
 import 'package:student_app/tree/root/navigation_pages/home_page/services/web_viewer.dart';
 
 class HomePage extends StatelessWidget {
-  HomePage({super.key});
+  final String userName;
+  HomePage({
+    super.key,
+    required this.userName
+  });
 
   final List<IconData> icons = [
     Icons.school,
     Icons.bar_chart,
-    Icons.drive_folder_upload,
+    Icons.drive_folder_upload_outlined,
     Icons.calculate_outlined
   ];
 
@@ -35,6 +39,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String name = userName.length > 8 ? userName.substring(0, 5) : userName;
+    String capsName = name[0].toUpperCase() + name.substring(1);
     return SingleChildScrollView(
       child: Center(
         child: Column(
@@ -43,6 +49,7 @@ class HomePage extends StatelessWidget {
             Container(
               width: MediaQuery.of(context).size.width * 0.9,
               height: 125,
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               decoration: BoxDecoration(
                 color: const Color.fromARGB(54, 255, 255, 255),
                 borderRadius: BorderRadius.circular(18.0),
@@ -56,24 +63,27 @@ class HomePage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  const Flexible(
-                    flex: 1,
+                  Flexible(
+                    flex: 2,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           'Good Morning!',
                           style: TextStyle(
-                            fontSize: 20.0,
-                            //fontWeight: FontWeight.bold,
+                            fontSize: 25.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white
                           ),
                         ),
-                        SizedBox(height: 10,),
+                        const SizedBox(height: 10,),
                         Text(
-                          'Sajid Al Amin',
-                          style: TextStyle(
-                            fontSize: 20, 
+                          capsName,
+                          style: const TextStyle(
+                            fontSize: 22, 
                             fontWeight: FontWeight.bold,
+                            color: Colors.white
                           ),
                         )
                       ],
@@ -197,11 +207,11 @@ class HomePage extends StatelessWidget {
             ),
             const SizedBox(height: 20,),
             SizedBox(
+              width: MediaQuery.of(context).size.width * 0.8,
               child: GridView.builder(
                 shrinkWrap: true,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  crossAxisSpacing: 0,
                   mainAxisSpacing: 20,
                   mainAxisExtent: 100,
                 ),

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:student_app/tree/root/navigation_pages/home_page/home_page.dart';
 import 'package:student_app/tree/root/navigation_pages/yipee_chat/yipee_people.dart';
@@ -18,14 +19,16 @@ class _RootPageState extends State<RootPage> {
     '', 'Chat List', ''
   ];
 
-  final List<Widget> screens = [
-      HomePage(),
+  @override
+  Widget build(BuildContext context) {
+    final User? user = FirebaseAuth.instance.currentUser;
+    final String userEmail = user?.email??'No Email';
+    final String userName = userEmail.split('@').first;
+    final List<Widget> screens = [
+      HomePage(userName: userName,),
       YipeePeople(),
       const EmergencyPage(),
     ];
-
-  @override
-  Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -48,7 +51,7 @@ class _RootPageState extends State<RootPage> {
             color: Colors.white
           ),
         ),
-        drawer: const DrawerScreen(email: 'sajid'),
+        drawer: DrawerScreen(email: userEmail),
         body: Stack(
           children: [
             Align(
@@ -69,7 +72,7 @@ class _RootPageState extends State<RootPage> {
         bottomNavigationBar: BottomNavigationBar(
           elevation: 0.0,
           backgroundColor: Colors.transparent,
-          unselectedItemColor: Colors.white,
+          unselectedItemColor: Colors.white70,
           unselectedFontSize: 15,
           unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
           selectedItemColor: Colors.black,
