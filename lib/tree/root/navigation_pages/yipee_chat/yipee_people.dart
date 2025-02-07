@@ -14,9 +14,8 @@ class YipeePeople extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        
+        const SizedBox(height: 10,),
         Expanded(
-          // Ensures the ListView takes up remaining space
           child: _buildUserList(),
         ),
       ],
@@ -54,13 +53,13 @@ class YipeePeople extends StatelessWidget {
 
   if (userData["email"] != _authServices.getCurrentUser()!.email) {
     return UserTile(
-      text: capitalizedDisplayName, // Use the capitalized display name
+      text: capitalizedDisplayName,
       onTap: () {
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => ChatPage(
-              userName: capitalizedDisplayName, // Pass the capitalized display name
+              userName: capitalizedDisplayName,
               recieverID: userData["uid"],
             ),
           ),

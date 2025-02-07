@@ -42,13 +42,8 @@ class _RootPageState extends State<RootPage> {
           title: Text(
             screenNames[_currentIndex],
             style: const TextStyle(
-              color: Colors.white70,
               fontWeight: FontWeight.bold
             ),
-          ),
-          centerTitle: true,
-          iconTheme: const IconThemeData(
-            color: Colors.white
           ),
         ),
         drawer: DrawerScreen(email: userEmail),
@@ -70,14 +65,10 @@ class _RootPageState extends State<RootPage> {
         ),
         bottomNavigationBar: BottomNavigationBar(
           elevation: 0.0,
-          backgroundColor: Colors.transparent,
-          unselectedItemColor: Colors.white70,
-          unselectedFontSize: 15,
-          unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
+          backgroundColor: const Color.fromARGB(64, 255, 255, 255),
+          iconSize: 30,
           selectedItemColor: Colors.black,
-          selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
-          selectedIconTheme: const IconThemeData(size: 35),
-          selectedFontSize: 20,
+          unselectedItemColor: Colors.black,
           currentIndex: _currentIndex,
           onTap: (index) {
             setState(() {
@@ -86,15 +77,18 @@ class _RootPageState extends State<RootPage> {
           },
           items: const [
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
+              icon: Icon(Icons.home_outlined),
+              activeIcon: Icon(Icons.home),
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.textsms_rounded),
+              icon: Icon(Icons.textsms_outlined),
+              activeIcon: Icon(Icons.textsms_rounded),
               label: 'YipeeChat',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.emergency),
+              activeIcon: Icon(Icons.emergency),
+              icon: Icon(Icons.emergency_outlined),
               label: 'Emergency',
             ),
           ],
