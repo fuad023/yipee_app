@@ -15,7 +15,6 @@ class PublicUserDetails extends StatefulWidget {
 }
 
 class _UserInfoState extends State<PublicUserDetails> {
-  late String _handle;
   bool dataFetching = true;
   final CodeforcesApi _codeforcesApi = CodeforcesUser();
   late ResultUser _user;
@@ -40,113 +39,102 @@ class _UserInfoState extends State<PublicUserDetails> {
   @override
   void initState() {
     super.initState();
+    _fetchUser(widget.handle);
   }
 
   @override
   Widget build(BuildContext context) {
-    _handle = widget.handle;
-    return _handle.isEmpty ? _requestSetup() : _showUserInfo();
+    return dataFetching ? _requestWait() : _showUserInfo();
   }
 
-  Widget _requestSetup() {
-    return const Center(
-      child: Text("Please setup handle name."),
+  Widget _requestWait() {
+    return Center(
+      child: CircularProgressIndicator(
+        color: Colors.green[700],
+      ),
     );
   }
 
   Widget _showUserInfo() {
-    if (dataFetching) {
-      _fetchUser(_handle);
-    }
-
-    return dataFetching
-    ? Center(
-      child: CircularProgressIndicator(
-        color: Colors.green[700],
-      ),
-    )
-    : Container(
-      padding: const EdgeInsets.only(bottom: 64.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Align(
-            alignment: Alignment.center,
-            child: Column(
-              
+    return Center(
+      child: Container(
+        padding: const EdgeInsets.only(bottom: 64.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Column(
               children: [
                 CircleAvatar(
                   radius: 64.0,
                   backgroundImage: NetworkImage(_user.titlePhoto),
                 ),
                 const SizedBox(height: 16.0,),
-          
+
                 Text(
-                  _handle,
+                  widget.handle,
                   style: const TextStyle(
                     decoration: TextDecoration.none,
                     color: Colors.black,
                     fontSize: 24.0,
                     fontWeight: FontWeight.bold,
-                    letterSpacing: 3.0,
+                    letterSpacing: 1.0,
                   ),
                 ),
               ],
             ),
-          ),
-          const SizedBox(height: 48.0,),
-    
-          Padding(
-            padding: const EdgeInsets.only(left: 32.0),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _textfield("Name: ", "${_user.getFirstName} ${_user.getLastName}"),
-                  _textfield("Country: ", _user.getCountry),
+            const SizedBox(height: 48.0,),
 
-                  _textfield("Max Rank: ", _user.getMaxRank),
-                  _textfield("Rank: ", _user.getRank),
-                  _textfield("Max Rating: ", _user.getMaxRating),
-                  _textfield("Rating: ", _user.getRating),
-                  
-                  _textfield("Last seen: ", _user.getLastOnlineTimeSeconds),
-                  _textfield("Reegistered on: ", _user.getRegistrationTimeSeconds),
-                  _textfield("Friends: ", _user.getFriendOfCount),
-                ],
-              ),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _textColumn([
+                  "Name",
+                  "Country",
+
+                  "Max Rank",
+                  "Rank",
+                  "Max Rating",
+                  "Rating",
+
+                  "Last seen",
+                  "Reg. on",
+                  "Friends",
+                ], false),
+
+                _textColumn([
+                  " : ${_user.getFirstName} ${_user.getLastName}",
+                  " : ${_user.getCountry}",
+
+                  " : ${_user.getMaxRank}",
+                  " : ${_user.getRank}",
+                  " : ${_user.getMaxRating}",
+                  " : ${_user.getRating}",
+
+                  " : ${_user.getLastOnlineTimeSeconds}",
+                  " : ${_user.getRegistrationTimeSeconds}",
+                  " : ${_user.getFriendOfCount}",
+                ], true),
+              ],
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
-  Widget _textfield(String text, String key) {
-    return Row(
-      children: [
-        Text(
-          text,
-          style: const TextStyle(
-            decoration: TextDecoration.none,
-            color: Colors.black,
-            fontSize: 16.0,
-            fontWeight: FontWeight.w300,
-            letterSpacing: 2.0,
-          ),
+  Widget _textColumn(List<String> stream, bool isBold) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: stream.map((text) => Text(
+        text,
+        style: TextStyle(
+          fontSize: 16.0,
+          fontWeight: isBold ? FontWeight.normal : FontWeight.w300,
+          letterSpacing: isBold ? 1.0 : 0.0,
         ),
-        Text(
-          key,
-          style: const TextStyle(
-            decoration: TextDecoration.none,
-            color: Colors.black,
-            fontSize: 16.0,
-            // fontWeight: FontWeight.w300,
-            letterSpacing: 2.0,
-          ),
-        ),
-      ],
+      )).toList(),
     );
   }
 }
