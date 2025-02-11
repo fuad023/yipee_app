@@ -20,7 +20,7 @@ class CodeforcesRatingHistory extends CodeforcesApi {
         throw Exception(data["comment"]);
       } else if (data["status"] == "OK") {
         result = <ResultRatingHistory>[];
-        data['result'].forEach((v) {
+        data['result'].reversed.forEach((v) {
           result!.add(ResultRatingHistory.fromJson(v));
         });
         return result;
