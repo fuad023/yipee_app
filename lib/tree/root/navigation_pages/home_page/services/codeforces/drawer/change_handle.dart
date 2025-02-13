@@ -3,7 +3,7 @@ import 'package:student_app/tree/root/navigation_pages/home_page/services/codefo
 import 'package:student_app/tree/root/navigation_pages/home_page/services/codeforces/drawer/components/codeforces_button.dart';
 
 import 'package:student_app/tree/root/navigation_pages/home_page/services/codeforces/codeforces.dart';
-import 'package:student_app/tree/root/navigation_pages/home_page/services/codeforces/database_service.dart';
+// import 'package:student_app/tree/root/navigation_pages/home_page/services/codeforces/database_codeforces.dart';
 import 'package:student_app/tree/root/navigation_pages/home_page/services/codeforces/api/codeforces_api.dart';
 import 'package:student_app/tree/root/navigation_pages/home_page/services/codeforces/api/codeforces_user.dart';
 
@@ -16,7 +16,7 @@ class ChangeHandle extends StatefulWidget {
 }
 
 class _AppbarActionState extends State<ChangeHandle> {
-  final DatabaseService _database = DatabaseService();
+  // final DatabaseCodeforces _database = DatabaseCodeforces();
   final TextEditingController _handleController = TextEditingController();
 
   bool isValidating = false;
@@ -40,7 +40,7 @@ class _AppbarActionState extends State<ChangeHandle> {
   }
 
   void setName(BuildContext context) async {
-    await _database.setHandle(_handleController.text);    
+    // await _database.setHandle(_handleController.text);    
     changeRoute(context); // ignore: use_build_context_synchronously
   }
 
