@@ -50,7 +50,7 @@ class _AccountManagePageState extends State<AccountManagePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green[100],
+      backgroundColor: const Color(0xFFF7F7F7),
       appBar: AppBar(
         title: const Text("Account Details"),
         centerTitle: true,
@@ -75,25 +75,25 @@ class _AccountManagePageState extends State<AccountManagePage> {
                   label: 'NAME',
                   field: _nameField(),
                 ),
-                const SizedBox(height: 16.0),
+                const SizedBox(height: 8.0),
 
                 _singleTextField(
                   label: 'USER ID',
                   field: _userIdField(),
                 ),
-                const SizedBox(height: 16.0),
+                const SizedBox(height: 8.0),
 
                 _singleTextField(
                   label: 'EMAIL',
                   field: _emailField(),
                 ),
-                const SizedBox(height: 16.0),
+                const SizedBox(height: 8.0),
 
                 _singleTextField(
                   label: 'ID',
                   field: _idField(),
                 ),
-                const SizedBox(height: 16.0),
+                const SizedBox(height: 8.0),
 
                 _doubleTextField(
                   labelFirst: 'YEAR',
@@ -101,13 +101,13 @@ class _AccountManagePageState extends State<AccountManagePage> {
                   labelSecond: 'SEMESTER',
                   fieldSecond: _semesterField(),
                 ),
-                const SizedBox(height: 16.0),
+                const SizedBox(height: 8.0),
 
                 _singleTextField(
                   label: 'CODEFORCES',
                   field: _handleField(),
                 ),
-                const SizedBox(height: 16.0),
+                const SizedBox(height: 8.0),
 
               ],
             ),
@@ -124,21 +124,19 @@ class _AccountManagePageState extends State<AccountManagePage> {
     return Container(
       padding: const EdgeInsets.all(12.0),
       decoration: BoxDecoration(
-        color: Colors.green.shade600,
-        borderRadius: BorderRadius.circular(8.0),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(4.0),
       ),
       child: SizedBox(
-        // height: 91.0,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               label,
               style: const TextStyle(
-                fontSize: 16.0,
+                fontSize: 14.0,
                 letterSpacing: 2.0,
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
               ),
             ),
             field,
@@ -157,11 +155,10 @@ class _AccountManagePageState extends State<AccountManagePage> {
     return Container(
       padding: const EdgeInsets.all(12.0),
       decoration: BoxDecoration(
-        color: Colors.green.shade600,
+        color: Colors.white,
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: SizedBox(
-        // height: 91,
         child: Row(
           children: [
             Expanded(
@@ -172,19 +169,18 @@ class _AccountManagePageState extends State<AccountManagePage> {
                   Text(
                     labelFirst,
                     style: const TextStyle(
-                      fontSize: 16.0,
+                      fontSize: 14.0,
                       letterSpacing: 2.0,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
                     ),
                   ),
                   fieldFirst,
                 ],
               ),
             ),
-            Expanded(
-              child: VerticalDivider(
-                color: Colors.green[100],
+            const Expanded(
+              child: VerticalDivider( // for some reason it's not showing
+                color: Color(0xFFF7F7F7),
               ),
             ),
             Expanded(
@@ -195,10 +191,9 @@ class _AccountManagePageState extends State<AccountManagePage> {
                   Text(
                     labelSecond,
                     style: const TextStyle(
-                      fontSize: 16.0,
+                      fontSize: 14.0,
                       letterSpacing: 2.0,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
                     ),
                   ),
                   fieldSecond,
@@ -250,11 +245,13 @@ class _AccountManagePageState extends State<AccountManagePage> {
   }
 
   Widget _userIdField() {
+    String data = userData['user_id'] != null ? userData['user_id'].toString().substring(1) : "";
     return _buildEditableField(
       field: "user_id",
-      hint: "@fuadxlr8",
+      prefix: const Text('@'),
+      hint: "fuadxlr8",
       helper: "",
-      userData: userData['user_id'] ?? "",
+      userData: data,
       isEditing: fieldMap['user_id']!.isEditing,
       canEdit: fieldMap['user_id']!.canEdit,
       controller: fieldMap['user_id']!.controller,
@@ -281,7 +278,7 @@ class _AccountManagePageState extends State<AccountManagePage> {
           fieldMap.forEach((key, value) {
             value.canEdit = key != 'user_id' ? false : true;
           });
-          fieldMap['user_id']!.controller.text = userData['user_id'] ?? "";
+          fieldMap['user_id']!.controller.text = data;
         });
       },
     );
@@ -482,6 +479,7 @@ class _AccountManagePageState extends State<AccountManagePage> {
     required String userData,
     required bool isEditing,
     required bool canEdit,
+    Text prefix = const Text(''),
     required String hint,
     required String helper,
     required TextEditingController controller,
@@ -496,24 +494,38 @@ class _AccountManagePageState extends State<AccountManagePage> {
       children: [
         Expanded(
           child: isEditing
-            ? TextFormField(
-              controller: controller,
-              textCapitalization: textCapitalization,
-              autofocus: true,
-              cursorColor: Colors.green[900],
-              keyboardType: keyboardType,
-              decoration: InputDecoration(
-                // labelText: label,
-                helperText: helper,
-                hintText: hint,
-                filled: true,
-                fillColor: Colors.white
-              ).applyDefaults(inputTheme),
-              validator: validator,
+            ? Theme(
+              data: Theme.of(context).copyWith(
+                textSelectionTheme: TextSelectionThemeData(
+                  cursorColor: Colors.green[700],
+                  selectionColor: Colors.green[200],
+                  selectionHandleColor: Colors.green[700],
+                ),
+              ),
+              child: TextFormField(
+                controller: controller,
+                textCapitalization: textCapitalization,
+                autofocus: true,
+                keyboardType: keyboardType,
+                decoration: InputDecoration(
+                  prefix: prefix,
+                  helperText: helper,
+                  hintText: hint,
+                  filled: true,
+                  fillColor: Colors.white
+                ).applyDefaults(inputTheme),
+                validator: validator,
+              ),
             )
             : Padding(
               padding: const EdgeInsets.only(top: 16.0),
-              child: Text(userData, style: TextStyle(fontSize: 18.0, color: Colors.green[100])),
+              child: Text(
+                prefix.data! + userData,
+                style: const TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
             ),
         ),
         canEdit
@@ -527,16 +539,17 @@ class _AccountManagePageState extends State<AccountManagePage> {
           },
           child: IconButton(
             icon: Icon(
-              isEditing ? (deleteIcon ? Icons.delete : Icons.check)  : Icons.edit,
-              color: deleteIcon && isEditing ? Colors.red : Colors.green[100],
+              isEditing ? (deleteIcon ? Icons.delete : Icons.check)  : Icons.chevron_right_rounded,
+              color: deleteIcon && isEditing ? Colors.red : Colors.green,
             ),
             onPressed: () {
               if (isEditing) {
                 if (deleteIcon) {
+                  deleteIcon = !deleteIcon;
                   onSave(controller.text = "");
                 }
                 else if (_formKey.currentState!.validate()) {
-                  onSave(controller.text);
+                  onSave(prefix.data! + controller.text);
                 }
               } else {
                 onEdit();
@@ -548,65 +561,5 @@ class _AccountManagePageState extends State<AccountManagePage> {
       ],
     );
   }
-
-//   Widget _yearDropDown() {
-//     return _dropDownField(
-//       userData: userData['year'] ?? "",
-//       items: ['1', '2', '3', '4', '5'],
-//       isEditing: fieldMap['year']!.isEditing,
-//       canEdit: fieldMap['year']!.canEdit,
-//       onEdit: () {
-//         setState(() {
-//           fieldMap['year']!.isEditing = !fieldMap['year']!.isEditing;
-//         });
-//       }
-//     );
-//   }
-
-//   Widget _dropDownField({
-//     required dynamic userData,
-//     required List<dynamic> items,
-//     required bool isEditing,
-//     required bool canEdit,
-//     required VoidCallback onEdit,
-//   }) {
-//     return Row(
-//       children: [
-//         Expanded(
-//           child: isEditing
-//             ? DropdownButton(
-//             value: userData,
-//             items: items.map(
-//               (dynamic item) {
-//                 return DropdownMenuItem(
-//                   value: item,
-//                   child: Text(item),
-//                 );
-//               }
-//             ).toList(),
-//             onChanged: (dynamic item) {
-//               setState(() {
-//                 userData = item;
-//               });
-//             },
-//             iconEnabledColor: Colors.green[100],
-//           )
-//           : Padding(
-//             padding: const EdgeInsets.only(top: 16.0),
-//             child: Text(userData, style: TextStyle(fontSize: 18.0, color: Colors.green[100])),
-//           ),
-//         ),
-//         canEdit
-//         ? IconButton(
-//           icon: Icon(
-//             isEditing ? Icons.delete : Icons.edit,
-//             color: deleteIcon && isEditing ? Colors.red : Colors.green[100],
-//           ),
-//           onPressed: onEdit,
-//         )
-//         : Container(),
-//       ],
-//     );
-//   }
 
 }
