@@ -109,81 +109,17 @@ class HomePage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Container(
-                width: MediaQuery.of(context).size.width * 0.40,
-                height: 100,
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(54, 255, 255, 255),
-                  borderRadius: BorderRadius.circular(18.0),
-                  boxShadow: const [
-                  ]
-                ),
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          '20°C',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 25
-                          ),
-                        ),
-                        Text(
-                          'Friday'
-                        )
-                      ],
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.cloudy_snowing,
-                          size: 40,
-                        )
-                      ],
-                    )
-                  ],
-                ),
+              _homeScreenWidget(
+                context: context,
+                text: '20°C',
+                subText: 'Friday',
+                icon: Icons.cloudy_snowing,
               ),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.40,
-                height: 100,
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(54, 255, 255, 255),
-                  borderRadius: BorderRadius.circular(18.0),
-                ),
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          '2:17',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 25
-                          ),
-                        ),
-                        Text(
-                          '14 January'
-                        )
-                      ],
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.watch_later,
-                          size: 40,
-                        )
-                      ],
-                    )
-                  ],
-                ),
+              _homeScreenWidget(
+                context: context,
+                text: '2:17',
+                subText: '14 January',
+                icon: Icons.watch_later,
               ),
             ],
           ),
@@ -249,6 +185,46 @@ class HomePage extends StatelessWidget {
               },
             ),
           )
+        ],
+      ),
+    );
+  }
+
+  Widget _homeScreenWidget({
+    required BuildContext context,
+    required String text,
+    required String subText,
+    required IconData? icon,
+  }) {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.40,
+      height: 100,
+      decoration: BoxDecoration(
+        color: const Color.fromARGB(54, 255, 255, 255),
+        borderRadius: BorderRadius.circular(18.0),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                text,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25
+                ),
+              ),
+              Text(subText),
+            ]
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(icon, size: 40),
+            ]
+          ),
         ],
       ),
     );
