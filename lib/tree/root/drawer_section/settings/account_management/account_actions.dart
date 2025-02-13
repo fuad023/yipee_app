@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:student_app/tree/auth_service/login_authentication/auth_get.dart';
-import 'package:student_app/tree/root/drawer/settings/account_management/remastared_text_field.dart';
-import 'package:student_app/tree/root/drawer/settings/account_management/account_service.dart';
+import 'package:student_app/tree/root/drawer_section/settings/account_management/remastared_text_field.dart';
+import 'package:student_app/tree/root/drawer_section/settings/account_management/account_service.dart';
 
 class AccountActions extends StatefulWidget {
   final String buildState; // Upon this Change email or password will show

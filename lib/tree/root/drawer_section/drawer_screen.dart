@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:student_app/tree/auth_service/login_authentication/auth_services.dart';
 import 'package:student_app/tree/root/drawer_section/manage_account/account_page.dart';
+import 'package:student_app/tree/auth_service/login_pages/developer_handle/developer_handle.dart';
+import 'package:student_app/tree/root/drawer_section/settings/settings_ui.dart';
 
 class DrawerScreen extends StatelessWidget {
   final String email;
@@ -61,6 +63,14 @@ class DrawerScreen extends StatelessWidget {
             title: const Text('Settings'),
             onTap: () {
               Navigator.pop(context);
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const Settings()));
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.developer_board),
+            title: const Text('Developer Handle'),
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const DeveloperHandle()));
             },
           ),
           const Spacer(),

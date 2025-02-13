@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:student_app/tree/root/drawer/settings/account_management/account_management_ui.dart';
+import 'package:student_app/tree/root/drawer_section/settings/account_management/account_management_ui.dart';
 
 class Settings extends StatelessWidget {
   const Settings({super.key});
