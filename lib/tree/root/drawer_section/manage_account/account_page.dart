@@ -58,59 +58,56 @@ class _AccountManagePageState extends State<AccountManagePage> {
         backgroundColor: Colors.green[700],
       ),
       body: dataFetching
-      ? Center(
+      ? const Center(
         child: CircularProgressIndicator(
-          color: Colors.green[700],
+          color: Colors.green,
         ),
       )
       : SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.all(16.0),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _singleTextField(
-                  label: 'NAME',
-                  field: _nameField(),
-                ),
-                const SizedBox(height: 8.0),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _singleTextField(
+                label: 'NAME',
+                field: _nameField(),
+              ),
+              const SizedBox(height: 8.0),
 
-                _singleTextField(
-                  label: 'USER ID',
-                  field: _userIdField(),
-                ),
-                const SizedBox(height: 8.0),
+              _singleTextField(
+                label: 'USER ID',
+                field: _userIdField(),
+              ),
+              const SizedBox(height: 8.0),
 
-                _singleTextField(
-                  label: 'EMAIL',
-                  field: _emailField(),
-                ),
-                const SizedBox(height: 8.0),
+              _singleTextField(
+                label: 'EMAIL',
+                field: _emailField(),
+              ),
+              const SizedBox(height: 8.0),
 
-                _singleTextField(
-                  label: 'ID',
-                  field: _idField(),
-                ),
-                const SizedBox(height: 8.0),
+              _singleTextField(
+                label: 'ID',
+                field: _idField(),
+              ),
+              const SizedBox(height: 8.0),
 
-                _doubleTextField(
-                  labelFirst: 'YEAR',
-                  fieldFirst: _yearField(),
-                  labelSecond: 'SEMESTER',
-                  fieldSecond: _semesterField(),
-                ),
-                const SizedBox(height: 8.0),
+              _doubleTextField(
+                labelFirst: 'YEAR',
+                fieldFirst: _yearField(),
+                labelSecond: 'SEMESTER',
+                fieldSecond: _semesterField(),
+              ),
+              const SizedBox(height: 8.0),
 
-                _singleTextField(
-                  label: 'CODEFORCES',
-                  field: _handleField(),
-                ),
-                const SizedBox(height: 8.0),
+              _singleTextField(
+                label: 'CODEFORCES',
+                field: _handleField(),
+              ),
+              const SizedBox(height: 8.0),
 
-              ],
-            ),
+            ],
           ),
         ),
       ),
@@ -123,9 +120,18 @@ class _AccountManagePageState extends State<AccountManagePage> {
   }) {
     return Container(
       padding: const EdgeInsets.all(12.0),
+      margin: const EdgeInsets.symmetric(horizontal: 16.0),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(4.0),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            // spreadRadius: 2,
+            blurRadius: 2,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
       child: SizedBox(
         child: Column(
@@ -154,9 +160,18 @@ class _AccountManagePageState extends State<AccountManagePage> {
   }) {
     return Container(
       padding: const EdgeInsets.all(12.0),
+      margin: const EdgeInsets.symmetric(horizontal: 16.0),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8.0),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            // spreadRadius: 2,
+            blurRadius: 2,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
       child: SizedBox(
         child: Row(
@@ -561,5 +576,4 @@ class _AccountManagePageState extends State<AccountManagePage> {
       ],
     );
   }
-
 }
