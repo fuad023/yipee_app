@@ -45,7 +45,7 @@ class _UserRatingHistoryState extends State<UserRatingHistory> {
 
   @override
   Widget build(BuildContext context) {
-    return _handle == null ? _requestSetup() : _showSubmissions();
+    return _handle == null ? _requestSetup() : _showRatingHistory();
   }
 
   Widget _requestSetup() {
@@ -54,7 +54,7 @@ class _UserRatingHistoryState extends State<UserRatingHistory> {
     );
   }
 
-  Widget _showSubmissions() {
+  Widget _showRatingHistory() {
     if (_dataFetching) {
       fetchSubmissions(_handle!);
     }
@@ -73,33 +73,54 @@ class _UserRatingHistoryState extends State<UserRatingHistory> {
       interactive: true,
       thickness: 8.0,
       radius: const Radius.circular(8.0),
-      child: ListView.builder(
-        itemCount: _dataList.length,
-        itemBuilder: (context, index) {
-          return Center(
-            child: Column(
-              children: [
-                index == 0 ? const Padding(padding: EdgeInsets.all(4.0)) : Container(),
-                ListTile(
-                  title: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _myText(_dataList[index].getContestName, true),
-                      _myTextTwo("Rank: ", _dataList[index].getRank),
-                      _myTextTwo("Updated Rating: ", _dataList[index].getNewRating),
-                      _myTextTwo("Update Time: ", _dataList[index].getRatingUpdateTimeSeconds),
-                    ],
-                  ),
-                  trailing: _setRatingDiff(_dataList[index].getRatingDiff),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Divider(color: Colors.green[700],),
-                ),
-              ],
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+        child: ListView.builder(
+          itemCount: _dataList.length,
+          itemBuilder: (context, index) {
+            return _ratingHistoryBubble(
+              contestName: _dataList[index].getContestName,
+              rank: _dataList[index].getRank,
+              newRating: _dataList[index].getNewRating,
+              ratingUpdateTime: _dataList[index].getRatingUpdateTimeSeconds,
+              ratingDifference: _dataList[index].getRatingDiff,
+            );
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget _ratingHistoryBubble({
+    required String contestName,
+    required String rank,
+    required String newRating,
+    required String ratingUpdateTime,
+    required int ratingDifference,
+  }) {
+    return Center(
+      child: Column(
+        children: [
+          Container(
+            margin: const EdgeInsets.symmetric(vertical: 4.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(4.0),
             ),
-          );
-        },
+            child: ListTile(
+              title: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _myText(contestName, true),
+                  _myTextTwo("Rank: ", rank),
+                  _myTextTwo("Updated Rating: ", ratingUpdateTime),
+                  _myTextTwo("Update Time: ", ratingUpdateTime),
+                ],
+              ),
+              trailing: _setRatingDiff(ratingDifference),
+            ),
+          ),
+        ],
       ),
     );
   }
