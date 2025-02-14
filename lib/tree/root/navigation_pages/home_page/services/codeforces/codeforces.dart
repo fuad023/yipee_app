@@ -39,7 +39,7 @@ class _CodeforcesState extends State<Codeforces> {
         title: const Text("Codeforces"),
         centerTitle: true,
         foregroundColor: Colors.white,
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.green[700],
         elevation: 1.0,
         actions: [
           Builder(

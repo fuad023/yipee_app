@@ -70,7 +70,7 @@ class _UserInfoState extends State<UserDetails> {
 
   Widget userInformation() {
     return Container(
-      margin: const EdgeInsets.all(10.0),
+      margin: const EdgeInsets.all(12.0),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8.0),

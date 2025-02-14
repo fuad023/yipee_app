@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:student_app/tree/root/navigation_pages/home_page/services/codeforces/drawer/search_user/public/public_user_details.dart';
-import 'package:student_app/tree/root/navigation_pages/home_page/services/codeforces/drawer/search_user/public/public_submissions.dart';
-import 'package:student_app/tree/root/navigation_pages/home_page/services/codeforces/drawer/search_user/public/public_user_rating_history.dart';
+import 'package:student_app/tree/root/navigation_pages/home_page/services/codeforces/navigation_pages/user_details.dart';
+import 'package:student_app/tree/root/navigation_pages/home_page/services/codeforces/navigation_pages/submissions.dart';
+import 'package:student_app/tree/root/navigation_pages/home_page/services/codeforces/navigation_pages/user_rating_history.dart';
 
 class Public extends StatefulWidget {
   final String handle;
@@ -21,12 +21,12 @@ class _CodeforcesState extends State<Public> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green[100],
+      backgroundColor: const Color(0xFFF7F7F7),
       appBar: AppBar(
         title: Text(widget.handle),
         centerTitle: true,
         foregroundColor: Colors.white,
-        backgroundColor: Colors.green[700],
+        backgroundColor: Colors.green,
         elevation: 1.0,
       ),
       body: _screens(_currentIndex),
@@ -36,9 +36,9 @@ class _CodeforcesState extends State<Public> {
 
   Widget _screens(int index) {
     return switch (_currentIndex) {
-      0 => PublicUserDetails(handle: widget.handle),
-      1 => PublicSubmissions(handle: widget.handle),
-      2 => PublicUserRatingHistory(handle: widget.handle),
+      0 => UserDetails(handle: widget.handle),
+      1 => Submissions(handle: widget.handle),
+      2 => UserRatingHistory(handle: widget.handle),
       
       int() => throw UnimplementedError(),
     };
@@ -46,8 +46,8 @@ class _CodeforcesState extends State<Public> {
 
   Widget _bottomNavigationBar() {
     return BottomNavigationBar(
-      backgroundColor: Colors.green,
-      selectedItemColor: Colors.white,
+      backgroundColor: Colors.white,
+      selectedItemColor: Colors.green,
       currentIndex: _currentIndex,
       onTap: (index) {
         setState(() {
