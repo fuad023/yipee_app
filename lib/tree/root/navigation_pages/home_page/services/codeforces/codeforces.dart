@@ -40,7 +40,7 @@ class _CodeforcesState extends State<Codeforces> {
         centerTitle: true,
         foregroundColor: Colors.white,
         backgroundColor: Colors.green[700],
-        elevation: 1.0,
+        // elevation: 1.0, // why doesnt it work???
         actions: [
           Builder(
             builder:(BuildContext context) {
@@ -78,30 +78,42 @@ class _CodeforcesState extends State<Codeforces> {
   }
 
   Widget _bottomNavigationBar() {
-    return BottomNavigationBar(
-      backgroundColor: Colors.white,
-      selectedItemColor: Colors.green,
-      elevation: 1.0,
-      currentIndex: _currentIndex,
-      onTap: (index) {
-        setState(() {
-          _currentIndex = index;
-        });
-      },
-      items: const [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.perm_identity),
-          label: 'User Info',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.code_rounded),
-          label: 'Submissions',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.history_rounded),
-          label: 'Rating History',
-        ),
-      ],
+    return Container(
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 8,
+            spreadRadius: 2,
+            offset: const Offset(0, -1),
+          ),
+        ],
+      ),
+      child: BottomNavigationBar(
+        backgroundColor: Colors.white,
+        selectedItemColor: Colors.green,
+        // elevation: 1.0,
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.perm_identity),
+            label: 'User Info',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.code_rounded),
+            label: 'Submissions',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.history_rounded),
+            label: 'Rating History',
+          ),
+        ],
+      ),
     );
   }
 }

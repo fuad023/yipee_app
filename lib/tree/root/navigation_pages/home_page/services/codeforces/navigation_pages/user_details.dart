@@ -69,87 +69,105 @@ class _UserInfoState extends State<UserDetails> {
   }
 
   Widget userInformation() {
-    return Container(
-      margin: const EdgeInsets.all(12.0),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8.0),
-      ),
-      child: Center(
-        child: Container(
-          padding: const EdgeInsets.only(bottom: 64.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Column(
-                children: [
-                  CircleAvatar(
-                    radius: 64.0,
-                    backgroundImage: NetworkImage(_user.titlePhoto),
-                  ),
-                  const SizedBox(height: 16.0,),
-
-                  Text(
-                    _handle!,
-                    style: const TextStyle(
-                      decoration: TextDecoration.none,
-                      fontSize: 24.0,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 1.0,
-                    ),
-                  ),
-                ],
+    return Center(
+      child: Container(
+        margin: const EdgeInsets.all(12.0),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8.0),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              spreadRadius: 2,
+              blurRadius: 2,
+              offset: const Offset(0, -1),
+            ),
+          ],
+        ),
+        child: Column(
+          children: [
+            Expanded(
+              flex: 8,
+              child: _profile(),
+            ),
+            const SizedBox(
+              child: Divider(
+                color: Color(0xFFF7F7F7),
+                thickness: 3.0,
               ),
-              const SizedBox(
-                height: 64.0,
-                child: Divider(
-                  color: Color(0xFFF7F7F7),
-                  thickness: 3.0,
-                ),
-              ),
-      
-              _detailedInformation(),
-            ],
-          ),
+            ),
+    
+            Expanded(
+              flex: 10,
+              child: _profileDetails()
+            ),
+          ],
         ),
       ),
     );
   }
 
-  Widget _detailedInformation() {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
+  Widget _profile() {
+    return Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _textColumn([
-          "Name",
-          "Country",
-
-          "Max Rank",
-          "Rank",
-          "Max Rating",
-          "Rating",
-
-          "Last seen",
-          "Reg. on",
-          "Friends",
-        ], false),
-
-        _textColumn([
-          " : ${_user.getFirstName} ${_user.getLastName}",
-          " : ${_user.getCountry}",
-
-          " : ${_user.getMaxRank}",
-          " : ${_user.getRank}",
-          " : ${_user.getMaxRating}",
-          " : ${_user.getRating}",
-
-          " : ${_user.getLastOnlineTimeSeconds}",
-          " : ${_user.getRegistrationTimeSeconds}",
-          " : ${_user.getFriendOfCount}",
-        ], true),
+        const SizedBox(height: 32.0,),
+        CircleAvatar(
+          radius: 64.0,
+          backgroundImage: NetworkImage(_user.titlePhoto),
+        ),
+        const SizedBox(height: 16.0,),
+        Text(
+          _handle!,
+          style: const TextStyle(
+            decoration: TextDecoration.none,
+            fontSize: 24.0,
+            fontWeight: FontWeight.bold,
+            letterSpacing: 1.0,
+          ),
+        ),
       ],
+    );
+  }
+
+  Widget _profileDetails() {
+    return Container(
+      // color: Colors.blue,
+      padding: const EdgeInsets.only(top: 24.0),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        // mainAxisAlignment: MainAxisAlignment.center,
+        // crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _textColumn([
+            "Name",
+            "Country",
+
+            "Max Rank",
+            "Rank",
+            "Max Rating",
+            "Rating",
+
+            "Last seen",
+            "Reg. on",
+            "Friends",
+          ], false),
+
+          _textColumn([
+            " : ${_user.getFirstName} ${_user.getLastName}",
+            " : ${_user.getCountry}",
+      
+            " : ${_user.getMaxRank}",
+            " : ${_user.getRank}",
+            " : ${_user.getMaxRating}",
+            " : ${_user.getRating}",
+
+            " : ${_user.getLastOnlineTimeSeconds}",
+            " : ${_user.getRegistrationTimeSeconds}",
+            " : ${_user.getFriendOfCount}",
+          ], true),
+        ],
+      ),
     );
   }
 

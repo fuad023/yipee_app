@@ -73,20 +73,17 @@ class _UserRatingHistoryState extends State<UserRatingHistory> {
       interactive: true,
       thickness: 8.0,
       radius: const Radius.circular(8.0),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
-        child: ListView.builder(
-          itemCount: _dataList.length,
-          itemBuilder: (context, index) {
-            return _ratingHistoryBubble(
-              contestName: _dataList[index].getContestName,
-              rank: _dataList[index].getRank,
-              newRating: _dataList[index].getNewRating,
-              ratingUpdateTime: _dataList[index].getRatingUpdateTimeSeconds,
-              ratingDifference: _dataList[index].getRatingDiff,
-            );
-          },
-        ),
+      child: ListView.builder(
+        itemCount: _dataList.length,
+        itemBuilder: (context, index) {
+          return _ratingHistoryBubble(
+            contestName: _dataList[index].getContestName,
+            rank: _dataList[index].getRank,
+            newRating: _dataList[index].getNewRating,
+            ratingUpdateTime: _dataList[index].getRatingUpdateTimeSeconds,
+            ratingDifference: _dataList[index].getRatingDiff,
+          );
+        },
       ),
     );
   }
@@ -102,10 +99,18 @@ class _UserRatingHistoryState extends State<UserRatingHistory> {
       child: Column(
         children: [
           Container(
-            margin: const EdgeInsets.symmetric(vertical: 4.0),
+            margin: const EdgeInsets.only(left: 16.0, right: 16.0, top: 8.0),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(4.0),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.05),
+                  // spreadRadius: 2,
+                  blurRadius: 2,
+                  offset: const Offset(0, 2),
+                ),
+              ],
             ),
             child: ListTile(
               title: Column(
@@ -113,7 +118,7 @@ class _UserRatingHistoryState extends State<UserRatingHistory> {
                 children: [
                   _myText(contestName, true),
                   _myTextTwo("Rank: ", rank),
-                  _myTextTwo("Updated Rating: ", ratingUpdateTime),
+                  _myTextTwo("Updated Rating: ", newRating),
                   _myTextTwo("Update Time: ", ratingUpdateTime),
                 ],
               ),

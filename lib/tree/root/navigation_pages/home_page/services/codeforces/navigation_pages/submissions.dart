@@ -73,20 +73,17 @@ class _SubmissionsState extends State<Submissions> {
       interactive: true,
       thickness: 8.0,
       radius: const Radius.circular(8.0),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
-        child: ListView.builder(
-          itemCount: _dataList.length,
-          itemBuilder: (context, index) {
-            return _submissionBubble(
-              idName: _dataList[index].getIdName(),
-              rating: _dataList[index].getRating(),
-              participantType: _dataList[index].getParticipantType(),
-              submitTime: _dataList[index].getCreatedWhen(),
-              verdict: _dataList[index].getVerdict(),
-            );
-          }
-        ),
+      child: ListView.builder(
+        itemCount: _dataList.length,
+        itemBuilder: (context, index) {
+          return _submissionBubble(
+            idName: _dataList[index].getIdName(),
+            rating: _dataList[index].getRating(),
+            participantType: _dataList[index].getParticipantType(),
+            submitTime: _dataList[index].getCreatedWhen(),
+            verdict: _dataList[index].getVerdict(),
+          );
+        }
       ),
     );
   }
@@ -102,10 +99,18 @@ class _SubmissionsState extends State<Submissions> {
       child: Column(
         children: [
           Container(
-            margin: const EdgeInsets.symmetric(vertical: 4.0),
+            margin: const EdgeInsets.only(left: 16.0, right: 16.0, top: 8.0),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(4.0),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.05), // Shadow color
+                  spreadRadius: 2, // How much the shadow spreads
+                  blurRadius: 2,  // Softness of the shadow
+                  offset: const Offset(0, 2), // Position (X, Y)
+                ),
+              ],
             ),
             child: ListTile(
               title: Column(
