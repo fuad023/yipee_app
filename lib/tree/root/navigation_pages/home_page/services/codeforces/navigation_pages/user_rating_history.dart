@@ -96,36 +96,32 @@ class _UserRatingHistoryState extends State<UserRatingHistory> {
     required int ratingDifference,
   }) {
     return Center(
-      child: Column(
-        children: [
-          Container(
-            margin: const EdgeInsets.only(left: 16.0, right: 16.0, top: 8.0),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(4.0),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
-                  // spreadRadius: 2,
-                  blurRadius: 2,
-                  offset: const Offset(0, 2),
-                ),
-              ],
+      child: Container(
+        margin: const EdgeInsets.only(left: 16.0, right: 16.0, top: 8.0),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(4.0),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              // spreadRadius: 2,
+              blurRadius: 2,
+              offset: const Offset(0, 2),
             ),
-            child: ListTile(
-              title: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _myText(contestName, true),
-                  _myTextTwo("Rank: ", rank),
-                  _myTextTwo("Updated Rating: ", newRating),
-                  _myTextTwo("Update Time: ", ratingUpdateTime),
-                ],
-              ),
-              trailing: _setRatingDiff(ratingDifference),
-            ),
+          ],
+        ),
+        child: ListTile(
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _myText(contestName, true),
+              _myTextTwo("Rank: ", rank),
+              _myTextTwo("Updated Rating: ", newRating),
+              _myTextTwo("Update Time: ", ratingUpdateTime),
+            ],
           ),
-        ],
+          trailing: _setRatingDiff(ratingDifference),
+        ),
       ),
     );
   }

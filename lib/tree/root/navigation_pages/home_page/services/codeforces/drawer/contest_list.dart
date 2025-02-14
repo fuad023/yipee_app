@@ -34,7 +34,7 @@ class _ContestListState extends State<ContestList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green[100],
+      backgroundColor: const Color(0xFFF7F7F7),
       appBar: AppBar(
         title: const Text("Upcoming Contests"),
         centerTitle: true,
@@ -67,31 +67,51 @@ class _ContestListState extends State<ContestList> {
       child: ListView.builder(
         itemCount: _dataList.length,
         itemBuilder: (context, index) {
-          return Center(
-            child: Column(
-              children: [
-                ListTile(
-                  title: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _myText(_dataList[index].getName(), true),
-                      _myText("Duration: ${_dataList[index].getDuration()}", false),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Column(
-                    children: [
-                      _myText(_dataList[index].getStartTime(), true),
-                      Divider(color: Colors.green[700],),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+          return _contestBubble(
+            name: _dataList[index].getName(),
+            duration: _dataList[index].getDuration(),
+            staringTime: _dataList[index].getStartTime(),
           );
         }
+      ),
+    );
+  }
+
+  Widget _contestBubble({
+    required String name,
+    required String duration,
+    required String staringTime,
+  }) {
+    return Center(
+      child: Container(
+        margin: const EdgeInsets.only(left: 16.0, right: 16.0, top: 12.0),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(4.0),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              // spreadRadius: 2,
+              blurRadius: 4,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Column(
+          children: [
+            ListTile(
+              title: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _myText(name, true),
+                  _myText("Duration: $duration", false),
+                  const SizedBox(height: 16.0),
+                  Center(child: _myText(staringTime, true)),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -96,37 +96,33 @@ class _SubmissionsState extends State<Submissions> {
     required String verdict,
   }) {
     return Center(
-      child: Column(
-        children: [
-          Container(
-            margin: const EdgeInsets.only(left: 16.0, right: 16.0, top: 8.0),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(4.0),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.05), // Shadow color
-                  spreadRadius: 2, // How much the shadow spreads
-                  blurRadius: 2,  // Softness of the shadow
-                  offset: const Offset(0, 2), // Position (X, Y)
-                ),
-              ],
+      child: Container(
+        margin: const EdgeInsets.only(left: 16.0, right: 16.0, top: 8.0),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(4.0),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05), // Shadow color
+              spreadRadius: 2, // How much the shadow spreads
+              blurRadius: 2,  // Softness of the shadow
+              offset: const Offset(0, 2), // Position (X, Y)
             ),
-            child: ListTile(
-              title: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _myText(idName, true),
-                  _myTextTwo("Rating: ", rating),
-                  _myTextTwo("Participant: ", participantType),
-                  const SizedBox(height: 8.0),
-                  _myText(submitTime, false),
-                ],
-              ),
-              trailing: setVerdict(verdict),
-            ),
+          ],
+        ),
+        child: ListTile(
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _myText(idName, true),
+              _myTextTwo("Rating: ", rating),
+              _myTextTwo("Participant: ", participantType),
+              const SizedBox(height: 8.0),
+              _myText(submitTime, false),
+            ],
           ),
-        ],
+          trailing: setVerdict(verdict),
+        ),
       ),
     );
   }
@@ -135,8 +131,8 @@ class _SubmissionsState extends State<Submissions> {
     return Text(
       text,
       style: TextStyle(
-        fontWeight: bold ? FontWeight.bold : FontWeight.normal,
-        fontSize: 10.0
+        fontWeight: bold ? FontWeight.bold : FontWeight.w300,
+        fontSize: 10.0,
       ),
     );
   }
