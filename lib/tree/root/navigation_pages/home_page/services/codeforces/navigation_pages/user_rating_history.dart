@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:student_app/tree/root/navigation_pages/home_page/services/codeforces/navigation_pages/components/text_components.dart';
+
 import 'package:student_app/tree/root/navigation_pages/home_page/services/codeforces/api/codeforces_api.dart';
 import 'package:student_app/tree/root/navigation_pages/home_page/services/codeforces/api/codeforces_rating_history.dart';
 
@@ -97,7 +99,7 @@ class _UserRatingHistoryState extends State<UserRatingHistory> {
   }) {
     return Center(
       child: Container(
-        margin: const EdgeInsets.only(left: 16.0, right: 16.0, top: 8.0),
+        margin: const EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(4.0),
@@ -114,47 +116,15 @@ class _UserRatingHistoryState extends State<UserRatingHistory> {
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _myText(contestName, true),
-              _myTextTwo("Rank: ", rank),
-              _myTextTwo("Updated Rating: ", newRating),
-              _myTextTwo("Update Time: ", ratingUpdateTime),
+              SingleText(value: contestName, bold: true),
+              DoubleText(type: "Rank: ", value: rank),
+              DoubleText(type: "Updated Rating: ", value: newRating),
+              DoubleText(type: "Update Time: ", value: ratingUpdateTime),
             ],
           ),
           trailing: _setRatingDiff(ratingDifference),
         ),
       ),
-    );
-  }
-
-  Widget _myText(String text, bool bold) {
-    return Text(
-      text,
-      style: TextStyle(
-        fontWeight: bold ? FontWeight.bold : FontWeight.normal,
-        fontSize: 10.0
-      ),
-    );
-  }
-
-  Widget _myTextTwo(String text, String key) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text(
-          text,
-          style: const TextStyle(
-            fontWeight: FontWeight.w300,
-            fontSize: 10.0
-          ),
-        ),
-        Text(
-          key,
-          style: const TextStyle(
-            fontWeight: FontWeight.w400,
-            fontSize: 10.0
-          ),
-        ),
-      ],
     );
   }
 
