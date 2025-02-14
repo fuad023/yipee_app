@@ -73,34 +73,55 @@ class _SubmissionsState extends State<Submissions> {
       interactive: true,
       thickness: 8.0,
       radius: const Radius.circular(8.0),
-      child: ListView.builder(
-        itemCount: _dataList.length,
-        itemBuilder: (context, index) {
-          return Center(
-            child: Column(
-              children: [
-                index == 0 ? const Padding(padding: EdgeInsets.all(4.0)) : Container(),
-                ListTile(
-                  title: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _myText(_dataList[index].getIdName(), true),
-                      _myTextTwo("Rating: ", _dataList[index].getRating()),
-                      _myTextTwo("Participant: ", _dataList[index].getParticipantType()),
-                      const SizedBox(height: 8.0),
-                      _myText(_dataList[index].getCreatedWhen(), false),
-                    ],
-                  ),
-                  trailing: setVerdict(_dataList[index].getVerdict()),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Divider(color: Colors.green[700],),
-                ),
-              ],
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+        child: ListView.builder(
+          itemCount: _dataList.length,
+          itemBuilder: (context, index) {
+            return _submissionBubble(
+              idName: _dataList[index].getIdName(),
+              rating: _dataList[index].getRating(),
+              participantType: _dataList[index].getParticipantType(),
+              submitTime: _dataList[index].getCreatedWhen(),
+              verdict: _dataList[index].getVerdict(),
+            );
+          }
+        ),
+      ),
+    );
+  }
+
+  Widget _submissionBubble({
+    required String idName,
+    required String rating,
+    required String participantType,
+    required String submitTime,
+    required String verdict,
+  }) {
+    return Center(
+      child: Column(
+        children: [
+          Container(
+            margin: const EdgeInsets.symmetric(vertical: 4.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(4.0),
             ),
-          );
-        }
+            child: ListTile(
+              title: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _myText(idName, true),
+                  _myTextTwo("Rating: ", rating),
+                  _myTextTwo("Participant: ", participantType),
+                  const SizedBox(height: 8.0),
+                  _myText(submitTime, false),
+                ],
+              ),
+              trailing: setVerdict(verdict),
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -34,12 +34,12 @@ class _CodeforcesState extends State<Codeforces> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green[100],
+      backgroundColor: const Color(0xFFF7F7F7),
       appBar: AppBar(
         title: const Text("Codeforces"),
         centerTitle: true,
         foregroundColor: Colors.white,
-        backgroundColor: Colors.green[700],
+        backgroundColor: Colors.green,
         elevation: 1.0,
         actions: [
           Builder(
@@ -79,8 +79,9 @@ class _CodeforcesState extends State<Codeforces> {
 
   Widget _bottomNavigationBar() {
     return BottomNavigationBar(
-      backgroundColor: Colors.green,
-      selectedItemColor: Colors.white,
+      backgroundColor: Colors.white,
+      selectedItemColor: Colors.green,
+      elevation: 1.0,
       currentIndex: _currentIndex,
       onTap: (index) {
         setState(() {
