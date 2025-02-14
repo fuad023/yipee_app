@@ -60,9 +60,9 @@ class _UserRatingHistoryState extends State<UserRatingHistory> {
     }
 
     return _dataFetching
-    ? Center(
+    ? const Center(
       child: CircularProgressIndicator(
-        color: Colors.green[700],
+        color: Colors.green,
       ),
     )
     : _dataList.isEmpty

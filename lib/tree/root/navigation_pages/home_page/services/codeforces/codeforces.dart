@@ -63,9 +63,9 @@ class _CodeforcesState extends State<Codeforces> {
 
   Widget _screens(int index) {
     return !isFetched 
-    ? Center(
+    ? const Center(
       child: CircularProgressIndicator(
-        color: Colors.green[700],
+        color: Colors.green,
       ),
     )
     : switch (_currentIndex) {
