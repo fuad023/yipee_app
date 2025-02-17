@@ -16,7 +16,7 @@ class _RootPageState extends State<RootPage> {
   int _currentIndex = 0;
 
   final List<String> screenNames = [
-    '', 'Chat List', ''
+    'Yipee App', 'Chat List', ''
   ];
 
   @override
@@ -35,10 +35,9 @@ class _RootPageState extends State<RootPage> {
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
-        extendBodyBehindAppBar: true,
-        extendBody: true,
+        backgroundColor: const Color.fromARGB(255, 225, 240, 226),
         appBar: AppBar(
-          backgroundColor: Colors.transparent,
+          backgroundColor: const Color.fromARGB(255, 225, 240, 226),
           title: Text(
             screenNames[_currentIndex],
             style: const TextStyle(
@@ -47,25 +46,10 @@ class _RootPageState extends State<RootPage> {
           ),
         ),
         drawer: DrawerScreen(email: userEmail),
-        body: Stack(
-          children: [
-            Align(
-              child: ClipRRect(
-                child: Image.asset(
-                  'assets/home_bg1.png',
-                  height: double.infinity,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                  alignment: const Alignment(0.0, 0.0),
-                ),
-              ),
-            ),
-            SafeArea(child: screens[_currentIndex]),
-          ],
-        ),
+        body: SafeArea(child: screens[_currentIndex]),
         bottomNavigationBar: BottomNavigationBar(
           elevation: 0.0,
-          backgroundColor: const Color.fromARGB(64, 255, 255, 255),
+          backgroundColor: const Color.fromARGB(255, 225, 240, 226),
           iconSize: 30,
           selectedItemColor: Colors.black,
           unselectedItemColor: Colors.black,

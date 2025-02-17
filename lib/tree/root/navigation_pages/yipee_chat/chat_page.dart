@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:student_app/tree/auth_service/login_authentication/auth_services.dart';
 import 'package:student_app/tree/root/navigation_pages/yipee_chat/componenets/message_bubble.dart';
-import 'package:student_app/tree/root/navigation_pages/yipee_chat/componenets/message_textfield.dart';
+import 'package:student_app/tree/root/navigation_pages/yipee_chat/model/chat_page_text_field.dart';
 import 'package:student_app/tree/root/navigation_pages/yipee_chat/service/chat_service.dart';
 
 class ChatPage extends StatefulWidget {
@@ -28,15 +29,20 @@ class _ChatPageState extends State<ChatPage> {
 
     // Scroll to the bottom when the page is opened
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Future.delayed(const Duration(milliseconds: 500), () => scrollDown());
+      Future.delayed(const Duration(milliseconds: 0), () => scrollDown());
     });
 
     // Add listener to scroll down when the text field is focused
     _focusNode.addListener(() {
       if (_focusNode.hasFocus) {
-        Future.delayed(const Duration(milliseconds: 500), () => scrollDown());
+        Future.delayed(const Duration(milliseconds: 0), () => scrollDown());
       }
     });
+  }
+
+  String formateTime(Timestamp timestamp) {
+    DateTime dateTime = timestamp.toDate();
+    return DateFormat('hh:mm a').format(dateTime);
   }
 
   @override
@@ -67,16 +73,53 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.userName),
-        centerTitle: true,
-      ),
-      body: Column(
-        children: [
-          Expanded(child: _buildMessageList()),
-          _buildUserInput(),
-        ],
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: Scaffold(
+        backgroundColor: const Color(0xFF1D3531),
+        appBar: AppBar(
+          title: Text(widget.userName),
+          titleTextStyle: const TextStyle(
+            fontSize: 25,
+            fontWeight: FontWeight.bold
+          ),
+          backgroundColor: const Color(0xFF1A4C36),
+          iconTheme: const IconThemeData(
+            color: Colors.white
+          ),
+        ),
+        body: Column(
+          children: [
+            Expanded(child: _buildMessageList()),
+            Container(
+              constraints: const BoxConstraints(
+                maxWidth: double.infinity,
+                maxHeight: 200
+              ),
+              padding: const EdgeInsets.all(5),
+              decoration: const BoxDecoration(
+                color: Color.fromARGB(255, 16, 29, 27)
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  ChatPageTextField(controller: _messageController,),
+                  IconButton(
+                    onPressed: () => sendMessage(),
+                    icon: const Icon(Icons.send,
+                      size: 35,
+                      color: Colors.white70,
+                    )
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -97,50 +140,60 @@ class _ChatPageState extends State<ChatPage> {
           return const Center(child: Text("No messages yet."));
         }
 
-        return ListView(
+        List<DocumentSnapshot> messages = snapshot.data!.docs;
+
+        return ListView.builder(
           controller: _scrollController,
-          children: snapshot.data!.docs.map((doc) => _buildMessageListItem(doc)).toList(),
+          itemCount: messages.length,
+          itemBuilder: (context, index) {
+            return _buildMessageListItem(messages, index);
+          },
         );
       },
     );
   }
 
-  Widget _buildMessageListItem(DocumentSnapshot doc) {
-    Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-    bool isCurrentUser = data["senderID"] == _authServices.getCurrentUser()?.uid;
-    return Align(
-      alignment: isCurrentUser ? Alignment.centerRight : Alignment.centerLeft,
-      child: MessageBubble(isCurrentUser: isCurrentUser, message: data["message"]),
+  Widget _buildMessageListItem(List<DocumentSnapshot> messages, int index) {
+  Map<String, dynamic> data = messages[index].data() as Map<String, dynamic>;
+  bool isCurrentUser = data["senderID"] == _authServices.getCurrentUser()?.uid;
+  Timestamp currentTimestamp = data["timestamp"];
+
+
+  bool showTime = true;
+
+  if (index > 0) {
+    Map<String, dynamic> previousData = messages[index - 1].data() as Map<String, dynamic>;
+    Timestamp? previousTimestamp = previousData["timestamp"];
+
+    if (previousTimestamp != null) {
+      Duration difference = currentTimestamp.toDate().difference(previousTimestamp.toDate());
+      if (difference.inMinutes < 3) {
+        showTime = false;
+      }
+    }
+  }
+    return Column(
+      children: [
+        if(showTime) const SizedBox(height: 10,),
+        if(showTime) 
+        Text(
+          formateTime(currentTimestamp),
+          style: const TextStyle(
+            color: Colors.white
+          ),
+        ),
+        Align(
+          alignment: isCurrentUser ? Alignment.centerRight : Alignment.centerLeft,
+          child: MessageBubble(isCurrentUser: isCurrentUser, message: data["message"]),
+        ),
+      ],
     );
   }
 
-  Widget _buildUserInput() {
-    return Row(
+  Widget buildUserInput() {
+    return const Row(
       children: [
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 10, bottom: 20),
-            child: MessageTextfield(
-              controller: _messageController,
-              hintText: 'Type Text',
-              obscureText: false,
-              focusNode: _focusNode,
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(right: 20, bottom: 20),
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.green.shade100,
-              shape: BoxShape.circle,
-            ),
-            child: IconButton(
-              onPressed: sendMessage,
-              icon: const Icon(Icons.arrow_upward),
-            ),
-          ),
-        ),
+        TextField()
       ],
     );
   }

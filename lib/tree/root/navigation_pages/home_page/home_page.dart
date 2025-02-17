@@ -50,7 +50,7 @@ class HomePage extends StatelessWidget {
             height: 100,
             padding: const EdgeInsets.symmetric(horizontal: 10),
             decoration: BoxDecoration(
-              color: const Color.fromARGB(54, 255, 255, 255),
+              color: Colors.black,
               borderRadius: BorderRadius.circular(18.0),
               boxShadow: const [
                 BoxShadow(
@@ -200,8 +200,12 @@ class HomePage extends StatelessWidget {
       width: MediaQuery.of(context).size.width * 0.40,
       height: 100,
       decoration: BoxDecoration(
-        color: const Color.fromARGB(54, 255, 255, 255),
-        borderRadius: BorderRadius.circular(18.0),
+        //color: Colors.black,
+        border: Border.all(
+          color: Colors.black,
+          width: 3
+        ),
+        borderRadius: BorderRadius.circular(24.0),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -213,16 +217,22 @@ class HomePage extends StatelessWidget {
                 text,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 25
+                  fontSize: 25,
+                  color: Colors.black
                 ),
               ),
-              Text(subText),
+              Text(
+                subText,
+                style: const TextStyle(
+                  color: Colors.black
+                ),
+              ),
             ]
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(icon, size: 40),
+              Icon(icon, size: 40, color: Colors.black,),
             ]
           ),
         ],
