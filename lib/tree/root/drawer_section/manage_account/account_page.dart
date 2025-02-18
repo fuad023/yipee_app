@@ -73,25 +73,21 @@ class _AccountManagePageState extends State<AccountManagePage> {
                 label: 'NAME',
                 field: _nameField(),
               ),
-              const SizedBox(height: 8.0),
 
               _singleTextField(
                 label: 'USER ID',
                 field: _userIdField(),
               ),
-              const SizedBox(height: 8.0),
 
               _singleTextField(
                 label: 'EMAIL',
                 field: _emailField(),
               ),
-              const SizedBox(height: 8.0),
 
               _singleTextField(
                 label: 'ID',
                 field: _idField(),
               ),
-              const SizedBox(height: 8.0),
 
               _doubleTextField(
                 labelFirst: 'YEAR',
@@ -99,13 +95,11 @@ class _AccountManagePageState extends State<AccountManagePage> {
                 labelSecond: 'SEMESTER',
                 fieldSecond: _semesterField(),
               ),
-              const SizedBox(height: 8.0),
 
               _singleTextField(
                 label: 'CODEFORCES',
                 field: _handleField(),
               ),
-              const SizedBox(height: 8.0),
 
             ],
           ),
@@ -114,13 +108,12 @@ class _AccountManagePageState extends State<AccountManagePage> {
     );
   }
 
-  Widget _singleTextField({
-    required String label,
-    required Widget field,
+  Widget _decorationContainer({
+    required SizedBox bubble,
   }) {
     return Container(
       padding: const EdgeInsets.all(12.0),
-      margin: const EdgeInsets.symmetric(horizontal: 16.0),
+      margin: const EdgeInsets.fromLTRB(16.0, 10.0, 16.0, 0.0),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(4.0),
@@ -133,7 +126,16 @@ class _AccountManagePageState extends State<AccountManagePage> {
           ),
         ],
       ),
-      child: SizedBox(
+      child: bubble,
+    );
+  }
+
+  Widget _singleTextField({
+    required String label,
+    required Widget field,
+  }) {
+    return _decorationContainer(
+      bubble: SizedBox(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -158,22 +160,8 @@ class _AccountManagePageState extends State<AccountManagePage> {
     required String labelSecond,
     required Widget fieldSecond,
   }) {
-    return Container(
-      padding: const EdgeInsets.all(12.0),
-      margin: const EdgeInsets.symmetric(horizontal: 16.0),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8.0),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            // spreadRadius: 2,
-            blurRadius: 2,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: SizedBox(
+    return _decorationContainer(
+      bubble: SizedBox(
         child: Row(
           children: [
             Expanded(
@@ -260,7 +248,9 @@ class _AccountManagePageState extends State<AccountManagePage> {
   }
 
   Widget _userIdField() {
-    String data = userData['user_id'] != null ? userData['user_id'].toString().substring(1) : "";
+    String data = (userData['user_id'] != null && userData['user_id'] != "") 
+      ? userData['user_id'].toString().substring(1) 
+      : "";
     return _buildEditableField(
       field: "user_id",
       prefix: const Text('@'),

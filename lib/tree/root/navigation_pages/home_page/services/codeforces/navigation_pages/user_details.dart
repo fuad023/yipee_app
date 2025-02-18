@@ -84,24 +84,20 @@ class _UserInfoState extends State<UserDetails> {
             ),
           ],
         ),
-        child: Column(
-          children: [
-            Expanded(
-              flex: 8,
-              child: _profile(),
-            ),
-            const SizedBox(
-              child: Divider(
-                color: Color(0xFFF7F7F7),
-                thickness: 3.0,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              _profile(),
+              const SizedBox(
+                child: Divider(
+                  color: Color(0xFFF7F7F7),
+                  thickness: 3.0,
+                ),
               ),
-            ),
-    
-            Expanded(
-              flex: 10,
-              child: _profileDetails()
-            ),
-          ],
+
+              _profileDetails(),
+            ],
+          ),
         ),
       ),
     );
@@ -133,11 +129,9 @@ class _UserInfoState extends State<UserDetails> {
   Widget _profileDetails() {
     return Container(
       // color: Colors.blue,
-      padding: const EdgeInsets.only(top: 24.0),
+      padding: const EdgeInsets.symmetric(vertical: 24.0),
       child: Row(
         mainAxisSize: MainAxisSize.min,
-        // mainAxisAlignment: MainAxisAlignment.center,
-        // crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _textColumn([
             "Name",

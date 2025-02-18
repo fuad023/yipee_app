@@ -106,7 +106,7 @@ class _ContestListState extends State<ContestList> {
                   _myText(name, true),
                   _myText("Duration: $duration", false),
                   const SizedBox(height: 16.0),
-                  Center(child: _myText(staringTime, true)),
+                  Center(child: _myText(staringTime, false)),
                 ],
               ),
             ),
