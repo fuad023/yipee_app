@@ -79,8 +79,8 @@ class _UserInfoState extends State<UserDetails> {
             BoxShadow(
               color: Colors.black.withOpacity(0.05),
               spreadRadius: 2,
-              blurRadius: 2,
-              offset: const Offset(0, -1),
+              blurRadius: 4,
+              offset: const Offset(0, 4),
             ),
           ],
         ),
