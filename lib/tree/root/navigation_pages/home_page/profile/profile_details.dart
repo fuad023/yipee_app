@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:student_app/tree/auth_service/login_authentication/user_credential.dart';
 
-Widget profileDetails() {
-  return const Padding(
-    padding: EdgeInsets.all(10.0),
+Widget profileDetails(UserCredentials usercredential) {
+  return Padding(
+    padding: const EdgeInsets.all(10.0),
     child: SingleChildScrollView(
       child: Column(
         children: [
-          Row(
+          const Row(
             children: [
               Icon(
                 Icons.school,
@@ -26,8 +27,8 @@ Widget profileDetails() {
               )
             ],
           ),
-          SizedBox(height: 20),
-          Row(
+          const SizedBox(height: 20),
+          const Row(
             children: [
               Icon(
                 Icons.business_center,
@@ -47,20 +48,20 @@ Widget profileDetails() {
               )
             ],
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Row(
             children: [
-              Icon(
+              const Icon(
                 Icons.email,
                 size: 30,
               ),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               Expanded(
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: SelectableText(
-                    'sajid.cse.20230104025@aust.edu',
-                    style: TextStyle(
+                    usercredential.email,
+                    style: const TextStyle(
                       fontSize: 15
                     ),
                   ),
@@ -68,20 +69,20 @@ Widget profileDetails() {
               )
             ],
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Row(
             children: [
-              Icon(
+              const Icon(
                 Icons.bar_chart,
                 size: 30,
               ),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               Expanded(
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Text(
-                    '@DJ_12',
-                    style: TextStyle(
+                    usercredential.handle,
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 15
                     ),
