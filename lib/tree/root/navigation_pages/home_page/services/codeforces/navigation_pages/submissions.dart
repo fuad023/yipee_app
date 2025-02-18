@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:student_app/tree/root/navigation_pages/home_page/services/codeforces/navigation_pages/components/text_components.dart';
+
 import 'package:student_app/tree/root/navigation_pages/home_page/services/codeforces/api/codeforces_api.dart';
 import 'package:student_app/tree/root/navigation_pages/home_page/services/codeforces/api/codeforces_submissions.dart';
 
@@ -60,9 +62,9 @@ class _SubmissionsState extends State<Submissions> {
     }
 
     return _dataFetching
-    ? Center(
+    ? const Center(
       child: CircularProgressIndicator(
-        color: Colors.green[700],
+        color: Colors.green,
       ),
     )
     : _dataList.isEmpty
@@ -76,64 +78,54 @@ class _SubmissionsState extends State<Submissions> {
       child: ListView.builder(
         itemCount: _dataList.length,
         itemBuilder: (context, index) {
-          return Center(
-            child: Column(
-              children: [
-                index == 0 ? const Padding(padding: EdgeInsets.all(4.0)) : Container(),
-                ListTile(
-                  title: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _myText(_dataList[index].getIdName(), true),
-                      _myTextTwo("Rating: ", _dataList[index].getRating()),
-                      _myTextTwo("Participant: ", _dataList[index].getParticipantType()),
-                      const SizedBox(height: 8.0),
-                      _myText(_dataList[index].getCreatedWhen(), false),
-                    ],
-                  ),
-                  trailing: setVerdict(_dataList[index].getVerdict()),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Divider(color: Colors.green[700],),
-                ),
-              ],
-            ),
+          return _submissionBubble(
+            idName: _dataList[index].getIdName(),
+            rating: _dataList[index].getRating(),
+            participantType: _dataList[index].getParticipantType(),
+            submitTime: _dataList[index].getCreatedWhen(),
+            verdict: _dataList[index].getVerdict(),
           );
         }
       ),
     );
   }
 
-  Widget _myText(String text, bool bold) {
-    return Text(
-      text,
-      style: TextStyle(
-        fontWeight: bold ? FontWeight.bold : FontWeight.normal,
-        fontSize: 10.0
+  Widget _submissionBubble({
+    required String idName,
+    required String rating,
+    required String participantType,
+    required String submitTime,
+    required String verdict,
+  }) {
+    return Center(
+      child: Container(
+        margin: const EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(4.0),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05), // Shadow color
+              spreadRadius: 2, // How much the shadow spreads
+              blurRadius: 2,  // Softness of the shadow
+              offset: const Offset(0, 2), // Position (X, Y)
+            ),
+          ],
+        ),
+        child: ListTile(
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SingleText(value: idName, bold: true),
+              DoubleText(type: "Rating: ", value: rating),
+              DoubleText(type: "Participant: ", value: participantType),
+              const SizedBox(height: 8.0),
+              SingleText(value: submitTime, bold: false),
+            ],
+          ),
+          trailing: setVerdict(verdict),
+        ),
       ),
-    );
-  }
-
-  Widget _myTextTwo(String text, String key) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text(
-          text,
-          style: const TextStyle(
-            fontWeight: FontWeight.w300,
-            fontSize: 10.0
-          ),
-        ),
-        Text(
-          key,
-          style: const TextStyle(
-            fontWeight: FontWeight.w400,
-            fontSize: 10.0
-          ),
-        ),
-      ],
     );
   }
 

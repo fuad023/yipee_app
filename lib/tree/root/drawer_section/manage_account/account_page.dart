@@ -58,62 +58,75 @@ class _AccountManagePageState extends State<AccountManagePage> {
         backgroundColor: Colors.green[700],
       ),
       body: dataFetching
-      ? Center(
+      ? const Center(
         child: CircularProgressIndicator(
-          color: Colors.green[700],
+          color: Colors.green,
         ),
       )
       : SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.all(16.0),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _singleTextField(
-                  label: 'NAME',
-                  field: _nameField(),
-                ),
-                const SizedBox(height: 8.0),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _singleTextField(
+                label: 'NAME',
+                field: _nameField(),
+              ),
 
-                _singleTextField(
-                  label: 'USER ID',
-                  field: _userIdField(),
-                ),
-                const SizedBox(height: 8.0),
+              _singleTextField(
+                label: 'USER ID',
+                field: _userIdField(),
+              ),
 
-                _singleTextField(
-                  label: 'EMAIL',
-                  field: _emailField(),
-                ),
-                const SizedBox(height: 8.0),
+              _singleTextField(
+                label: 'EMAIL',
+                field: _emailField(),
+              ),
 
-                _singleTextField(
-                  label: 'ID',
-                  field: _idField(),
-                ),
-                const SizedBox(height: 8.0),
+              _singleTextField(
+                label: 'ID',
+                field: _idField(),
+              ),
 
-                _doubleTextField(
-                  labelFirst: 'YEAR',
-                  fieldFirst: _yearField(),
-                  labelSecond: 'SEMESTER',
-                  fieldSecond: _semesterField(),
-                ),
-                const SizedBox(height: 8.0),
+              _doubleTextField(
+                labelFirst: 'YEAR',
+                fieldFirst: _yearField(),
+                labelSecond: 'SEMESTER',
+                fieldSecond: _semesterField(),
+              ),
 
-                _singleTextField(
-                  label: 'CODEFORCES',
-                  field: _handleField(),
-                ),
-                const SizedBox(height: 8.0),
+              _singleTextField(
+                label: 'CODEFORCES',
+                field: _handleField(),
+              ),
 
-              ],
-            ),
+            ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget _decorationContainer({
+    required SizedBox bubble,
+  }) {
+    return Container(
+      padding: const EdgeInsets.all(12.0),
+      margin: const EdgeInsets.fromLTRB(16.0, 10.0, 16.0, 0.0),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(4.0),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            // spreadRadius: 2,
+            blurRadius: 2,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: bubble,
     );
   }
 
@@ -121,13 +134,8 @@ class _AccountManagePageState extends State<AccountManagePage> {
     required String label,
     required Widget field,
   }) {
-    return Container(
-      padding: const EdgeInsets.all(12.0),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(4.0),
-      ),
-      child: SizedBox(
+    return _decorationContainer(
+      bubble: SizedBox(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -152,13 +160,8 @@ class _AccountManagePageState extends State<AccountManagePage> {
     required String labelSecond,
     required Widget fieldSecond,
   }) {
-    return Container(
-      padding: const EdgeInsets.all(12.0),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8.0),
-      ),
-      child: SizedBox(
+    return _decorationContainer(
+      bubble: SizedBox(
         child: Row(
           children: [
             Expanded(
@@ -245,7 +248,9 @@ class _AccountManagePageState extends State<AccountManagePage> {
   }
 
   Widget _userIdField() {
-    String data = userData['user_id'] != null ? userData['user_id'].toString().substring(1) : "";
+    String data = (userData['user_id'] != null && userData['user_id'] != "") 
+      ? userData['user_id'].toString().substring(1) 
+      : "";
     return _buildEditableField(
       field: "user_id",
       prefix: const Text('@'),
@@ -561,5 +566,4 @@ class _AccountManagePageState extends State<AccountManagePage> {
       ],
     );
   }
-
 }

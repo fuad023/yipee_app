@@ -19,9 +19,8 @@ class CodeforcesContestList extends CodeforcesApi {
       if (data["status"] == "FAILED") {
         throw Exception(data["comment"]);
       } else if (data["status"] == "OK") {
-        List dataList = data["result"];
 
-        dataList.reversed.map((map) {
+        data["result"].reversed.forEach((map) {
           if (map["phase"] == "BEFORE") {
             result.add(
               ResultContestList(
@@ -33,19 +32,6 @@ class CodeforcesContestList extends CodeforcesApi {
             );
           }
         });
-
-        // for (var map in dataList) {
-        //   if (map["phase"] == "BEFORE") {
-        //     result.add(
-        //       ResultContestList(
-        //         name: map["name"],
-        //         phase: map["phase"],
-        //         durationSeconds: map["durationSeconds"],
-        //         startTimeSeconds: map["startTimeSeconds"],
-        //       )
-        //     );
-        //   }
-        // }
         return result;
       }
       

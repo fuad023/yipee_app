@@ -34,13 +34,13 @@ class _CodeforcesState extends State<Codeforces> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green[100],
+      backgroundColor: const Color(0xFFF7F7F7),
       appBar: AppBar(
         title: const Text("Codeforces"),
         centerTitle: true,
         foregroundColor: Colors.white,
         backgroundColor: Colors.green[700],
-        elevation: 1.0,
+        // elevation: 1.0, // why doesnt it work???
         actions: [
           Builder(
             builder:(BuildContext context) {
@@ -63,9 +63,9 @@ class _CodeforcesState extends State<Codeforces> {
 
   Widget _screens(int index) {
     return !isFetched 
-    ? Center(
+    ? const Center(
       child: CircularProgressIndicator(
-        color: Colors.green[700],
+        color: Colors.green,
       ),
     )
     : switch (_currentIndex) {
@@ -78,29 +78,42 @@ class _CodeforcesState extends State<Codeforces> {
   }
 
   Widget _bottomNavigationBar() {
-    return BottomNavigationBar(
-      backgroundColor: Colors.green,
-      selectedItemColor: Colors.white,
-      currentIndex: _currentIndex,
-      onTap: (index) {
-        setState(() {
-          _currentIndex = index;
-        });
-      },
-      items: const [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.perm_identity),
-          label: 'User Info',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.code_rounded),
-          label: 'Submissions',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.history_rounded),
-          label: 'Rating History',
-        ),
-      ],
+    return Container(
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 8,
+            spreadRadius: 2,
+            offset: const Offset(0, -1),
+          ),
+        ],
+      ),
+      child: BottomNavigationBar(
+        backgroundColor: Colors.white,
+        selectedItemColor: Colors.green,
+        // elevation: 1.0,
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.perm_identity),
+            label: 'User Info',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.code_rounded),
+            label: 'Submissions',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.history_rounded),
+            label: 'Rating History',
+          ),
+        ],
+      ),
     );
   }
 }

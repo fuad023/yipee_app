@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:student_app/tree/root/navigation_pages/home_page/services/codeforces/navigation_pages/components/text_components.dart';
+
 import 'package:student_app/tree/root/navigation_pages/home_page/services/codeforces/api/codeforces_api.dart';
 import 'package:student_app/tree/root/navigation_pages/home_page/services/codeforces/api/codeforces_rating_history.dart';
 
@@ -45,7 +47,7 @@ class _UserRatingHistoryState extends State<UserRatingHistory> {
 
   @override
   Widget build(BuildContext context) {
-    return _handle == null ? _requestSetup() : _showSubmissions();
+    return _handle == null ? _requestSetup() : _showRatingHistory();
   }
 
   Widget _requestSetup() {
@@ -54,15 +56,15 @@ class _UserRatingHistoryState extends State<UserRatingHistory> {
     );
   }
 
-  Widget _showSubmissions() {
+  Widget _showRatingHistory() {
     if (_dataFetching) {
       fetchSubmissions(_handle!);
     }
 
     return _dataFetching
-    ? Center(
+    ? const Center(
       child: CircularProgressIndicator(
-        color: Colors.green[700],
+        color: Colors.green,
       ),
     )
     : _dataList.isEmpty
@@ -76,63 +78,53 @@ class _UserRatingHistoryState extends State<UserRatingHistory> {
       child: ListView.builder(
         itemCount: _dataList.length,
         itemBuilder: (context, index) {
-          return Center(
-            child: Column(
-              children: [
-                index == 0 ? const Padding(padding: EdgeInsets.all(4.0)) : Container(),
-                ListTile(
-                  title: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _myText(_dataList[index].getContestName, true),
-                      _myTextTwo("Rank: ", _dataList[index].getRank),
-                      _myTextTwo("Updated Rating: ", _dataList[index].getNewRating),
-                      _myTextTwo("Update Time: ", _dataList[index].getRatingUpdateTimeSeconds),
-                    ],
-                  ),
-                  trailing: _setRatingDiff(_dataList[index].getRatingDiff),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Divider(color: Colors.green[700],),
-                ),
-              ],
-            ),
+          return _ratingHistoryBubble(
+            contestName: _dataList[index].getContestName,
+            rank: _dataList[index].getRank,
+            newRating: _dataList[index].getNewRating,
+            ratingUpdateTime: _dataList[index].getRatingUpdateTimeSeconds,
+            ratingDifference: _dataList[index].getRatingDiff,
           );
         },
       ),
     );
   }
 
-  Widget _myText(String text, bool bold) {
-    return Text(
-      text,
-      style: TextStyle(
-        fontWeight: bold ? FontWeight.bold : FontWeight.normal,
-        fontSize: 10.0
+  Widget _ratingHistoryBubble({
+    required String contestName,
+    required String rank,
+    required String newRating,
+    required String ratingUpdateTime,
+    required int ratingDifference,
+  }) {
+    return Center(
+      child: Container(
+        margin: const EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(4.0),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              // spreadRadius: 2,
+              blurRadius: 2,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: ListTile(
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SingleText(value: contestName, bold: true),
+              DoubleText(type: "Rank: ", value: rank),
+              DoubleText(type: "Updated Rating: ", value: newRating),
+              DoubleText(type: "Update Time: ", value: ratingUpdateTime),
+            ],
+          ),
+          trailing: _setRatingDiff(ratingDifference),
+        ),
       ),
-    );
-  }
-
-  Widget _myTextTwo(String text, String key) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text(
-          text,
-          style: const TextStyle(
-            fontWeight: FontWeight.w300,
-            fontSize: 10.0
-          ),
-        ),
-        Text(
-          key,
-          style: const TextStyle(
-            fontWeight: FontWeight.w400,
-            fontSize: 10.0
-          ),
-        ),
-      ],
     );
   }
 
