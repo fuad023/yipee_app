@@ -47,7 +47,7 @@ class HomePage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           GestureDetector(
-            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfileModule())),
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfileModule(isMyProfile: true))),
             child: Container(
               width: MediaQuery.of(context).size.width * 0.9,
               height: 100,

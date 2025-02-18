@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:student_app/tree/root/navigation_pages/home_page/profile/profile_details.dart';
 
 class ProfileModule extends StatelessWidget {
-  const ProfileModule({super.key});
+  final bool isMyProfile;
+  const ProfileModule({
+    super.key,
+    required this.isMyProfile
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -93,10 +97,10 @@ class ProfileModule extends StatelessWidget {
                         color: Colors.black54,
                         borderRadius: BorderRadius.circular(12)
                       ),
-                      child: const Center(
+                      child: Center(
                         child: Text(
-                          'Create Post',
-                          style: TextStyle(
+                          isMyProfile ? 'Create Post' : 'Add friend',
+                          style: const TextStyle(
                             color: Colors.white
                           ),
                         ),
@@ -110,18 +114,18 @@ class ProfileModule extends StatelessWidget {
                         color: Colors.black54,
                         borderRadius: BorderRadius.circular(12)
                       ),
-                      child: const Center(
+                      child: Center(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(
-                              Icons.edit,
+                              isMyProfile ? Icons.edit : Icons.message_outlined,
                               color: Colors.white,
                             ),
-                            SizedBox(width: 10),
+                            const SizedBox(width: 10),
                             Text(
-                              'Edit Profile',
-                              style: TextStyle(
+                              isMyProfile ? 'Edit Profile' : 'Message',
+                              style: const TextStyle(
                                 color: Colors.white
                               ),
                             ),
@@ -131,9 +135,9 @@ class ProfileModule extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: 25),
+                const SizedBox(height: 50),
                 Container(
-                  height: MediaQuery.of(context).size.height * 0.8,
+                  height: MediaQuery.of(context).size.height * 0.55,
                   decoration:
                       BoxDecoration(
                         border: Border.all(

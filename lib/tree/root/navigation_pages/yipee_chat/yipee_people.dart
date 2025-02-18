@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:student_app/tree/auth_service/login_authentication/auth_services.dart';
+import 'package:student_app/tree/root/navigation_pages/home_page/profile/profile_module.dart';
 import 'package:student_app/tree/root/navigation_pages/yipee_chat/chat_page.dart';
 import 'package:student_app/tree/root/navigation_pages/yipee_chat/service/chat_service.dart';
 
@@ -54,6 +55,9 @@ class YipeePeople extends StatelessWidget {
   if (userData["email"] != _authServices.getCurrentUser()!.email) {
     return UserTile(
       text: capitalizedDisplayName,
+      onLongPress: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfileModule(isMyProfile: false)));
+      },
       onTap: () {
         Navigator.push(
           context,
