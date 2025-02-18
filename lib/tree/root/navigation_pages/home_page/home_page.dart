@@ -11,10 +11,10 @@ class HomePage extends StatelessWidget {
   });
 
   final List<String> paths = [
-    'assets/iums.png',
-    'assets/cf.png',
-    'assets/drive.png',
-    'assets/cg_calc.png'
+    'assets/home/iums.png',
+    'assets/home/codeforces.png',
+    'assets/home/drive.png',
+    'assets/home/cgpa.png'
   ];
 
   final List<String> buttonNames = [
@@ -146,37 +146,31 @@ class HomePage extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Flexible(
-                        flex: 2,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(
+                      Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
                             color: Colors.black,
-                            width: 3,
+                            width: 2,
                           ),
-                          ),
-                          child: Center(
-                            child: Container(
-                              height: 40,
-                              width: 40,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: Image.asset(paths[index]).image
-                                )
-                              ),
-                            )
-                          ),
+                        ),
+                        child: Center(
+                          child: Container(
+                            height: 60,
+                            width: 60,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: Image.asset(paths[index]).image
+                              )
+                            ),
+                          )
                         ),
                       ),
                       const SizedBox(height: 2,),
-                      Flexible(
-                        flex: 1,
-                        child: Text(
-                          buttonNames[index],
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold
-                          ),
+                      Text(
+                        buttonNames[index],
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold
                         ),
                       )
                     ],
