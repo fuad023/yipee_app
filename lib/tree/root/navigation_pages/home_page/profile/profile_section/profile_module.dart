@@ -66,15 +66,47 @@ class _ProfileModuleState extends State<ProfileModule> {
     });
   }
 
-  void onTap() {
+  void requestAction() {
+    if(widget.isMyProfile) {
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const AccountManagePage()));
+    }
+    else {
+      //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const AccountManagePage()));
+    }
+  }
+
+  void friendRequestAction() {
     switch(requestButton) {
       case 'Add Friend':
+      setState(() {
+        requestButton = 'Cancle Request';
+      });
         sendFriendRequest();
         break;
       case 'Response':
-        acceptFriendRequest();
+        setState(() {
+          showResponseButton = true;
+        });
         break;
       case 'Cancle Request':
+      setState(() {
+        requestButton = 'Add Friend';
+      });
+        cancleRequest();
+        break;
+      case 'Accept':
+      setState(() {
+        requestButton = 'Friend';
+        showResponseButton = false;
+        usercredentials.setFriends();
+      });
+        acceptFriendRequest();
+        break;
+      case 'Reject':
+      setState(() {
+        requestButton = 'Add Friend';
+        showResponseButton = false;
+      });
         cancleRequest();
         break;
     }
@@ -82,29 +114,15 @@ class _ProfileModuleState extends State<ProfileModule> {
 
   void sendFriendRequest() async {
     await _friendService.sendRequest(widget.uid);
-    setState(() {
-      requestButton = 'Cancle Request';
-      accessingRequest = false;
-      showResponseButton = false;
-    });
   }
 
   void acceptFriendRequest() async {
     await _friendService.acceptRequest(widget.uid);
-    setState(() {
-      requestButton = 'Friend';
-      accessingRequest = false;
-      showResponseButton = false;
-    });
+    await _friendService.updateFriendCount(widget.uid, usercredentials.friends);
   }
 
   void cancleRequest() async {
     await _friendService.cancleRequest(widget.uid, friendModel!.uid);
-    setState(() {
-      requestButton = 'Add Friend';
-      accessingRequest = false;
-      showResponseButton = false;
-    });
   }
 
   @override
@@ -180,7 +198,7 @@ class _ProfileModuleState extends State<ProfileModule> {
                                         children: [Text('${usercredentials.posts}'), const Text('Posts')],
                                       ),
                                       GestureDetector(
-                                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const FriendPage())),
+                                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => FriendPage(userId: usercredentials.userName))),
                                         child: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
@@ -255,8 +273,10 @@ class _ProfileModuleState extends State<ProfileModule> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        GestureDetector(
-          onTap: onTap,
+        showResponseButton
+        ? responseButton()
+        : GestureDetector(
+          onTap: friendRequestAction,
           child: Container(
             width: MediaQuery.of(context).size.width * 0.4,
             height: 40,
@@ -274,23 +294,80 @@ class _ProfileModuleState extends State<ProfileModule> {
             )
           ),
         ),
-        Container(
-          width: MediaQuery.of(context).size.width * 0.4,
-          height: 40,
-          decoration: BoxDecoration(
-            color: Colors.black,
-            borderRadius: BorderRadius.circular(12)
+        GestureDetector(
+          onTap: requestAction,
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.4,
+            height: 40,
+            decoration: BoxDecoration(
+              color: Colors.black,
+              borderRadius: BorderRadius.circular(12)
+            ),
+            child: Center(
+              child: Text(
+                widget.isMyProfile ? 'Edit Profile' : 'Message',
+                style: const TextStyle(
+                  color: Colors.white
+                ),
+              ),
+            )
           ),
-          child: Center(
-            child: Text(
-              widget.isMyProfile ? 'Edit Profile' : 'Message',
-              style: const TextStyle(
-                color: Colors.white
+        )
+      ],
+    );
+  }
+
+  Widget responseButton() {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.45,
+      height: 40,
+      decoration: BoxDecoration(
+        color: Colors.transparent,
+        borderRadius: BorderRadius.circular(12)
+      ),
+      child: Row(
+        children: [
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                requestButton = 'Accept';
+              });
+              friendRequestAction();
+            },
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.2,
+              height: 40,
+              decoration: BoxDecoration(
+                color: Colors.green,
+                borderRadius: BorderRadius.circular(12)
+              ),
+              child: const Icon(
+                Icons.check_circle,
+              ),
+            ),
+          ),
+          const SizedBox(width: 10,),
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                requestButton = 'Reject';
+              });
+              friendRequestAction();
+            },
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.2,
+              height: 40,
+              decoration: BoxDecoration(
+                color: Colors.red,
+                borderRadius: BorderRadius.circular(12)
+              ),
+              child: const Icon(
+                Icons.clear,
               ),
             ),
           )
-        )
-      ],
+        ],
+      ),
     );
   }
 }

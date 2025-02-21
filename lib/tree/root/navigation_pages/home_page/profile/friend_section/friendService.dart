@@ -78,6 +78,24 @@ class FriendService {
    }
   }
 
+  Future<void> updateFriendCount(String hostId, int friends) async {
+    String currentUserId = FirebaseAuth.instance.currentUser!.uid;
+    try {
+      await _firestore.collection('Users').doc(currentUserId).update(
+        {
+          'friends': friends
+        }
+      );
+      await _firestore.collection('Users').doc(hostId).update(
+        {
+          'friends': friends
+        }
+      );
+    } on FirebaseException catch (e) {
+      throw Exception(e.hashCode);
+    }
+  }
+
   Future<FriendModel?> getFriendInformation(String host) async {
     String currentUserId = FirebaseAuth.instance.currentUser!.uid;
     List<String> ids = [currentUserId, host];

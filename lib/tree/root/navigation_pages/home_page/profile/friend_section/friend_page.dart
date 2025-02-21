@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
 class FriendPage extends StatelessWidget {
-  const FriendPage({super.key});
+  final String userId;
+  const FriendPage({
+    super.key,
+    required this.userId
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -11,8 +15,8 @@ class FriendPage extends StatelessWidget {
         backgroundColor: const Color.fromARGB(255, 225, 240, 226),
         appBar: AppBar(
           backgroundColor: const Color.fromARGB(255, 225, 240, 226),
-          title: const Text(
-            '@userId'
+          title: Text(
+            userId
           ),
         ),
         body: const Column(
@@ -37,7 +41,9 @@ class FriendPage extends StatelessWidget {
             Expanded(
               child: TabBarView(
                 children: [
-                  
+                  Center(child: Text('No friends')),
+                  Center(child: Text('Add Friend')),
+                  Center(child: Text('No Friend Requests'))
                 ],
               ),
             )
