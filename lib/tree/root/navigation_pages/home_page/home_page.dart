@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:student_app/tree/root/navigation_pages/home_page/cgpa_calc.dart';
-import 'package:student_app/tree/root/navigation_pages/home_page/profile/profile_module.dart';
+import 'package:student_app/tree/root/navigation_pages/home_page/services/cgpa_calc.dart';
+import 'package:student_app/tree/root/navigation_pages/home_page/profile/profile_section/profile_module.dart';
 import 'package:student_app/tree/root/navigation_pages/home_page/services/codeforces/codeforces.dart';
 import 'package:student_app/tree/root/navigation_pages/home_page/services/web_viewer.dart';
 

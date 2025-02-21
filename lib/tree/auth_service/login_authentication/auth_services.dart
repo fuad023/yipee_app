@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:student_app/tree/auth_service/login_authentication/user_credential.dart';
 
 class AuthServices {
-  // Instance of firebase Authentication
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
 

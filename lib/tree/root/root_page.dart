@@ -44,6 +44,9 @@ class _RootPageState extends State<RootPage> {
               fontWeight: FontWeight.bold
             ),
           ),
+          actions: [
+            screenNames[_currentIndex] == 'Yipee App' ? const Icon(Icons.notifications) : const Icon(Icons.settings)
+          ],
         ),
         drawer: DrawerScreen(email: userEmail),
         body: SafeArea(child: screens[_currentIndex]),

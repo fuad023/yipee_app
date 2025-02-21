@@ -9,7 +9,6 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(const MyApp());
-    
 }
 
 class MyApp extends StatelessWidget {
@@ -19,6 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       home: AuthGet(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }

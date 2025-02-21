@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:student_app/tree/auth_service/login_authentication/user_credential.dart';
+import 'package:student_app/tree/root/navigation_pages/home_page/services/codeforces/drawer/search_user/public.dart';
 
-Widget profileDetails(UserCredentials usercredential) {
+Widget profileDetails(UserCredentials usercredential, BuildContext context) {
   return Padding(
     padding: const EdgeInsets.all(10.0),
     child: SingleChildScrollView(
+      
       child: Column(
         children: [
           const Row(
@@ -77,14 +79,19 @@ Widget profileDetails(UserCredentials usercredential) {
                 size: 30,
               ),
               const SizedBox(width: 10),
-              Expanded(
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Text(
-                    usercredential.handle,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => Public(handle: usercredential.handle)));
+                },
+                child: Expanded(
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Text(
+                      usercredential.handle,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15
+                      ),
                     ),
                   ),
                 ),

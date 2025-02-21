@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:student_app/tree/auth_service/login_authentication/auth_services.dart';
 import 'package:student_app/tree/auth_service/login_authentication/user_credential.dart';
-import 'package:student_app/tree/root/navigation_pages/home_page/profile/profile_details.dart';
+import 'package:student_app/tree/root/drawer_section/manage_account/account_page.dart';
+import 'package:student_app/tree/root/navigation_pages/home_page/profile/friend_section/friendService.dart';
+import 'package:student_app/tree/root/navigation_pages/home_page/profile/friend_section/friend_model.dart';
+import 'package:student_app/tree/root/navigation_pages/home_page/profile/friend_section/friend_page.dart';
+import 'package:student_app/tree/root/navigation_pages/home_page/profile/profile_section/profile_details.dart';
 
 class ProfileModule extends StatefulWidget {
   final bool isMyProfile;
@@ -18,8 +22,13 @@ class ProfileModule extends StatefulWidget {
 
 class _ProfileModuleState extends State<ProfileModule> {
   final AuthServices _authServices = AuthServices();
+  final FriendService _friendService = FriendService();
   bool isDataFetching = true;
+  bool accessingRequest = false;
+  bool showResponseButton = false;
+  late String requestButton;
   late UserCredentials usercredentials;
+  late FriendModel? friendModel;
 
   @override
   void initState() {
@@ -30,8 +39,71 @@ class _ProfileModuleState extends State<ProfileModule> {
   void fetchData() async {
     String uid = widget.isMyProfile ? _authServices.getCurrentUserUID() ?? '0' : widget.uid;
     usercredentials = await _authServices.userInformation(uid);
+    if(!widget.isMyProfile) {
+      friendModel = await _friendService.getFriendInformation(uid);
+      if(friendModel != null) {
+      if(friendModel?.status == 'sent') {
+        setState(() {
+          requestButton = 'Cancle Request';
+        });
+      } else if(friendModel?.status == 'recieved') {
+        setState(() {
+          requestButton = 'Response';
+        });
+      } else {
+        setState(() {
+          requestButton = 'Friend';
+        });
+      }
+    } else {
+      setState(() {
+        requestButton = 'Add Friend';
+      });
+    }
+    }
     setState(() {
       isDataFetching = false;
+    });
+  }
+
+  void onTap() {
+    switch(requestButton) {
+      case 'Add Friend':
+        sendFriendRequest();
+        break;
+      case 'Response':
+        acceptFriendRequest();
+        break;
+      case 'Cancle Request':
+        cancleRequest();
+        break;
+    }
+  }
+
+  void sendFriendRequest() async {
+    await _friendService.sendRequest(widget.uid);
+    setState(() {
+      requestButton = 'Cancle Request';
+      accessingRequest = false;
+      showResponseButton = false;
+    });
+  }
+
+  void acceptFriendRequest() async {
+    await _friendService.acceptRequest(widget.uid);
+    setState(() {
+      requestButton = 'Friend';
+      accessingRequest = false;
+      showResponseButton = false;
+    });
+  }
+
+  void cancleRequest() async {
+    await _friendService.cancleRequest(widget.uid, friendModel!.uid);
+    setState(() {
+      requestButton = 'Add Friend';
+      accessingRequest = false;
+      showResponseButton = false;
     });
   }
 
@@ -43,13 +115,13 @@ class _ProfileModuleState extends State<ProfileModule> {
         backgroundColor: const Color.fromARGB(255, 225, 240, 226),
         appBar: AppBar(
           title:  Text(
-            isDataFetching ? 'Wait...' : usercredentials.userName),
+            isDataFetching ? 'A moment please...' : usercredentials.userName),
           backgroundColor: const Color.fromARGB(255, 225, 240, 226),
         ),
         body: isDataFetching
             ? const Center(child: CircularProgressIndicator())
             : SingleChildScrollView(
-                //physics: const BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Column(
@@ -107,10 +179,13 @@ class _ProfileModuleState extends State<ProfileModule> {
                                             CrossAxisAlignment.start,
                                         children: [Text('${usercredentials.posts}'), const Text('Posts')],
                                       ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [Text('${usercredentials.friends}'), const Text('Friends')],
+                                      GestureDetector(
+                                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const FriendPage())),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [Text('${usercredentials.friends}'), const Text('Friends')],
+                                        ),
                                       ),
                                       Column(
                                         crossAxisAlignment:
@@ -126,56 +201,10 @@ class _ProfileModuleState extends State<ProfileModule> {
                         ],
                       ),
                       const SizedBox(height: 25),
-                      Row(
-                        children: [
-                          Container(
-                            height: 50,
-                            width: MediaQuery.of(context).size.width * 0.45,
-                            decoration: BoxDecoration(
-                                color: Colors.black54,
-                                borderRadius: BorderRadius.circular(12)),
-                            child: Center(
-                              child: Text(
-                                widget.isMyProfile
-                                    ? 'Create Post'
-                                    : 'Add friend',
-                                style: const TextStyle(color: Colors.white),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 10),
-                          Container(
-                            height: 50,
-                            width: MediaQuery.of(context).size.width * 0.45,
-                            decoration: BoxDecoration(
-                                color: Colors.black54,
-                                borderRadius: BorderRadius.circular(12)),
-                            child: Center(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    widget.isMyProfile
-                                        ? Icons.edit
-                                        : Icons.message_outlined,
-                                    color: Colors.white,
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Text(
-                                    widget.isMyProfile
-                                        ? 'Edit Profile'
-                                        : 'Message',
-                                    style: const TextStyle(color: Colors.white),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 50),
+                      actionButton(),
+                      const SizedBox(height: 25),
                       Container(
-                        height: MediaQuery.of(context).size.height * 0.55,
+                        height: MediaQuery.of(context).size.height * 0.60,
                         decoration: BoxDecoration(
                             border: Border.all(color: Colors.black, width: 2),
                             borderRadius: BorderRadius.circular(12)),
@@ -200,7 +229,7 @@ class _ProfileModuleState extends State<ProfileModule> {
                             Expanded(
                               child: TabBarView(
                                 children: [
-                                  profileDetails(usercredentials),
+                                  profileDetails(usercredentials, context),
                                   const Center(
                                     child: Text(
                                       'No Posts Yet',
@@ -219,6 +248,49 @@ class _ProfileModuleState extends State<ProfileModule> {
                 ),
               ),
       ),
+    );
+  }
+
+  Widget actionButton() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        GestureDetector(
+          onTap: onTap,
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.4,
+            height: 40,
+            decoration: BoxDecoration(
+              color: Colors.black,
+              borderRadius: BorderRadius.circular(12)
+            ),
+            child: Center(
+              child: Text(
+                widget.isMyProfile ? 'Create Post' : requestButton,
+                style: const TextStyle(
+                  color: Colors.white
+                ),
+              ),
+            )
+          ),
+        ),
+        Container(
+          width: MediaQuery.of(context).size.width * 0.4,
+          height: 40,
+          decoration: BoxDecoration(
+            color: Colors.black,
+            borderRadius: BorderRadius.circular(12)
+          ),
+          child: Center(
+            child: Text(
+              widget.isMyProfile ? 'Edit Profile' : 'Message',
+              style: const TextStyle(
+                color: Colors.white
+              ),
+            ),
+          )
+        )
+      ],
     );
   }
 }
