@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:student_app/tree/root/navigation_pages/home_page/profile/stream_section/stream_displayer.dart';
 
 class FriendPage extends StatelessWidget {
   final String userId;
+  final String uid;
   const FriendPage({
     super.key,
-    required this.userId
+    required this.userId,
+    required this.uid
   });
 
   @override
@@ -19,9 +22,9 @@ class FriendPage extends StatelessWidget {
             userId
           ),
         ),
-        body: const Column(
+        body: Column(
           children: [
-            TabBar(
+            const TabBar(
               indicatorColor: Colors.green,
               indicatorSize: TabBarIndicatorSize.tab,
               labelColor: Colors.black,
@@ -29,21 +32,24 @@ class FriendPage extends StatelessWidget {
               tabs: [
                 Tab(
                   icon: Icon(Icons.people),
+                  text: 'Friends',
                 ),
                 Tab(
                   icon: Icon(Icons.person_add_alt_1),
+                  text: 'Requests',
                 ),
                 Tab(
-                  icon: Icon(Icons.how_to_reg),
+                  icon: Icon(Icons.person_pin),
+                  text: 'Add Friend',
                 )
               ],
             ),
             Expanded(
               child: TabBarView(
                 children: [
-                  Center(child: Text('No friends')),
-                  Center(child: Text('Add Friend')),
-                  Center(child: Text('No Friend Requests'))
+                  StreamDisplayer(uid: uid, collectionType: 'friends',),
+                  StreamDisplayer(uid: uid, collectionType: 'recieved'),
+                  const Center(child: Text('No Friend Requests'))
                 ],
               ),
             )

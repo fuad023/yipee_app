@@ -27,7 +27,8 @@ class _ProfileModuleState extends State<ProfileModule> {
   bool accessingRequest = false;
   bool showResponseButton = false;
   late String requestButton;
-  late UserCredentials usercredentials;
+  late UserCredentials profilesUserCredential;
+  late UserCredentials visitorCredential;
   late FriendModel? friendModel;
 
   @override
@@ -38,8 +39,9 @@ class _ProfileModuleState extends State<ProfileModule> {
 
   void fetchData() async {
     String uid = widget.isMyProfile ? _authServices.getCurrentUserUID() ?? '0' : widget.uid;
-    usercredentials = await _authServices.userInformation(uid);
+    profilesUserCredential = await _authServices.userInformation(uid);
     if(!widget.isMyProfile) {
+      visitorCredential = await _authServices.userInformation(_authServices.getCurrentUserUID() ?? '0');
       friendModel = await _friendService.getFriendInformation(uid);
       if(friendModel != null) {
       if(friendModel?.status == 'sent') {
@@ -60,6 +62,8 @@ class _ProfileModuleState extends State<ProfileModule> {
         requestButton = 'Add Friend';
       });
     }
+    } else {
+      
     }
     setState(() {
       isDataFetching = false;
@@ -92,13 +96,14 @@ class _ProfileModuleState extends State<ProfileModule> {
       setState(() {
         requestButton = 'Add Friend';
       });
-        cancleRequest();
+        cancleRequest('requestSent', false);
         break;
       case 'Accept':
       setState(() {
         requestButton = 'Friend';
         showResponseButton = false;
-        usercredentials.setFriends();
+        profilesUserCredential.setFriends();
+        visitorCredential.setFriends();
       });
         acceptFriendRequest();
         break;
@@ -107,7 +112,15 @@ class _ProfileModuleState extends State<ProfileModule> {
         requestButton = 'Add Friend';
         showResponseButton = false;
       });
-        cancleRequest();
+        cancleRequest('requestRecieved', false);
+        break;
+      case 'Friend':
+        // setState(() {
+        //   requestButton = 'Add Friend';
+        //   profilesUserCredential.removeFriends();
+        //   visitorCredential.removeFriends();
+        // });
+        // cancleRequest('friends', 'friends');
         break;
     }
   }
@@ -118,11 +131,12 @@ class _ProfileModuleState extends State<ProfileModule> {
 
   void acceptFriendRequest() async {
     await _friendService.acceptRequest(widget.uid);
-    await _friendService.updateFriendCount(widget.uid, usercredentials.friends);
+    //await _friendService.updateFriendCount(widget.uid, visitorCredential.friends, profilesUserCredential.friends);
   }
 
-  void cancleRequest() async {
-    await _friendService.cancleRequest(widget.uid, friendModel!.uid);
+  void cancleRequest(String currentUser, bool unfriend) async {
+    await _friendService.cancleRequest(widget.uid, friendModel!.uid, unfriend);
+    //await _friendService.updateFriendCount(widget.uid, visitorCredential.friends, profilesUserCredential.friends);
   }
 
   @override
@@ -133,7 +147,7 @@ class _ProfileModuleState extends State<ProfileModule> {
         backgroundColor: const Color.fromARGB(255, 225, 240, 226),
         appBar: AppBar(
           title:  Text(
-            isDataFetching ? 'A moment please...' : usercredentials.userName),
+            isDataFetching ? 'A moment please...' : profilesUserCredential.userName),
           backgroundColor: const Color.fromARGB(255, 225, 240, 226),
         ),
         body: isDataFetching
@@ -167,7 +181,7 @@ class _ProfileModuleState extends State<ProfileModule> {
                                                   .image)),
                                 ),
                                 const SizedBox(height: 10),
-                                Text(usercredentials.bioText)
+                                Text(profilesUserCredential.bioText)
                               ],
                             ),
                           ),
@@ -183,7 +197,7 @@ class _ProfileModuleState extends State<ProfileModule> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    usercredentials.profileName, // Profile name
+                                    profilesUserCredential.profileName, // Profile name
                                     style: const TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold),
@@ -195,20 +209,20 @@ class _ProfileModuleState extends State<ProfileModule> {
                                       Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
-                                        children: [Text('${usercredentials.posts}'), const Text('Posts')],
+                                        children: [Text('${profilesUserCredential.posts}'), const Text('Posts')],
                                       ),
                                       GestureDetector(
-                                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => FriendPage(userId: usercredentials.userName))),
+                                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => FriendPage(userId: profilesUserCredential.userName, uid: profilesUserCredential.uid))),
                                         child: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
-                                          children: [Text('${usercredentials.friends}'), const Text('Friends')],
+                                          children: [Text('${profilesUserCredential.friends}'), const Text('Friends')],
                                         ),
                                       ),
                                       Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
-                                        children: [Text('${usercredentials.likes}'), const Text('Likes')],
+                                        children: [Text('${profilesUserCredential.likes}'), const Text('Likes')],
                                       )
                                     ],
                                   )
@@ -247,7 +261,7 @@ class _ProfileModuleState extends State<ProfileModule> {
                             Expanded(
                               child: TabBarView(
                                 children: [
-                                  profileDetails(usercredentials, context),
+                                  profileDetails(profilesUserCredential, context),
                                   const Center(
                                     child: Text(
                                       'No Posts Yet',
@@ -338,11 +352,12 @@ class _ProfileModuleState extends State<ProfileModule> {
               width: MediaQuery.of(context).size.width * 0.2,
               height: 40,
               decoration: BoxDecoration(
-                color: Colors.green,
+                color: Colors.black,
                 borderRadius: BorderRadius.circular(12)
               ),
               child: const Icon(
-                Icons.check_circle,
+                Icons.check,
+                color: Colors.white,
               ),
             ),
           ),
@@ -358,11 +373,12 @@ class _ProfileModuleState extends State<ProfileModule> {
               width: MediaQuery.of(context).size.width * 0.2,
               height: 40,
               decoration: BoxDecoration(
-                color: Colors.red,
+                color: Colors.black,
                 borderRadius: BorderRadius.circular(12)
               ),
               child: const Icon(
                 Icons.clear,
+                color: Colors.white,
               ),
             ),
           )

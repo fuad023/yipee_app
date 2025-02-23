@@ -1,5 +1,6 @@
 
 class UserCredentials {
+  final String uid;
   String profileName;
   final String userName;
   final String email;
@@ -10,6 +11,7 @@ class UserCredentials {
   String handle;
 
   UserCredentials({
+    required this.uid,
     required this.profileName,
     required this.userName,
     required this.email,
@@ -22,6 +24,7 @@ class UserCredentials {
 
   factory UserCredentials.fromFirestore(Map<String, dynamic> data) {
     return UserCredentials(
+      uid: data['uid'] ?? 'Unavailable',
       profileName: data['name'] ?? "Unavailable", 
       userName: data['user_id'] ?? "Unavailable",
       email: data['email'] ?? "Unavailable",
@@ -39,6 +42,12 @@ class UserCredentials {
 
   void setFriends() {
     friends++;
+  }
+
+  void removeFriends() {
+    if(friends > 0) {
+      friends--;
+    }
   }
 
   void setPosts() {

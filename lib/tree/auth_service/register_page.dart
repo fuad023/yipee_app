@@ -19,7 +19,7 @@ class RegisterPage extends StatelessWidget {
   final Function()? onTap;
 
   UserCredentials convertToUserCredentials() {
-    return UserCredentials(profileName: _profileNameController.text, userName: _userNameController.text, email: _emailController.text);
+    return UserCredentials(uid: '8', profileName: _profileNameController.text, userName: _userNameController.text, email: _emailController.text);
   }
 
   void register(BuildContext context) async {
