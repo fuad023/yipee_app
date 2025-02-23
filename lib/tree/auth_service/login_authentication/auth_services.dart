@@ -1,15 +1,36 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:student_app/tree/auth_service/login_authentication/user_credential.dart';
 
 class AuthServices {
-  // Instance of firebase Authentication
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
+
+  Future<UserCredentials> userInformation(String uid) async {
+    try {
+      DocumentSnapshot documentSnapshot = await _fireStore.collection("Users").doc(uid).get();
+
+      if(documentSnapshot.exists) {
+        Map<String, dynamic> data = documentSnapshot.data() as Map<String, dynamic>;
+        return UserCredentials.fromFirestore(data);
+      }
+      else {
+        throw Exception('Unavailable');
+      }
+    } on FirebaseException catch (e) {
+      throw Exception(e.hashCode);
+    }
+  }
 
   // Get current user
   User? getCurrentUser() {
     return _firebaseAuth.currentUser;
   }
+
+  String? getCurrentUserUID() {
+  User? user = FirebaseAuth.instance.currentUser;
+  return user?.uid; // This will return the UID or null if no user is logged in
+}
 
   // Sign in
   Future<UserCredential> signInWithEmailAndPassword(
@@ -42,17 +63,36 @@ class AuthServices {
 
   // Sign up
   Future<UserCredential> signUpWithEmailAndPassword(
-      String email, password) async {
+      UserCredentials usercredential, String password) async {
     try {
+
+      QuerySnapshot isUserNameExist = await _fireStore
+        .collection("Users")
+        .where("userName", isEqualTo: usercredential.userName)
+        .get();
+
+      if(isUserNameExist.docs.isNotEmpty) {
+        throw Exception("userName already token!");
+      }
+
+
+
       UserCredential userCredential =
           await _firebaseAuth.createUserWithEmailAndPassword(
-        email: email,
+        email: usercredential.email,
         password: password,
       );
 
       _fireStore.collection("Users").doc(userCredential.user!.uid).set({
-        'uid': userCredential.user!.uid,
-        'email': email,
+        "uid": userCredential.user!.uid,
+        "name": usercredential.profileName,
+        "user_id": usercredential.userName,
+        "email": usercredential.email,
+        "friends": usercredential.friends,
+        "posts": usercredential.posts,
+        "likes": usercredential.likes,
+        "bio": usercredential.bioText,
+        "createdAt": FieldValue.serverTimestamp(),
       });
 
       return userCredential;

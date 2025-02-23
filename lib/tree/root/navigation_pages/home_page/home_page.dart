@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:student_app/tree/root/navigation_pages/home_page/cgpa_calc.dart';
+import 'package:student_app/tree/root/navigation_pages/home_page/services/cgpa_calc.dart';
+import 'package:student_app/tree/root/navigation_pages/home_page/profile/profile_section/profile_module.dart';
 import 'package:student_app/tree/root/navigation_pages/home_page/services/codeforces/codeforces.dart';
 import 'package:student_app/tree/root/navigation_pages/home_page/services/web_viewer.dart';
 
@@ -45,64 +46,67 @@ class HomePage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
-            width: MediaQuery.of(context).size.width * 0.9,
-            height: 100,
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            decoration: BoxDecoration(
-              color: Colors.black,
-              borderRadius: BorderRadius.circular(18.0),
-              boxShadow: const [
-                BoxShadow(
-                  color:  Color(0x334D3030),
-                  offset: Offset(0.0, 3.0)
-                )
-              ]
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Flexible(
-                  flex: 2,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Good Morning!',
-                        style: TextStyle(
-                          fontSize: 22.0,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white
+          GestureDetector(
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfileModule(isMyProfile: true, uid: '',))),
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.9,
+              height: 100,
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              decoration: BoxDecoration(
+                color: Colors.black87,
+                borderRadius: BorderRadius.circular(18.0),
+                boxShadow: const [
+                  BoxShadow(
+                    color:  Color(0x334D3030),
+                    offset: Offset(0.0, 3.0)
+                  )
+                ]
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Flexible(
+                    flex: 2,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Good Morning!',
+                          style: TextStyle(
+                            fontSize: 22.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white
+                          ),
                         ),
-                      ),
-                      Text(
-                        capsName,
-                        style: const TextStyle(
-                          fontSize: 20, 
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                const SizedBox(width: 20,),
-                Flexible(
-                  flex: 1,
-                  child: Container(
-                    height: 80,
-                    width: 80,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: Image.asset('assets/profile.png').image
-                      )
+                        Text(
+                          capsName,
+                          style: const TextStyle(
+                            fontSize: 20, 
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white
+                          ),
+                        )
+                      ],
                     ),
                   ),
-                )
-              ],
+                  const SizedBox(width: 20,),
+                  Flexible(
+                    flex: 1,
+                    child: Container(
+                      height: 80,
+                      width: 80,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: Image.asset('assets/profile.png').image
+                        )
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
           const SizedBox(height: 20,),

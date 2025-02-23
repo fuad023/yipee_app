@@ -3,15 +3,18 @@ import 'package:flutter/material.dart';
 class UserTile extends StatelessWidget {
   final String text;
   final Function()? onTap;
+  final Function()? onLongPress;
   const UserTile({
     super.key,
     required this.text,
     required this.onTap,
+    required this.onLongPress
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onLongPress: onLongPress,
       onTap: onTap,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
