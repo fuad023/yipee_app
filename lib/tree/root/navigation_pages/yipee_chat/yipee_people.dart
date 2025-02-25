@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:student_app/tree/auth_service/login_authentication/auth_services.dart';
 import 'package:student_app/tree/root/navigation_pages/home_page/profile/profile_section/profile_module.dart';
-import 'package:student_app/tree/root/navigation_pages/home_page/services/codeforces/navigation_pages/user_details.dart';
 import 'package:student_app/tree/root/navigation_pages/yipee_chat/chat_page.dart';
 import 'package:student_app/tree/root/navigation_pages/yipee_chat/service/chat_service.dart';
 
@@ -49,7 +48,6 @@ class YipeePeople extends StatelessWidget {
   }
 
   Widget _buildUserListItem(Map<String, dynamic> userData, BuildContext context) {
-  // Extract the part before '@' and capitalize the first letter
   final String displayName = userData["email"].split('@').first;
   final String capitalizedDisplayName = displayName[0].toUpperCase() + displayName.substring(1).toLowerCase();
   final String uid = userData['uid'];

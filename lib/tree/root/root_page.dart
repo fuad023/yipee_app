@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:student_app/tree/root/navigation_pages/home_page/home_page.dart';
 import 'package:student_app/tree/root/navigation_pages/yipee_chat/yipee_people.dart';
-import 'package:student_app/tree/root/navigation_pages/emergency.dart';
+import 'package:student_app/tree/root/navigation_pages/emergency_page/emergency.dart';
 import 'package:student_app/tree/root/drawer_section/drawer_screen.dart';
 
 class RootPage extends StatefulWidget {
@@ -27,7 +27,7 @@ class _RootPageState extends State<RootPage> {
     final List<Widget> screens = [
       HomePage(userName: userName,),
       YipeePeople(),
-      const EmergencyPage(),
+      BloodDonorList()
     ];
     return GestureDetector(
       onTap: () {
