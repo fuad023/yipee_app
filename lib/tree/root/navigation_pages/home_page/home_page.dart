@@ -3,6 +3,10 @@ import 'package:student_app/tree/root/navigation_pages/home_page/services/basic_
 import 'package:student_app/tree/root/navigation_pages/home_page/services/cgpa_calc.dart';
 import 'package:student_app/tree/root/navigation_pages/home_page/profile/profile_section/profile_module.dart';
 import 'package:student_app/tree/root/navigation_pages/home_page/services/codeforces/codeforces.dart';
+import 'package:student_app/tree/root/navigation_pages/home_page/services/flashCard_page.dart';
+import 'package:student_app/tree/root/navigation_pages/home_page/services/note_page.dart';
+import 'package:student_app/tree/root/navigation_pages/home_page/services/timer_page.dart';
+import 'package:student_app/tree/root/navigation_pages/home_page/services/todoList_page.dart';
 import 'package:student_app/tree/root/navigation_pages/home_page/services/web_viewer.dart';
 
 class HomePage extends StatelessWidget {
@@ -17,11 +21,15 @@ class HomePage extends StatelessWidget {
     'assets/home/codeforces.png',
     'assets/home/drive.png',
     'assets/home/cgpa.png',
-    'assets/home/calculator.png'
+    'assets/home/calculator.png',
+    'assets/home/notes.png',
+    'assets/home/timer.png',
+    'assets/home/todolist.png',
+    'assets/home/flashcard.png'
   ];
 
   final List<String> buttonNames = [
-    'Iums', 'Code Forces', 'Drive', 'CGPA Calculator', 'Calculator'
+    'Iums', 'Code Forces', 'Drive', 'CGPA', 'Calculator', 'Notes', 'Pomodoro', 'Todo List', 'Flash Card'
   ];
 
   void onIconPressed(int index, BuildContext context) {
@@ -39,7 +47,19 @@ class HomePage extends StatelessWidget {
         Navigator.push(context, MaterialPageRoute(builder: (context) => const CgpaCalc(),));
         break;
       case 4:
-        Navigator.push(context, MaterialPageRoute(builder: (context) => const Calculator()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const CalculatorScreen()));
+        break;
+      case 5:
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const NotesHomePage()));
+        break;
+      case 6:
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const PomodoroTimer()));
+        break;
+      case 7:
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const ToDoListScreen()));
+        break;
+      case 8:
+        Navigator.push(context, MaterialPageRoute(builder: (context) => FlashcardScreen()));
         break;
     }
   }
@@ -145,7 +165,7 @@ class HomePage extends StatelessWidget {
             child: GridView.builder(
               shrinkWrap: true,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
+                crossAxisCount: 3,
                 mainAxisSpacing: 20,
                 mainAxisExtent: 100,
               ),
