@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:student_app/tree/root/navigation_pages/home_page/services/basic_calculator.dart';
 import 'package:student_app/tree/root/navigation_pages/home_page/services/cgpa_calc.dart';
 import 'package:student_app/tree/root/navigation_pages/home_page/profile/profile_section/profile_module.dart';
 import 'package:student_app/tree/root/navigation_pages/home_page/services/codeforces/codeforces.dart';
@@ -15,11 +16,12 @@ class HomePage extends StatelessWidget {
     'assets/home/iums.png',
     'assets/home/codeforces.png',
     'assets/home/drive.png',
-    'assets/home/cgpa.png'
+    'assets/home/cgpa.png',
+    'assets/home/calculator.png'
   ];
 
   final List<String> buttonNames = [
-    'Iums', 'Code Forces', 'Drive', 'CGPA Calculator'
+    'Iums', 'Code Forces', 'Drive', 'CGPA Calculator', 'Calculator'
   ];
 
   void onIconPressed(int index, BuildContext context) {
@@ -35,6 +37,10 @@ class HomePage extends StatelessWidget {
         break;
       case 3:
         Navigator.push(context, MaterialPageRoute(builder: (context) => const CgpaCalc(),));
+        break;
+      case 4:
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const Calculator()));
+        break;
     }
   }
 
@@ -160,11 +166,12 @@ class HomePage extends StatelessWidget {
                         ),
                         child: Center(
                           child: Container(
-                            height: 60,
-                            width: 60,
+                            height: 50,
+                            width: 50,
                             decoration: BoxDecoration(
                               image: DecorationImage(
-                                image: Image.asset(paths[index]).image
+                                image: Image.asset(paths[index]).image,
+                                fit: BoxFit.contain
                               )
                             ),
                           )
