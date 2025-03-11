@@ -3,10 +3,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:student_app/tree/auth_service/login_authentication/auth_services.dart';
 import 'package:student_app/tree/auth_service/login_authentication/user_credential.dart';
 import 'package:student_app/tree/root/navigation_pages/home_page/profile/friend_section/friend_model.dart';
+import 'package:student_app/tree/root/notification/notification_service.dart';
 
 class FriendService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final AuthServices _authServices = AuthServices();
+  final NotificationService _notificationService = NotificationService();
 
   Future<void> sendRequest(String recieverId) async {
     String currentUserId = FirebaseAuth.instance.currentUser!.uid;
@@ -42,6 +44,7 @@ class FriendService {
             'status': 'recieved'
           }
         );
+        await _notificationService.addNotification(currentUserId, recieverId, 'sent');
       }
     } on FirebaseException catch (e) {
       throw Exception(e.code);
@@ -89,7 +92,7 @@ class FriendService {
           'status': 'friends'
         }
       );
-
+      await _notificationService.addNotification(currentUserId, recieverId, 'accept');
       //transferData(uid, recieverId);
       updateFriendCount(recieverId, userCredentialsCurr.friends, userCredentialsHost.friends);
     } on FirebaseException catch (e) {
@@ -110,7 +113,9 @@ class FriendService {
         userCredentialsCurr.removeFriends();
         userCredentialsHost.removeFriends();
         updateFriendCount(senderId, userCredentialsCurr.friends, userCredentialsHost.friends);
+        await _notificationService.addNotification(currentUserId, senderId, 'unfriend');
       }
+      await _notificationService.addNotification(currentUserId, senderId, 'cancel');
    } on FirebaseException catch (e) {
     throw Exception(e.hashCode);
    }

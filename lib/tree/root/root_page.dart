@@ -4,6 +4,7 @@ import 'package:student_app/tree/root/navigation_pages/home_page/home_page.dart'
 import 'package:student_app/tree/root/navigation_pages/yipee_chat/yipee_people.dart';
 import 'package:student_app/tree/root/navigation_pages/emergency_page/emergency.dart';
 import 'package:student_app/tree/root/drawer_section/drawer_screen.dart';
+import 'package:student_app/tree/root/notification/notification_page.dart';
 
 class RootPage extends StatefulWidget {
   const RootPage({super.key});
@@ -14,6 +15,7 @@ class RootPage extends StatefulWidget {
 
 class _RootPageState extends State<RootPage> {
   int _currentIndex = 0;
+  String userId = FirebaseAuth.instance.currentUser!.uid;
 
   final List<String> screenNames = [
     'Yipee App', 'Chat List', ''
@@ -45,7 +47,13 @@ class _RootPageState extends State<RootPage> {
             ),
           ),
           actions: [
-            screenNames[_currentIndex] == 'Yipee App' ? const Icon(Icons.notifications) : const Icon(Icons.settings)
+            screenNames[_currentIndex] == 'Yipee App' 
+            ? InkWell(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => NotificationPage(uid: userId)));
+              },
+              child: const Icon(Icons.notifications)) 
+            : const Icon(Icons.settings)
           ],
         ),
         drawer: DrawerScreen(email: userEmail),
